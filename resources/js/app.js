@@ -1,6 +1,8 @@
 import './bootstrap';
 import Splide from '@splidejs/splide';
-// import '@splidejs/splide/css/sea-green';
+import MicroModal from 'micromodal';
+import 'flowbite';
+import Alpine from 'alpinejs';
 
 document.addEventListener('DOMContentLoaded', function () {
     new Splide('#image-slider', {
@@ -12,4 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
         interval: 3000,
         rewind: true,
     }).mount();
+
+
+    MicroModal.init();
+
+    window.Alpine = Alpine
+    Alpine.start()
 });

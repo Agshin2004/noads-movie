@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ViewModels\MoviesViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -35,17 +36,19 @@ class MoviesController extends Controller
             ->get("$this->baseUrl/genre/movie/list")
             ->json()['genres'];
 
-        $genresName = [];
-        foreach ($genres as $genre) {
-            $genresName[$genre['id']] = $genre['name'];
-        }
+        // $genresName = [];
+        // foreach ($genres as $genre) {
+        //     $genresName[$genre['id']] = $genre['name'];
+        // }
 
-        dump($popularMovies);
+        
+        $viewModel = new MoviesViewModel($popularMovies, $genres);
+        dump($viewModel->getPopularMovies());
 
         return view('home', [
-            'movies' => $popularMovies,
-            'genresName' => $genresName
+            'movies' => $viewModel->getPopularMovies(),
         ]);
+
     }
 
     /**

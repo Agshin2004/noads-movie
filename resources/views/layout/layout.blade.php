@@ -11,6 +11,7 @@
     {{--* MUST USE OFFICIAL BLADE DIRECTIVE (example above is right as well) --}}
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    @livewireStyles
     <title>ZMA Movie</title>
 </head>
 
@@ -19,7 +20,5 @@
     @yield('content')
 
     @vite('resources/js/app.js')
-
-</body>
-
+    @livewireScripts
 </html>
