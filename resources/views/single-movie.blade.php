@@ -1,22 +1,23 @@
 @extends('layout.layout')
 
 @section('content')
-
-
     <div class="max-w-screen-lg mx-auto p-4 sm:p-8">
         {{-- Movie Header --}}
         <div class="flex flex-col sm:flex-row items-center space-y-6 sm:space-y-0 sm:space-x-8">
-            <img src="https://image.tmdb.org/t/p/original/{{ $movie['poster_path'] }}" alt="Movie Poster"
+            <img src="{{ $movie['poster_path'] }}" alt="Movie Poster"
                 class="w-full sm:w-48 sm:h-72 object-cover rounded-lg shadow-lg">
             <div>
-                <h1 class="text-3xl sm:text-4xl font-bold mb-4">{{ $movie['original_title'] }}</h1>
+                <h1 class="text-3xl sm:text-4xl font-bold mb-4">
+                    {{ $movie['original_title'] }}
+                    <sup class="text-xl font-bold text-yellow-400">{{ $movie['vote_average'] }}</sup>
+                </h1>
                 <div class="text-gray-400 text-lg sm:text-xl mb-4">
-                    {{ \Carbon\Carbon::parse($movie['release_date'])->format('Y, F') }} • {{ $movie['runtime'] }} min
+                    {{ $movie['release_date'] }} • {{ $movie['runtime'] }} min
                 </div>
                 <div class="flex flex-wrap space-x-4 mb-4">
                     @foreach ($movie['genres'] as $genre)
                         <span class="bg-orange-500 text-white px-4 py-1 rounded-full text-sm mb-2 sm:mb-0 m-2">
-                            {{ $genresName[$genre['id']] }}
+                            {{ $genre }}
                         </span>
                     @endforeach
                 </div>
@@ -39,11 +40,8 @@
         <div class="mt-8">
             <h2 class="text-2xl sm:text-3xl font-semibold mb-4">Cast</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-                @foreach ($movie['credits']['cast'] as $actor)
+                @foreach ($movie['credits'] as $actor)
                     <div class="text-center">
-                        @if ($loop->iteration > 5)
-                            @break
-                        @endif
                         <img src="https://image.tmdb.org/t/p/original/{{ $actor['profile_path'] }}" alt="Cast Member"
                             class="object-cover w-20 h-24 rounded-full mx-auto mb-2">
                         <p class="text-xl">{{ $actor['name'] }}</p>
@@ -71,38 +69,31 @@
 
         {{-- PLAYER START --}}
         <div class="player-container">
-            <iframe src="https://vidlink.pro/movie/{{ $movie['id'] }}?autoplay=false&primaryColor=001e3a"
+            <h1
+                class="mt-16 mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-4xl dark:text-white text-center">
+                Watch
+            </h1>
+            <iframe src="https://vidsrc.cc/v3/embed/movie/{{ $movie['id'] }}?autoPlay=false?"
                 class="player-iframe" allowfullscreen></iframe>
         </div>
         {{-- PLAYER END --}}
 
         {{-- Images --}}
         <h1
-            class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-2xl dark:text-white text-center">
+            class="mt-16 mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-4xl dark:text-white text-center">
             Images
         </h1>
         <div class="images-wrapper">
             <div class="splide" id="image-slider">
                 <div class="splide__track">
                     <ul class="splide__list">
-                        @foreach ($movie['images']['backdrops'] as $image)
-                            @if ($loop->iteration > 7)
-                                @break
-                            @endif
+                        @foreach ($movie['images'] as $image)
                             <li class="splide__slide">
                                 <img src="https://image.tmdb.org/t/p/original/{{ $image['file_path'] }}">
                             </li>
                         @endforeach
                     </ul>
                 </div>
-            </div>
-        </div>
-        {{-- Ratings --}}
-        <div class="mt-8">
-            <h2 class="text-2xl sm:text-3xl font-semibold mb-4">Ratings</h2>
-            <div class="flex items-center">
-                <span class="text-5xl font-bold text-yellow-400">{{ round($movie['vote_average'], 1) }}</span>
-                <span class="text-gray-400 ml-4">/10</span>
             </div>
         </div>
     </div>

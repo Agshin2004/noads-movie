@@ -5,6 +5,12 @@ namespace App\ViewModels;
 use Illuminate\Support\Carbon;
 use Spatie\ViewModels\ViewModel;
 
+/**
+ * View Models are simple classes that take some data, and transform it into something usable for the view
+ * Views ideally should not have complex logic inside them, that's why I decided to use View Models
+ * note: I do not make use of any ViewModel's feature as of now but I will later. 
+ */
+
 class MoviesViewModel extends ViewModel
 {
     public $popularMovies;

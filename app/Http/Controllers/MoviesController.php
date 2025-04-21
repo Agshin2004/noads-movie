@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ViewModels\MoviesViewModel;
 use Illuminate\Http\Request;
+use App\ViewModels\MoviesViewModel;
 use Illuminate\Support\Facades\Http;
+use App\ViewModels\SingleMovieViewModel;
 
 class MoviesController extends Controller
 {
@@ -43,7 +44,7 @@ class MoviesController extends Controller
 
         
         $viewModel = new MoviesViewModel($popularMovies, $genres);
-        dump($viewModel->getPopularMovies());
+        // dump($viewModel->getPopularMovies());
 
         return view('home', [
             'movies' => $viewModel->getPopularMovies(),
@@ -86,7 +87,7 @@ class MoviesController extends Controller
         foreach ($genres as $genre) {
             $genresName[$genre['id']] = $genre['name'];
         }
-        dump($movieDetails);
+        // dump($movieDetails);
 
         // Get Movie Trailer
         $trailerKey = null;
@@ -96,8 +97,10 @@ class MoviesController extends Controller
             }
         }
 
+        $viewModel = new SingleMovieViewModel($movieDetails);
+
         return view('single-movie', [
-            'movie' => $movieDetails,
+            'movie' => $viewModel->getMovie(),
             'genresName' => $genresName,
             'trailerKey' => $trailerKey
         ]);
