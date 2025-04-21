@@ -16,7 +16,7 @@
                         'releaseDate' => $movie['release_date'],
                         'genreIds' => $movie['genre_ids'],
                         'movieId' => $movie['id'],
-                        'genres' => $movie['genres'],
+                        'genres' => $movie['genres_ids'],
                     ])
             @endforeach
             </div>

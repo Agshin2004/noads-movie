@@ -44,7 +44,9 @@
                     <div class="text-center">
                         <img src="https://image.tmdb.org/t/p/original/{{ $actor['profile_path'] }}" alt="Cast Member"
                             class="object-cover w-20 h-24 rounded-full mx-auto mb-2">
-                        <p class="text-xl">{{ $actor['name'] }}</p>
+                        <p class="text-xl">
+                            <a href="{{ route('person', $actor['id']) }}">{{ $actor['name'] }}</a>
+                        </p>
                         <p class="text-gray-400">{{ $actor['character'] }}</p>
                     </div>
                 @endforeach

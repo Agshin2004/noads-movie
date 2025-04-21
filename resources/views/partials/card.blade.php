@@ -1,7 +1,6 @@
 <a href="{{ route('watch', $movieId) }}">
     <div class="relative w-full max-w-[200px] aspect-[2/3] rounded-lg overflow-hidden shadow-md group">
-        <img src="{{ $poster }}" alt="Movie Poster"
-            class="w-full h-full object-cover" />
+        <img src="{{ $poster }}" alt="Movie Poster" class="w-full h-full object-cover" />
 
         <!-- Dark overlay -->
         <div class="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition-colors"></div>
