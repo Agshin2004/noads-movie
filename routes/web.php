@@ -13,5 +13,4 @@ Route::get('/watch/{movieId}', [MoviesController::class, 'show'])->name('watch')
 //* People Related Routes
 Route::get('/people/{personId}', [PeopleController::class, 'show'])->name('person');
 
-
 // Route::view('/movie', 'single-movie');
