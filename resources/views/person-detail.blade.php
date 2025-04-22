@@ -41,8 +41,10 @@
                         'movieId' => $movie['id'],
                         'genres' => $movie['genre_ids'],
                     ])
-                    {{-- <p>{{ $movie['original_title'] }}</p> --}}
+                                {{-- <p>{{ $movie['original_title'] }}</p> --}}
             @endforeach
+            </div>
+            {!! $links !!}
         </div>
-    </div>
+
 @endsection

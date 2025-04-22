@@ -2,13 +2,16 @@
 
 namespace App\ViewModels;
 
+use Illuminate\Http\Request;
 use Spatie\ViewModels\ViewModel;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class PeopleViewModel extends ViewModel
 {
+    public LengthAwarePaginator $paginationLinks;
     private array $personDetails;
     private array $movieCredits;
+
     public function __construct(array $personDetails, array $movieCredits)
     {
         $this->personDetails = $personDetails;
@@ -39,8 +42,14 @@ class PeopleViewModel extends ViewModel
             $collection->count(), // total
             $perPage, // perPage
             $currentPage, // currentPage
+            [
+                'path' => request()->url(), // Keep the current url (default it would add page query to /)
+                'query' => request()->query() // keep the query params if filters added; TODO: Make filtering movies
+            ]
         );
-
+        
+        // Assigning items to field so we can access it and render it on page
+        $this->paginationLinks = $paginatedItems;
 
         return collect($paginatedItems->items())->map(function ($movie) {
             $imageUrl = $movie['poster_path'] ? "https://image.tmdb.org/t/p/original/" . $movie['poster_path'] : asset('images/notfound.jpg');
