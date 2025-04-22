@@ -20,7 +20,9 @@ class PeopleViewModel extends ViewModel
     public function getPersonDetails()
     {
         // TODO: Merge only needed data
-        return $this->personDetails;
+        return collect($this->personDetails)->merge([
+            'biography' => $this->personDetails['biography'] ?: 'No Biography Available'
+        ]);
     }
 
     public function getMovieCredits()

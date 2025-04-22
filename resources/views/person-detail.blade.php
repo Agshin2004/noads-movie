@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="min-h-screen flex items-start justify-center p-8 text-white-900">
-        <div class="flex flex-col md:flex-row w-full max-w-5xl border border-gray-300 rounded-lg shadow-sm overflow-hidden">
+        <div class="flex flex-col md:flex-row w-full max-w-5xl overflow-hidden">
 
             <!-- Actor Image -->
             <div class="w-full md:w-1/3">
                 <img src="https://image.tmdb.org/t/p/original/{{ $person['profile_path'] }}" alt="Actor Image"
-                    class="w-full h-full object-cover">
+                    class="w-full h-80 object-cover">
             </div>
 
             <!-- Info Section -->
@@ -23,7 +23,17 @@
                 </ul>
 
                 <h2 class="text-xl font-semibold mb-2">Biography</h2>
-                <p class="text-neutral-400 leading-relaxed">{{ $person['biography'] }}</p>
+                <div class="mx-auto">
+                    <p class="leading-relaxed">
+                        {{ substr($person['biography'], 0, 200) }}...
+                        <span class="hidden" id="more-text">
+                            {{ $person['biography'] }}
+                        </span>
+                    </p>
+                    <button id="toggle-btn" class="mt-4 text-blue-500 focus:outline-none">Read More</button>
+                    <button id="hide-btn" class="hidden mt-4 text-blue-500 focus:outline-none">Hide</button>
+                </div>
+                <p class="text-neutral-400 leading-relaxed"></p>
             </div>
 
         </div>

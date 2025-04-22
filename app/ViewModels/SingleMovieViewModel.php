@@ -37,6 +37,8 @@ class SingleMovieViewModel extends ViewModel
 
     private function formatImages()
     {
+        // shuffle images array
+        shuffle($this->movie['images']['backdrops']);
         // Could use laravel collection ($collection->take(5)) but decided to use php built in.
         return array_slice($this->movie['images']['backdrops'], 0, 5);
     }
