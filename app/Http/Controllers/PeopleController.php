@@ -61,7 +61,6 @@ class PeopleController extends Controller
 
         $viewModel = new PeopleViewModel($person, $movieCredits);
 
-        
         return view('person-detail', [
             'person' => $viewModel->getPersonDetails(),
             'movieCredits' => $viewModel->getMovieCredits(),
