@@ -13,6 +13,7 @@
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     @livewireStyles
+    @stack('styles')
     <title>ZMA Movie</title>
 </head>
 
@@ -22,4 +23,5 @@
 
     @vite('resources/js/app.js')
     @livewireScripts
+    @stack('scripts')
 </html>

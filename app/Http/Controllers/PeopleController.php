@@ -54,7 +54,7 @@ class PeopleController extends Controller
         
         $movieCredits = Http::withToken($this->apiKey)
             ->get("$this->baseUrl/person/$personId/movie_credits?language=en-US")
-            ->json()['crew'];
+            ->json()['cast'];
 
         dump($movieCredits);
     
