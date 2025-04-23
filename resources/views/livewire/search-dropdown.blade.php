@@ -40,7 +40,7 @@
                     @else
                         <img src="{{ asset('images/notfound.jpg') }}" alt="" width="40">
                     @endif
-                    <a href="{{ route('watch', $result['id']) }}" class="block w-full hover:bg-gray-700 px-3 py-3">
+                    <a href="{{ route('watchMovie', $result['id']) }}" class="block w-full hover:bg-gray-700 px-3 py-3">
                         {{ $result['original_title'] }}
                     </a>
                 </li>

@@ -9,18 +9,20 @@
     <div id="movies-slider" class="splide mx-auto max-w-7xl px-4 py-8" aria-label="Trending Movies Slider">
         <div class="splide__track">
             <ul class="splide__list">
-                @foreach ($movies as $movie)
+                @foreach ($moviesAndShows as $movieShow)
                             <li class="splide__slide px-2">
                                 @include('partials.card', [
-                                    'title' => $movie['original_title'],
-                                    'rating' => $movie['vote_average'],
-                                    'poster' => $movie['backdrop_path'],
-                                    'releaseDate' => $movie['release_date'],
-                                    'genreIds' => $movie['genre_ids'],
-                                    'movieId' => $movie['id'],
-                                    'genres' => $movie['genres'],
+                                    'id' => $movieShow['id'],
+                                    'title' => $movieShow['original_title'],
+                                    'rating' => $movieShow['vote_average'],
+                                    'poster' => $movieShow['backdrop_path'],
+                                    'releaseDate' => $movieShow['release_date'],
+                                    'genreIds' => $movieShow['genre_ids'],
+                                    'movieId' => $movieShow['id'],
+                                    'genres' => $movieShow['genres'],
+                                    'mediaType' => $movieShow['media_type']
                                 ])
-                                    </li>
+                            </li>
                 @endforeach
                 </ul>
             </div>

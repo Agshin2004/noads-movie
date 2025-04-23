@@ -13,8 +13,9 @@ use Spatie\ViewModels\ViewModel;
  */
 class SingleMovieViewModel extends ViewModel
 {
-    public $movie;
-    public function __construct($movie)
+    private $movie;
+
+    public function __construct(array $movie)
     {
         $this->movie = $movie;
     }

@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     new Splide("#movies-slider", {
         type: "loop",
-        perPage: 5,
+        perPage: 7,
         perMove: 1,
-        gap: "1rem",
+        gap: "0.5rem",
         autoplay: true,
         interval: 3000,
         pauseOnHover: true,
@@ -31,23 +31,23 @@ document.addEventListener("DOMContentLoaded", function () {
         breakpoints: {
             1536: {
                 // xl
-                perPage: 5,
+                perPage: 7,
             },
             1280: {
                 // lg
-                perPage: 4,
+                perPage: 6,
             },
             1024: {
                 // md
-                perPage: 3,
+                perPage: 5,
             },
             768: {
                 // sm
-                perPage: 2,
+                perPage: 4,
             },
             640: {
                 // xs
-                perPage: 1,
+                perPage: 3,
             },
         },
     }).mount();

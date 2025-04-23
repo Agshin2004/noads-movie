@@ -1,4 +1,4 @@
-<a href="{{ route('watch', $movieId) }}">
+<a href="{{ movieOrShowLink($mediaType, $id) }}">
     <div class="relative w-full max-w-[200px] aspect-[2/3] rounded-lg overflow-hidden shadow-md group">
         <img src="{{ $poster }}" alt="Movie Poster" class="w-full h-full object-cover" />
 

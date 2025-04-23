@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\ViewModels\MoviesViewModel;
-use Illuminate\Support\Facades\Http;
+use App\ViewModels\ShowsViewModel;
 use App\ViewModels\SingleMovieViewModel;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class MoviesController extends Controller
 {
@@ -24,17 +25,32 @@ class MoviesController extends Controller
     public function index()
     {
         // Http facade is essentially a wrapper around Guzzle
-        $popularMovies = Http::withHeaders([
+        $trendingMovies = Http::withHeaders([
             'Authorization' => "Bearer $this->apiKey",
             'Accept' => 'application/json',
         ])
-            ->get("$this->baseUrl/movie/popular")
+            ->get("$this->baseUrl/trending/movie/week")
             ->json()['results'];
-        $genres = Http::withHeaders([
+
+        $trendingShows = Http::withHeaders([
+            'Authorization' => "Bearer $this->apiKey",
+            'Accept' => 'application/json',
+        ])
+            ->get("$this->baseUrl/trending/tv/week")
+            ->json()['results'];
+
+        $movieGenres = Http::withHeaders([
             'Authorization' => "Bearer $this->apiKey",
             'Accept' => 'application/json'
         ])
             ->get("$this->baseUrl/genre/movie/list")
+            ->json()['genres'];
+
+        $showsGenres = Http::withHeaders([
+            'Authorization' => "Bearer $this->apiKey",
+            'Accept' => 'application/json'
+        ])
+            ->get("$this->baseUrl/genre/tv/list")
             ->json()['genres'];
 
         // $genresName = [];
@@ -42,14 +58,20 @@ class MoviesController extends Controller
         //     $genresName[$genre['id']] = $genre['name'];
         // }
 
-        
-        $viewModel = new MoviesViewModel($popularMovies, $genres);
-        // dump($viewModel->getPopularMovies());
+        $moviesViewModel = new MoviesViewModel($trendingMovies, $movieGenres);
+        $showsViewModel = new ShowsViewModel($trendingShows, $showsGenres);
+
+        $moviesAndShows = array_merge(
+            $moviesViewModel->getTrendingMovies()->toArray(),
+            $showsViewModel->getTrendingShows()->toArray()
+        );
+
+        // Shuffle final merged array with movies and shows
+        shuffle($moviesAndShows);
 
         return view('home', [
-            'movies' => $viewModel->getPopularMovies(),
+            'moviesAndShows' => array_slice($moviesAndShows, 0, 20),
         ]);
-
     }
 
     /**
@@ -74,6 +96,7 @@ class MoviesController extends Controller
     public function show(string $id)
     {
         $movieDetails = Http::withToken($this->apiKey)->get("$this->baseUrl/movie/$id?append_to_response=videos,credits,images")->json();
+
         // TODO: Make reusable
         $genres = Http::withHeaders([
             'Authorization' => "Bearer $this->apiKey",
@@ -83,22 +106,20 @@ class MoviesController extends Controller
             ->json()['genres'];
 
         // Movie Genres
-        $genresName = [];
-        foreach ($genres as $genre) {
-            $genresName[$genre['id']] = $genre['name'];
-        }
-        // dump($movieDetails);
+        $genresName = reformatGenres($genres);
+        
+        dump($movieDetails);
 
         // Get Movie Trailer
         $trailerKey = null;
         foreach ($movieDetails['videos']['results'] as $video) {
             if ($video['type'] === 'Trailer') {
-                $trailerKey= $video['key'];
+                $trailerKey = $video['key'];
             }
         }
 
         $viewModel = new SingleMovieViewModel($movieDetails);
-
+    
         return view('single-movie', [
             'movie' => $viewModel->getMovie(),
             'genresName' => $genresName,

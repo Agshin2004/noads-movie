@@ -13,12 +13,12 @@ use Spatie\ViewModels\ViewModel;
 
 class MoviesViewModel extends ViewModel
 {
-    private $popularMovies;
+    private $trendingMovies;
     private $genres;
 
-    public function __construct(array $popularMovies, array $genres)
+    public function __construct(array $trendingMovies, array $genres)
     {
-        $this->popularMovies = $popularMovies;
+        $this->trendingMovies = $trendingMovies;
         $this->genres = $genres;
     }
 
@@ -26,20 +26,16 @@ class MoviesViewModel extends ViewModel
     {
         return collect($movies)->map(function ($movie) {
             $genresFormatted = collect($movie["genre_ids"])
-                ->mapWithKeys(function ($genreKey) {
-                    return [$genreKey => $this->getGenres()->get($genreKey)];
+                ->mapWithKeys(function ($genre) {
+                    return [$genre => $this->getGenres()->get($genre)];
                 })
                 ->implode(", ");
             // Overriding popularMovie with new modified values using merge() function
             return collect($movie)
                 ->merge([
                     // TODO: Change original to low resolution in production
-                    "backdrop_path" =>
-                        "https://image.tmdb.org/t/p/original/" .
-                        $movie["backdrop_path"],
-                    "release_date" => Carbon::parse(
-                        $movie["release_date"]
-                    )->format("Y F"),
+                    "backdrop_path" => "https://image.tmdb.org/t/p/original/" . $movie["backdrop_path"],
+                    "release_date" => Carbon::parse($movie["release_date"])->format("Y F"),
                     "vote_average" => round($movie["vote_average"], 1),
                     "genres" => $genresFormatted,
                 ])
@@ -51,24 +47,19 @@ class MoviesViewModel extends ViewModel
                     "genre_ids",
                     "id",
                     "genres",
+                    'media_type'
                 ]); // Return only items we want
         });
     }
 
-    public function getPopularMovies()
+    public function getTrendingMovies()
     {
         // collect() - Create a collection from the given value.
-        return $this->formatMovies($this->popularMovies);
+        return $this->formatMovies($this->trendingMovies);
     }
 
     private function getGenres()
     {
-        // convert genres to [1 => 'Action] format
-        $genresName = [];
-        foreach ($this->genres as $genre) {
-            $genresName[$genre["id"]] = $genre["name"];
-        }
-
-        return collect($genresName);
+        return reformatGenres($this->genres);
     }
 }
