@@ -67,9 +67,19 @@ class ShowsController extends Controller
 
         dump($viewModel->getShow());
 
+        // Get Show Trailer
+        $trailerKey = null;
+        foreach ($tvDetails['videos']['results'] as $video) {
+            if ($video['type'] === 'Trailer') {
+                $trailerKey = $video['key'];
+            }
+                }
+        
+
         return view('single-show', [
             'tvId' => $tvDetails['id'],
-            'tvShow' => $viewModel->getShow()
+            'tvShow' => $viewModel->getShow(),
+            'trailerKey' => $trailerKey
         ]);
     }
 

@@ -26,7 +26,7 @@
                 <p class="text-gray-300 text-sm sm:text-base mb-4">{{ $tvShow['tagline'] }}</p>
                 <button
                     class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer"
-                    data-micromodal-trigger="modal-1">
+                    data-micromodal-trigger="modal-2">
                     See Trailer
                 </button>
             </div>
@@ -56,9 +56,9 @@
         </div>
 
         {{-- Trailer --}}
-        {{-- <div class="micromodal" id="modal-1" aria-hidden="true">
+        <div class="micromodal" id="modal-2" aria-hidden="true">
             <div class="micromodal__overlay z-50" tabindex="-1" data-micromodal-close>
-                <div class="micromodal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                <div class="micromodal__container" role="dialog" aria-modal="true" aria-labelledby="modal-2-title">
                     <div>
                         <div class="relative pb-56.25% z-100">
                             <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ $trailerKey }}"
@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
         {{-- PLAYER START --}}
         <div class="player-container">
@@ -124,7 +124,7 @@
             class="mt-16 mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-4xl dark:text-white text-center">
             Images
         </h1>
-        {{-- <div class="images-wrapper">
+        <div class="images-wrapper">
             <div class="splide" id="image-slider">
                 <div class="splide__track">
                     <ul class="splide__list">
@@ -137,5 +137,5 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 @endsection
