@@ -85,6 +85,7 @@
             class="mt-16 mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-4xl dark:text-white text-center">
             Images
         </h1>
+        
         <div class="images-wrapper">
             <div class="splide" id="image-slider">
                 <div class="splide__track">
