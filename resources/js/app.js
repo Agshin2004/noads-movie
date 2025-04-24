@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
             autoplay: true,
             interval: 5000,
             speed: 1000,
-        }).mount();
+        }).mount(); 
     }
 
     // MicroModal

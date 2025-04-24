@@ -23,9 +23,14 @@
                 </div>
                 <p class="text-gray-300 text-sm sm:text-base mb-4">{{ $movie['tagline'] }}</p>
                 <button
-                    class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer"
+                    class="bg-transparent hover:bg-blue-500 text-blue-500 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer"
                     data-micromodal-trigger="modal-1">
                     See Trailer
+                </button>
+                <button wire:model="favorites"
+                    class="bg-transparent hover:bg-blue-500 text-green-500 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer"
+                    data-micromodal-trigger="modal-1">
+                    Add To Favorites
                 </button>
             </div>
         </div>
@@ -75,8 +80,8 @@
                 class="mt-16 mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-4xl dark:text-white text-center">
                 Watch
             </h1>
-            <iframe src="https://vidsrc.cc/v2/embed/movie/{{ $movie['id'] }}?autoPlay=false?"
-                class="player-iframe" allowfullscreen></iframe>
+            <iframe src="https://vidsrc.cc/v2/embed/movie/{{ $movie['id'] }}?autoPlay=false" class="player-iframe"
+                allowfullscreen></iframe>
         </div>
         {{-- PLAYER END --}}
 
@@ -85,7 +90,7 @@
             class="mt-16 mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-4xl dark:text-white text-center">
             Images
         </h1>
-        
+
         <div class="images-wrapper">
             <div class="splide" id="image-slider">
                 <div class="splide__track">

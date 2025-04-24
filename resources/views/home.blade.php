@@ -12,14 +12,25 @@
                                 {{-- Background i mage --}}
                                 <div class="absolute inset-0 bg-black/50 z-10"></div>
                                 <img src="https://image.tmdb.org/t/p/original{{ $movieShow['backdrop_path'] }}"
-                                    alt="{{ $movieShow['original_title'] }}" class="absolute inset-0 w-full h-full object-cover"
-                                    loading="lazy">
+                                    alt="{{ $movieShow['title'] ?? $movieShow['name'] }}"
+                                    class="absolute inset-0 w-full h-full object-cover" loading="lazy">
 
                                 {{-- Slide content --}}
                                 <div class="relative z-20 h-full flex items-center">
                                     <div class="container mx-auto px-4 text-white">
-                                        <h2 class="text-4xl md:text-6xl font-bold mb-4">{{ $movieShow['original_title'] }}</h2>
-
+                                        @if (
+                                            (isset($movieShow['original_title'], $movieShow['title']) && $movieShow['original_title'] !== $movieShow['title']) 
+                                            ||
+                                            (isset($movieShow['original_name'], $movieShow['name']) && $movieShow['original_name'] !== $movieShow['name'])
+                                        )
+                                            <span
+                                                class="text-2xl md:text-xl sm:text-sm"
+                                                >
+                                                {{ $movieShow['original_title'] ?? $movieShow['original_name'] }}
+                                            </span>                                            
+                                        @endif
+                                        <h2 class="text-2xl sm:text-4xl md:text-6xl font-bold mb-4">
+                                            {{ $movieShow['title'] ?? $movieShow['name'] }}</h2>
                                         <div class="flex items-center mb-4">
                                             <span class="bg-yellow-500 text-black px-2 py-1 rounded mr-4">
                                                 {{ round($movieShow['vote_average'], 1) }}/10
@@ -30,24 +41,14 @@
                                             @endif
                                         </div>
 
-                                        <div class="flex flex-wrap gap-2 mb-6">
-                                            @foreach($movieShow['genre_ids'] as $genreId)
-                                                @if(isset($genres[$genreId]))
-                                                    <span class="bg-gray-800/80 px-3 py-1 rounded-full text-sm">
-                                                        {{ $genres[$genreId] }}
-                                                    </span>
-                                                @endif
-                                            @endforeach
-                                        </div>
-
-                                        <p class="max-w-2xl text-lg mb-8 line-clamp-3">
+                                        <p class="max-w-2xl text-xs sm:text-sm md:text-lg mb-8 line-clamp-3">
                                             {{ $movieShow['overview'] ?? 'No description available' }}
                                         </p>
 
                                         <a href="{{ movieOrShowLink($movieShow['media_type'], $movieShow['id']) }}"
-                                            class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold inline-block transition">
-                                            View Details
-                                        </a>
+                                        class="text-xs sm:text-sm md:text-base bg-red-600 hover:bg-red-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold inline-block transition">
+                                        View Details
+                                    </a>
                                     </div>
                                 </div>
                             </div>

@@ -10,7 +10,6 @@ use Spatie\ViewModels\ViewModel;
  * Views ideally should not have complex logic inside them, that's why I decided to use View Models
  * note: I do not make use of any ViewModel's feature as of now but I will later.
  */
-
 class MoviesViewModel extends ViewModel
 {
     private $trendingMovies;
@@ -25,30 +24,31 @@ class MoviesViewModel extends ViewModel
     private function formatMovies($movies)
     {
         return collect($movies)->map(function ($movie) {
-            $genresFormatted = collect($movie["genre_ids"])
+            $genresFormatted = collect($movie['genre_ids'])
                 ->mapWithKeys(function ($genre) {
                     return [$genre => $this->getGenres()->get($genre)];
                 })
-                ->implode(", ");
+                ->implode(', ');
             // Overriding popularMovie with new modified values using merge() function
             return collect($movie)
                 ->merge([
                     // TODO: Change original to low resolution in production
-                    "backdrop_path" => "https://image.tmdb.org/t/p/original/" . $movie["backdrop_path"],
-                    "release_date" => Carbon::parse($movie["release_date"])->format("Y F"),
-                    "vote_average" => round($movie["vote_average"], 1),
-                    "genres" => $genresFormatted,
+                    'backdrop_path' => 'https://image.tmdb.org/t/p/original/' . $movie['backdrop_path'],
+                    'release_date' => Carbon::parse($movie['release_date'])->format('Y F'),
+                    'vote_average' => round($movie['vote_average'], 1),
+                    'genres' => $genresFormatted,
                 ])
                 ->only([
-                    "original_title",
-                    "vote_average",
-                    "backdrop_path",
-                    "release_date",
-                    "genre_ids",
-                    "id",
-                    "genres",
+                    'title',
+                    'original_title',
+                    'vote_average',
+                    'backdrop_path',
+                    'release_date',
+                    'genre_ids',
+                    'id',
+                    'genres',
                     'media_type'
-                ]); // Return only items we want
+                ]);  // Return only items we want
         });
     }
 

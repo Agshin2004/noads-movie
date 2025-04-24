@@ -69,6 +69,8 @@ class MoviesController extends Controller
         // Shuffle final merged array with movies and shows
         shuffle($moviesAndShows);
 
+        // dump($moviesAndShows);
+
         return view('home', [
             'moviesAndShows' => array_slice($moviesAndShows, 0, 20),
         ]);
@@ -108,7 +110,7 @@ class MoviesController extends Controller
         // Movie Genres
         $genresName = reformatGenres($genres);
         
-        dump($movieDetails);
+        // dump($movieDetails);
 
         // Get Movie Trailer
         $trailerKey = null;

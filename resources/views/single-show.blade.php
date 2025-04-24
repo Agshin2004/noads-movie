@@ -29,6 +29,11 @@
                     data-micromodal-trigger="modal-2">
                     See Trailer
                 </button>
+                <button
+                    class="bg-transparent hover:bg-blue-500 text-green-500 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer"
+                    data-micromodal-trigger="modal-1">
+                    Add To Favorites
+                </button>
             </div>
         </div>
 
@@ -39,24 +44,24 @@
         </div>
 
         {{-- Cast --}}
-        <div class="mt-8">
-            <h2 class="text-2xl sm:text-3xl font-semibold mb-4">Cast</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-                @foreach ($tvShow['credits'] as $actor)
-                    <div class="text-center">
-                        <img src="https://image.tmdb.org/t/p/original/{{ $actor['profile_path'] }}" alt="Cast Member"
-                            class="object-cover w-20 h-24 rounded-full mx-auto mb-2">
-                        <p class="text-xl">
-                            <a href="{{ route('person', $actor['id']) }}">{{ $actor['name'] }}</a>
-                        </p>
-                        <p class="text-gray-400">{{ $actor['character'] }}</p>
-                    </div>
-                @endforeach
+        @if ($tvShow['credits'])
+            <div class="mt-8">
+                <h2 class="text-2xl sm:text-3xl font-semibold mb-4">Cast</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+                    @foreach ($tvShow['credits'] as $actor)
+                        <div class="text-center">
+                            <img src="https://image.tmdb.org/t/p/original/{{ $actor['profile_path'] }}" alt="Cast Member"
+                                class="object-cover w-20 h-24 rounded-full mx-auto mb-2">
+                            <p class="text-xl">
+                                <a href="{{ route('person', $actor['id']) }}">{{ $actor['name'] }}</a>
+                            </p>
+                            <p class="text-gray-400">{{ $actor['character'] }}</p>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-        </div>
-
-        {{-- Trailer --}}
-        <div class="micromodal" id="modal-2" aria-hidden="true">
+        @endif
+        {{-- Trailer --}} <div class="micromodal" id="modal-2" aria-hidden="true">
             <div class="micromodal__overlay z-50" tabindex="-1" data-micromodal-close>
                 <div class="micromodal__container" role="dialog" aria-modal="true" aria-labelledby="modal-2-title">
                     <div>
@@ -101,11 +106,12 @@
                     </p>
                 </div>
             </div>
+
             <div class="mt-8">
                 <h2 class="text-2xl sm:text-3xl font-semibold mb-4 text-center">Seasons</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
                     @foreach ($tvShow['seasons'] as $season)
-                        @if ($loop->first) @continue @endif
+                        @if ($season['season_number'] === 0) @continue @endif
                         <div class="text-center">
                             <img src="https://image.tmdb.org/t/p/original/{{ $season['poster_path'] }}"
                                 alt="Season {{ $season['season_number'] }}"
@@ -129,9 +135,9 @@
                 <div class="splide__track">
                     <ul class="splide__list">
                         @foreach ($tvShow['images'] as $image)
-                        <li class="splide__slide">
-                            <img src="https://image.tmdb.org/t/p/original/{{ $image['file_path'] }}">
-                        </li>
+                            <li class="splide__slide">
+                                <img src="https://image.tmdb.org/t/p/original/{{ $image['file_path'] }}">
+                            </li>
                         @endforeach
                     </ul>
                 </div>
