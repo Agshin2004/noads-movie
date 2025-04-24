@@ -61,6 +61,8 @@ class PeopleController extends Controller
 
         $viewModel = new PeopleViewModel($person, $movieCredits);
 
+        // TODO: Add user's TV credits (as of now only movies credits of an actor shown)
+
         return view('person-detail', [
             'person' => $viewModel->getPersonDetails(),
             'movieCredits' => $viewModel->getMovieCredits(),

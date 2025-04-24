@@ -43,6 +43,7 @@
         <div class="flex flex-direction flex-wrap gap-5 m-6">
             @foreach ($movieCredits as $movie)
                     @include('partials.card', [
+                        'id' => $movie['id'],
                         'title' => $movie['original_title'],
                         'rating' => $movie['vote_average'],
                         'poster' => $movie['poster_path'],
@@ -50,6 +51,7 @@
                         'genreIds' => $movie['genre_ids'],
                         'movieId' => $movie['id'],
                         'genres' => $movie['genre_ids'],
+                        'mediaType' => 'movie'
                     ])
             @endforeach
             </div>

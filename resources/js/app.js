@@ -5,7 +5,10 @@ import "flowbite";
 import Alpine from "alpinejs";
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (location.pathname.includes("/movie/") || location.pathname.includes("/show/")) {
+    if (
+        location.pathname.includes("/movie/") ||
+        location.pathname.includes("/show/")
+    ) {
         new Splide("#image-slider", {
             type: "loop",
             perPage: 1,
@@ -16,39 +19,16 @@ document.addEventListener("DOMContentLoaded", function () {
             rewind: true,
         }).mount();
     } else if (location.pathname === "/") {
-        new Splide("#movies-slider", {
-            type: "loop",
-            perPage: 7,
-            perMove: 1,
-            gap: "0.5rem",
-            autoplay: true,
-            interval: 3000,
-            pauseOnHover: true,
-            drag: true,
-            arrows: true,
+        new Splide("#fullpage-slider", {
+            type: "fade",
+            rewind: true,
             pagination: false,
-            breakpoints: {
-                1536: {
-                    // xl
-                    perPage: 7,
-                },
-                1280: {
-                    // lg
-                    perPage: 6,
-                },
-                1024: {
-                    // md
-                    perPage: 5,
-                },
-                768: {
-                    // sm
-                    perPage: 4,
-                },
-                640: {
-                    // xs
-                    perPage: 3,
-                },
-            },
+            arrows: true,
+            height: "100vh",
+            cover: true,
+            autoplay: true,
+            interval: 5000,
+            speed: 1000,
         }).mount();
     }
 

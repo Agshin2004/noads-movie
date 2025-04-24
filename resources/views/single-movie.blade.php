@@ -75,7 +75,7 @@
                 class="mt-16 mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-4xl dark:text-white text-center">
                 Watch
             </h1>
-            <iframe src="https://vidsrc.cc/v3/embed/movie/{{ $movie['id'] }}?autoPlay=false?"
+            <iframe src="https://vidsrc.cc/v2/embed/movie/{{ $movie['id'] }}?autoPlay=false?"
                 class="player-iframe" allowfullscreen></iframe>
         </div>
         {{-- PLAYER END --}}
