@@ -2,6 +2,11 @@
     {{-- RADIO BUTTONSS --}}
     <div class="flex space-x-4 mb-2">
         <label class="inline-flex items-center cursor-pointer">
+            {{--
+                wire:model="movieOrTv" directive binds the radio button’s value to the Livewire component's $movieOrTv
+                property;
+                by default it is 'movie'
+            --}} 
             <input wire:model="movieOrTv" type="radio" class="peer hidden" value="movie">
             <span
                 class="px-4 py-1 rounded-full text-sm border border-gray-500 peer-checked:bg-blue-600 peer-checked:text-white dark:border-gray-400 dark:peer-checked:bg-blue-500 transition">
@@ -9,6 +14,11 @@
             </span>
         </label>
         <label class="inline-flex items-center cursor-pointer">
+            {{--
+                wire:model="movieOrTv" directive binds the radio button’s value to the Livewire component's $movieOrTv
+                property;
+                by default it is 'movie'
+            --}}
             <input wire:model="movieOrTv" type="radio" class="peer hidden" value="tv">
             <span
                 class="px-4 py-1 rounded-full text-sm border border-gray-500 peer-checked:bg-blue-600 peer-checked:text-white dark:border-gray-400 dark:peer-checked:bg-blue-500 transition">
@@ -27,10 +37,9 @@
         </div>
         <input type="text" id="search-navbar"
             class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search..." 
-            {{-- send property updates to the server as a user types into an input; set debounce 750 ms to make less requests to server --}}
-             wire:model.live.debounce.750ms="searchQuery" 
-             {{-- When focused open the dropdown --}} @focus="isOpen = true">
+            placeholder="Search..." {{-- send property updates to the server as a user types into an input; set debounce
+            750 ms to make less requests to server --}} wire:model.live.debounce.750ms="searchQuery" {{-- When focused
+            open the dropdown --}} @focus="isOpen = true">
 
         <div class="absolute bg-gray-800 text-sm rounded w-53 z-50" x-show="isOpen"
             @keydown.escape.window="isOpen = false">
