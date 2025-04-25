@@ -113,9 +113,15 @@
                     @foreach ($tvShow['seasons'] as $season)
                         @if ($season['season_number'] === 0) @continue @endif
                         <div class="text-center">
-                            <img src="https://image.tmdb.org/t/p/original/{{ $season['poster_path'] }}"
-                                alt="Season {{ $season['season_number'] }}"
-                                class="object-contain w-full h-48 rounded-lg mx-auto mb-2">
+                            @if ($season['poster_path'])
+                                <img src="https://image.tmdb.org/t/p/original/{{ $season['poster_path'] }}"
+                                    alt="Season {{ $season['season_number'] }}"
+                                    class="object-contain w-full h-48 rounded-lg mx-auto mb-2">
+                            @else
+                                <img src="{{ asset('images/notfound.jpg') }}"
+                                    alt="Season {{ $season['season_number'] }}"
+                                    class="object-contain w-full h-48 rounded-lg mx-auto mb-2">
+                            @endif
                             <p class="text-xl">Season {{ $season['season_number'] }}</p>
                             <p class="text-gray-400">{{ $season['episode_count'] }} episodes</p>
                             <p class="text-gray-400">{{ $season['air_date'] }}</p>
@@ -130,18 +136,21 @@
             class="mt-16 mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-1xl lg:text-4xl dark:text-white text-center">
             Images
         </h1>
-        <div class="images-wrapper">
-            <div class="splide" id="image-slider">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        @foreach ($tvShow['images'] as $image)
-                            <li class="splide__slide">
-                                <img src="https://image.tmdb.org/t/p/original/{{ $image['file_path'] }}">
-                            </li>
-                        @endforeach
-                    </ul>
+
+        @if ($tvShow['images'])
+            <div class="images-wrapper">
+                <div class="splide" id="image-slider">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            @foreach ($tvShow['images'] as $image)
+                                <li class="splide__slide">
+                                    <img src="https://image.tmdb.org/t/p/original/{{ $image['file_path'] }}">
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection

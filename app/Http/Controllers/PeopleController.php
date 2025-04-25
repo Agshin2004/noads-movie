@@ -56,7 +56,7 @@ class PeopleController extends Controller
             ->get("$this->baseUrl/person/$personId/movie_credits?language=en-US")
             ->json()['cast'];
 
-        dump($movieCredits);
+        // dump($movieCredits);
     
 
         $viewModel = new PeopleViewModel($person, $movieCredits);

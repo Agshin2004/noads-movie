@@ -31,7 +31,7 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
         ->name('login');
     Route::get('/register',  'showRegisterForm')
         ->name('register');
-    Route::get('/logout', 'logout');
+    Route::get('/logout', 'logout')->name('logout');
     
     Route::post('/register', 'register');
 });

@@ -23,7 +23,7 @@ class SingleShowViewModel extends ViewModel
             'genres' => $this->formatGenres(),
             'credits' => $this->formatCast(),
             'images' => $this->formatImages()
-        ])->dump();
+        ]);
     }
 
     private function formatGenres()
