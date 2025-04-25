@@ -23,7 +23,18 @@ Route::get('/movie/{movieId}', [MoviesController::class, 'show'])->name('watchMo
 //* TV Related Routes 
 Route::get('/show/{showId}', [ShowsController::class, 'show'])->name('watchShow');
 
-//* People Related Routes
+//* People (AKA Actors) Related Routes
 Route::get('/people/{personId}', [PeopleController::class, 'show'])->name('person');
+
+//* Auth Related Routes
+Route::prefix('auth')->group(function () {
+    Route::get('/login', function() {
+        return view('login');
+    })->name('login');
+
+    Route::get('/register', function() {
+        return view('register');
+    })->name('register');
+});
 
 // Route::view('/movie', 'single-movie');

@@ -27,7 +27,7 @@
                     data-micromodal-trigger="modal-1">
                     See Trailer
                 </button>
-                <button wire:model="favorites"
+                <button
                     class="bg-transparent hover:bg-blue-500 text-green-500 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer"
                     data-micromodal-trigger="modal-1">
                     Add To Favorites
