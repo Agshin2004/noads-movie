@@ -29,7 +29,24 @@ document.addEventListener("DOMContentLoaded", function () {
             autoplay: true,
             interval: 5000,
             speed: 1000,
-        }).mount(); 
+        }).mount();
+
+        // COPY TO CLIPBOARD FUNCTIONLITY
+    } else if (this.location.pathname === "/auth/register") {
+        const btnEl = document.querySelector(".copy-password");
+        if (btnEl === null) return;
+        const btnText = btnEl.innerHTML;
+        btnEl.addEventListener("click", () => {
+            const passwordEl = document.querySelector(".password");
+            if (!passwordEl) {
+                // TODO: Handle case if password element is not found on page
+            }
+            navigator.clipboard.writeText(passwordEl.innerHTML);
+            btnEl.innerHTML = "COPIED !!!";
+            setTimeout(() => {
+                btnEl.innerHTML = btnText;
+            }, 1000);
+        });
     }
 
     // MicroModal
