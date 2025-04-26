@@ -34,6 +34,7 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::get('/logout', 'logout')->name('logout');
     
     Route::post('/register', 'register');
+    Route::post('/login', 'login');
 });
 
 Route::view('/welcome', 'welcome');

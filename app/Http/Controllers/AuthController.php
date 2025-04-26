@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use RandomLib\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use RandomLib\Factory;
 
 class AuthController extends Controller
 {
@@ -37,7 +37,7 @@ class AuthController extends Controller
             'g-recaptcha-response.required' => 'Please Submit The Captcha',
             'g-recaptcha-response.recaptcha' => 'Failed ReCaptcha. Try again laterr'
         ]);
-        
+
         $user = User::create([
             'username' => $validatedCredentials['username'],
             'secretkey' => Hash::make($secretKeyPassword, ['rounds' => 8])
@@ -52,7 +52,24 @@ class AuthController extends Controller
         ]);
     }
 
-    public function login(Request $request) {}
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'username' => ['required'],
+            'secretkey' => ['required', 'min:16']
+        ]);
+        // admin
+        // ca$c!acc*z%&c$*%
+        $user = User::where('username', $credentials['username'])->first();
+
+        if ($user && Hash::check($credentials['secretkey'], $user->secretkey)) {
+            auth()->login($user);
+
+            return redirect(route('index'));
+        }
+
+        return redirect(route('login'))->with('fail', 'Wrong username or secret key');
+    }
 
     public function logout(Request $request)
     {
