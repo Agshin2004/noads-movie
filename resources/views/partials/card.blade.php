@@ -1,19 +1,22 @@
 <a href="{{ movieOrShowLink($mediaType, $id) }}">
-    <div class="relative w-full max-w-[200px] aspect-[2/3] rounded-lg overflow-hidden shadow-md group">
-        <img src="{{ $poster }}" alt="Movie Poster" class="w-full h-full object-cover" />
+    <div class="relative w-full max-w-xs aspect-[2/3] rounded-xl overflow-hidden shadow-lg group transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <img src="{{ $poster }}" alt="Movie Poster" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
 
-        <!-- Dark overlay -->
-        <div class="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition-colors"></div>
-        <!-- Text content -->
-        <div class="absolute inset-0 flex flex-col justify-end p-3 text-white cursor-pointer">
-            <h3 class="text-sm font-bold leading-tight">{{ $title }}</h3>
-            <p class="text-xs text-cyan-200">
+        <!-- Dark overlay with smooth hover effect -->
+        <div class="absolute inset-0 bg-black/60 group-hover:bg-black/80 transition-colors"></div>
+
+        <!-- Text content with stylish overlay -->
+        <div class="absolute inset-0 flex flex-col justify-end p-4 text-white cursor-pointer">
+            <h3 class="text-lg font-bold text-white truncate">{{ $title }}</h3>
+            <p class="text-sm text-cyan-300 mt-1 truncate">
                 {{ $genres }} • {{ $releaseDate }}
             </p>
-            <div class="flex items-center justify-between mt-2">
-                <span class="text-yellow-400 text-sm font-bold">⭐ {{ $rating }}</span>
-                <button class="bg-yellow-500 hover:bg-yellow-600 text-xs font-semibold px-2 py-1 rounded cursor-pointer">
-                    Watch
+
+            <!-- Rating and Watch Button -->
+            <div class="flex items-center justify-between mt-3">
+                <span class="text-yellow-400 text-sm font-semibold">⭐ {{ $rating }}</span>
+                <button class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-gradient-to-l text-xs font-semibold px-4 py-2 rounded-lg transform transition duration-300 hover:scale-105">
+                    Watch Now
                 </button>
             </div>
         </div>

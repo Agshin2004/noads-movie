@@ -24,4 +24,5 @@
     @vite('resources/js/app.js')
     @livewireScripts
     @stack('scripts')
+    @include('partials.footer')
 </html>

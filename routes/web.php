@@ -37,4 +37,4 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::post('/login', 'login');
 });
 
-Route::view('/welcome', 'welcome');
+// Route::view('/welcome', 'welcome');
