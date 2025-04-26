@@ -48,6 +48,7 @@ class MoviesViewModel extends ViewModel
                     'backdrop_path',
                     'release_date',
                     'genre_ids',
+                    'overview',
                     'id',
                     'genres',
                     'media_type'
