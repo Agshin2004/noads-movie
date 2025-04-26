@@ -22,16 +22,17 @@
                     @endforeach
                 </div>
                 <p class="text-gray-300 text-sm sm:text-base mb-4">{{ $movie['tagline'] }}</p>
-                <button
-                    class="bg-transparent hover:bg-blue-500 text-blue-500 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer"
-                    data-micromodal-trigger="modal-1">
-                    See Trailer
-                </button>
-                <button
-                    class="bg-transparent hover:bg-blue-500 text-green-500 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer"
-                    data-micromodal-trigger="modal-1">
-                    Add To Favorites
-                </button>
+                <div class="flex gap-4">
+                    <button
+                        class="cursor-pointer bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-indigo-600 hover:to-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-300"
+                        data-micromodal-trigger="modal-1">
+                        🎬 See Trailer
+                    </button>
+                    <button
+                        class="cursor-pointer bg-gradient-to-r from-green-400 to-green-600 hover:from-green-600 hover:to-green-400 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-300">
+                        ❤️ Add to Favorites
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -61,14 +62,13 @@
         {{-- Trailer --}}
         <div class="micromodal" id="modal-1" aria-hidden="true">
             <div class="micromodal__overlay z-50" tabindex="-1" data-micromodal-close>
-                <div class="micromodal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-                    <div>
-                        <div class="relative pb-56.25% z-100">
-                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ $trailerKey }}"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
+                <div class="micromodal__container p-0 m-0 w-full h-full" role="dialog" aria-modal="true"
+                    aria-labelledby="modal-1-title">
+                    <div class="w-full h-full">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/{{ $trailerKey }}"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
