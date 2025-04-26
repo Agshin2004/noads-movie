@@ -21,6 +21,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        // dd($request->input('g-recaptcha-response'));
         // Setting up RandomLib for generating random sercret keys (AKA passwords)
         $factory = new Factory;
         // Get a generator for the requested strength; HERE convenience method is used
@@ -28,10 +29,15 @@ class AuthController extends Controller
         // Create new random secret key
         $secretKeyPassword = $generator->generateString(16, 'abczxc!@#$%^&*');
 
+        // 'g-recaptcha-response' is the name of the hidden
         $validatedCredentials = $request->validate([
-            'username' => ['required', 'min:1', 'max:32']
+            'username' => ['required', 'min:1', 'max:32'],
+            'g-recaptcha-response' => 'required|recaptcha'
+        ], [
+            'g-recaptcha-response.required' => 'Please Submit The Captcha',
+            'g-recaptcha-response.recaptcha' => 'Failed ReCaptcha. Try again laterr'
         ]);
-
+        
         $user = User::create([
             'username' => $validatedCredentials['username'],
             'secretkey' => Hash::make($secretKeyPassword, ['rounds' => 8])
