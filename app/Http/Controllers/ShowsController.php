@@ -22,19 +22,7 @@ class ShowsController extends Controller
      */
     public function index()
     {
-        $trendingShows = Http::withHeaders([
-            'Authorization' => "Bearer $this->apiKey",
-            'Accept' => 'application/json',
-        ])
-            ->get("$this->baseUrl/trending/tv/week")
-            ->json()['results'];
-
-        $showsGenres = Http::withHeaders([
-            'Authorization' => "Bearer $this->apiKey",
-            'Accept' => 'application/json',
-        ])
-            ->get("$this->baseUrl/genre/tv/list")
-            ->json()['genres'];
+        
     }
 
     /**

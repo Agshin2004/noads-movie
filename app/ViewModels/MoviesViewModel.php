@@ -23,7 +23,10 @@ class MoviesViewModel extends ViewModel
 
     private function formatMovies($movies)
     {
-        return collect($movies)->map(function ($movie) {
+        return collect($movies)->filter(function ($movie) {
+            // Filter for only movies with rating greater than 5 
+            return (int) $movie['vote_average'] >= 5;
+        })->map(function ($movie) {
             $genresFormatted = collect($movie['genre_ids'])
                 ->mapWithKeys(function ($genre) {
                     return [$genre => $this->getGenres()->get($genre)];

@@ -18,7 +18,10 @@ class ShowsViewModel extends ViewModel
 
     public function getTrendingShows()
     {
-        return collect($this->trendingShows)->map(function ($show) {
+        return collect($this->trendingShows)->filter(function ($show) {
+            // Filter for only shows with rating greater than 5 
+            return (int) $show['vote_average'] >= 5;
+        })->map(function ($show) {
             // TODO: This used in two classes (this and MovieViewModel), make it reusable
             $genresFormatted = collect($show['genre_ids'])->mapWithKeys(function ($genre) {
                 return [$genre => $this->getShowGenres()->get($genre)];
