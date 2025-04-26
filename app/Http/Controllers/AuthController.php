@@ -58,8 +58,7 @@ class AuthController extends Controller
             'username' => ['required'],
             'secretkey' => ['required', 'min:16']
         ]);
-        // admin
-        // ca$c!acc*z%&c$*%
+
         $user = User::where('username', $credentials['username'])->first();
 
         if ($user && Hash::check($credentials['secretkey'], $user->secretkey)) {
