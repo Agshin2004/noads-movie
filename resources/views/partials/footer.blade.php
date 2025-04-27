@@ -16,7 +16,7 @@
             <div>
                 <h5 class="text-lg font-semibold mb-4">Quick Links</h5>
                 <ul class="space-y-2 text-gray-400 text-sm">
-                    <li><a href="#" class="hover:text-yellow-500 transition-colors">Home</a></li>
+                    <li><a href="{{ route('index') }}" class="hover:text-yellow-500 transition-colors">Home</a></li>
                     <li><a href="#" class="hover:text-yellow-500 transition-colors">Contact Us</a></li>
                 </ul>
             </div>

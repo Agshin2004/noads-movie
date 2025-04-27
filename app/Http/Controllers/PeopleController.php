@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\ViewModels\PeopleViewModel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class PeopleController extends Controller
@@ -16,7 +16,6 @@ class PeopleController extends Controller
         $this->apiKey = config('moviedb.api_key');
         $this->baseUrl = config('moviedb.base_url');
     }
-
 
     /**
      * Display a listing of the resource.
@@ -50,22 +49,22 @@ class PeopleController extends Controller
         $person = Http::withToken($this->apiKey)
             ->get("$this->baseUrl/person/$personId")
             ->json();
-        
-        
+
         $movieCredits = Http::withToken($this->apiKey)
             ->get("$this->baseUrl/person/$personId/movie_credits?language=en-US")
             ->json()['cast'];
 
-        // dump($movieCredits);
-    
+        $tvCredits = Http::withToken($this->apiKey)
+            ->get("$this->baseUrl/person/$personId/tv_credits?language=en-US")
+            ->json()['cast'];
 
-        $viewModel = new PeopleViewModel($person, $movieCredits);
+        dump($tvCredits);
 
-        // TODO: Add user's TV credits (as of now only movies credits of an actor shown)
+        $viewModel = new PeopleViewModel($person, $movieCredits, $tvCredits);
 
         return view('person-detail', [
             'person' => $viewModel->getPersonDetails(),
-            'movieCredits' => $viewModel->getMovieCredits(),
+            'credits' => $viewModel->getCredits(),
             'links' => $viewModel->paginationLinks->links(),
         ]);
     }

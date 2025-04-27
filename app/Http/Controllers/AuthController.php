@@ -43,8 +43,6 @@ class AuthController extends Controller
             'secretkey' => Hash::make($secretKeyPassword, ['rounds' => 8])
         ]);
 
-        // TODO: Send password via email to the user
-
         auth()->login($user, true);
 
         return view('welcome', [

@@ -42,13 +42,15 @@
                         </div> --}}
 
                         {{-- RECAPTCHA --}}
-                        <div class="g-recaptcha" data-sitekey="{{ config('recaptcha.publickey') }}"></div>
+                        <div class="flex justify-center">
+                            <div class="g-recaptcha" data-sitekey="{{ config('recaptcha.publickey') }}"></div>
+                        </div>
 
                         <button type="submit"
                             class="w-full bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer">Sign
                             in</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Already have an account? <a href="#"
+                            Already have an account? <a href="{{ route('login') }}"
                                 class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
                         </p>
                     </form>

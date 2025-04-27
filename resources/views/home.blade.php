@@ -27,7 +27,7 @@
                                                 class="text-2xl md:text-xl sm:text-sm"
                                                 >
                                                 {{ $movieShow['original_title'] ?? $movieShow['original_name'] }}
-                                            </span>                                            
+                                            </span>                                        
                                         @endif
                                         <h2 class="text-2xl sm:text-4xl md:text-6xl font-bold mb-4">
                                             {{ $movieShow['title'] ?? $movieShow['name'] }}</h2>

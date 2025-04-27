@@ -40,17 +40,17 @@
 
     <div class="flex flex-wrap gap-8 m-8 justify-center">
         <div class="flex flex-wrap gap-8 m-8">
-            @foreach ($movieCredits as $movie)
+            @foreach ($credits as $credit)
                 @include('partials.card', [
-                    'id' => $movie['id'],
-                    'title' => $movie['original_title'],
-                    'rating' => $movie['vote_average'],
-                    'poster' => $movie['poster_path'],
-                    'releaseDate' => $movie['release_date'],
-                    'genreIds' => $movie['genre_ids'],
-                    'movieId' => $movie['id'],
-                    'genres' => $movie['genre_ids'],
-                    'mediaType' => 'movie'
+                    'id' => $credit['id'],
+                    'title' => isset($credit['name']) ? $credit['name'] : $credit['title'],
+                    'rating' => $credit['vote_average'],
+                    'poster' => $credit['poster_path'],
+                    'releaseDate' => isset($credit['first_air_date']) ? $credit['first_air_date'] : $credit['release_date'],
+                    'genreIds' => $credit['genre_ids'],
+                    'movieId' => $credit['id'],
+                    'genres' => $credit['genre_ids'],
+                    'mediaType' => isset($credit['name']) ? 'tv' : 'movie' // TODO: simplify to null coalescing operator
                 ])
             @endforeach
         </div>

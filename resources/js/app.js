@@ -38,10 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const btnText = btnEl.innerHTML;
         btnEl.addEventListener("click", () => {
             const passwordEl = document.querySelector(".password");
-            if (!passwordEl) {
-                // TODO: Handle case if password element is not found on page
-            }
-            navigator.clipboard.writeText(passwordEl.innerHTML);
+            navigator.clipboard.writeText(passwordEl.value);
             btnEl.innerHTML = "COPIED !!!";
             setTimeout(() => {
                 btnEl.innerHTML = btnText;

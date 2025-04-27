@@ -11,8 +11,15 @@
             <div class="sm:ml-8 mt-6 sm:mt-0 text-center sm:text-left">
                 <h1
                     class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-500 mb-2">
-                    {{ $tvShow['original_name'] }}
-                    <sup class="text-xl font-bold text-yellow-400">{{ $tvShow['vote_average'] }}</sup>
+                    @if ($tvShow['original_name'] !== $tvShow['name'])
+                        <div class="text-2xl md:text-xl sm:text-sm">
+                            {{ $tvShow['original_name'] }}
+                        </div>
+                    @endif
+                    <div>
+                        {{ $tvShow['name'] }}
+                        <sup class="text-xl font-bold text-yellow-400">{{ $tvShow['vote_average'] }}</sup>
+                    </div>
                 </h1>
                 <div class="text-gray-400 text-lg mb-4">
                     {{ $tvShow['first_air_date'] }} • {{ $tvShow['number_of_seasons'] }}
@@ -107,24 +114,24 @@
                 class="w-full h-[450px] rounded-xl shadow-2xl" allowfullscreen></iframe>
         </div>
 
-            {{-- Player Instructions --}}
-            <div class="mt-6 p-4 bg-blue-900/20 border border-blue-500 rounded-lg flex items-start">
-                <div class="mr-3 text-blue-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </div>
-                <div>
-                    <p class="font-medium text-blue-200">Seasons/Episodes</p>
-                    <p class="text-sm text-blue-100">
-                        You can change seasons and episodes directly in the player below!
-                        Look for the <span class="font-bold">dropdown menu on UP LEFT CORNER</span>
-                    </p>
-                </div>
+        {{-- Player Instructions --}}
+        <div class="mt-6 p-4 bg-blue-900/20 border border-blue-500 rounded-lg flex items-start">
+            <div class="mr-3 text-blue-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
             </div>
-        
+            <div>
+                <p class="font-medium text-blue-200">Seasons/Episodes</p>
+                <p class="text-sm text-blue-100">
+                    You can change seasons and episodes directly in the player below!
+                    Look for the <span class="font-bold">dropdown menu on UP LEFT CORNER</span>
+                </p>
+            </div>
+        </div>
+
         {{-- Images --}}
         <section class="mt-20 mb-16">
             <div class="text-center mb-10">

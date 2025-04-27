@@ -110,7 +110,7 @@ class MoviesController extends Controller
         // Movie Genres
         $genresName = reformatGenres($genres);
         
-        // dump($movieDetails);
+        dump($movieDetails);
 
         // Get Movie Trailer
         $trailerKey = null;
