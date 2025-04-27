@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ShowsController;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\PeopleController;
-use App\Http\Controllers\ShowsController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FavoritesController;
 
 // * Route to Movie or TV
 Route::get('/watch/{type}/{id}', function ($type, $id) {
@@ -35,6 +36,11 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     
     Route::post('/register', 'register');
     Route::post('/login', 'login');
+});
+
+// * User Related Routes
+Route::prefix('user')->group(function() {
+    Route::get('/favorites', [FavoritesController::class, 'myFavorites'])->name('favorites');
 });
 
 // Route::view('/welcome', 'welcome');

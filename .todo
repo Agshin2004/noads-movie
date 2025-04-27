@@ -1,2 +1,6 @@
 # TODO
+    - Add origin country to movie and show
+    - Similar Movies/Shows
+    - Filament admin panel for movie of the week feature
+    - Contact Us (form that will send to my telegram or save form to db)
     - Send password via email to the user if option selected.    

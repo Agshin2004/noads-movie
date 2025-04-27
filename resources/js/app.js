@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
             gap: 20,
             autoplay: true,
             interval: 3000,
+            pagination: false,
             rewind: true,
         }).mount();
     } else if (location.pathname === "/") {

@@ -20,10 +20,7 @@ class ShowsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
@@ -61,8 +58,9 @@ class ShowsController extends Controller
             if ($video['type'] === 'Trailer') {
                 $trailerKey = $video['key'];
             }
-                }
-        
+        }
+
+        dump($viewModel->getShow());
 
         return view('single-show', [
             'tvId' => $tvDetails['id'],

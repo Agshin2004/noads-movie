@@ -14,7 +14,7 @@
         <div class="flex items-center space-x-8 text-white justify-center w-full lg:w-auto">
             @auth
                 <!-- Navbar Links (Favorites, Logout) -->
-                <a href="#" class="text-base lg:text-lg hover:text-indigo-200 transition-all duration-300">Favorites</a>
+                <a href="{{ route('favorites') }}" class="text-base lg:text-lg hover:text-indigo-200 transition-all duration-300">Favorites</a>
                 <a href="{{ route('logout') }}" 
                    class="bg-red-600 text-base lg:text-lg px-4 py-2 rounded-full text-white hover:bg-red-700 transition-all duration-300">
                     Logout
