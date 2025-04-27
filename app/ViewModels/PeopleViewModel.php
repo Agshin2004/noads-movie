@@ -29,8 +29,6 @@ class PeopleViewModel extends ViewModel
 
     public function getCredits()
     {
-        $this->filterByBest();
-        $moviesShows = array_merge($this->movieCredits, $this->tvCredits);
 
         $perPage = 10;
 
@@ -38,7 +36,7 @@ class PeopleViewModel extends ViewModel
         $currentPage = request()->input('page', 1);
 
         // Create collection from the movies array
-        $collection = collect($moviesShows);
+        $collection = collect($this->filterByBest($this->movieCredits, $this->tvCredits));
 
         // Slice the collection to get the items to display in current page
         $currentPageItems = $collection->slice(($currentPage - 1) * $perPage, $perPage);
@@ -69,21 +67,19 @@ class PeopleViewModel extends ViewModel
         });
     }
 
-    private function filterByBest()
+    private function filterByBest(array $movieCredits, array $tvCredits)
     {
+        $moviesShows = array_merge($movieCredits, $tvCredits);
+        shuffle($moviesShows);
+
         // usort() - Sort an array by values using a user-defined comparison function
-        usort($this->movieCredits, function ($a, $b) {
+        usort($moviesShows, function ($a, $b) {
             if ($a['vote_average'] === $b['vote_average']) {
                 return 0;
             }
             return $a['vote_average'] > $b['vote_average'] ? -1 : 1;
         });
 
-        usort($this->tvCredits, function ($a, $b) {
-            if ($a['vote_average'] === $b['vote_average']) {
-                return 0;
-            }
-            return $a['vote_average'] > $b['vote_average'] ? -1 : 1;
-        });
+        return $moviesShows;
     }
 }

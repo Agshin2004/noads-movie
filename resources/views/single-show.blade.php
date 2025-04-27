@@ -149,7 +149,7 @@
                             @foreach ($tvShow['images'] as $image)
                                 <li class="splide__slide transition-transform duration-500 hover:scale-105">
                                     <img src="https://image.tmdb.org/t/p/original/{{ $image['file_path'] }}"
-                                        class="w-full object-contain">
+                                        class="w-full h-full object-contain">
                                 </li>
                             @endforeach
                         </ul>
@@ -157,6 +157,5 @@
                 </div>
             </div>
         </section>
-
     </div>
 @endsection

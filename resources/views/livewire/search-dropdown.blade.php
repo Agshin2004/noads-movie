@@ -31,7 +31,7 @@
             placeholder="Search..." wire:model.live.debounce.750ms="searchQuery"
             @focus="isOpen = true">
 
-        <div class="absolute bg-gray-800 text-md rounded-xl shadow-2xl w-full mt-2 z-50 overflow-hidden"
+        <div class="absolute bg-gray-800 text-md rounded-xl shadow-2xl w-full mt-2 z-50 overflow-y-auto max-h-96"
             x-show="isOpen" @keydown.escape.window="isOpen = false">
             <ul>
                 {{-- SPINNER --}}
