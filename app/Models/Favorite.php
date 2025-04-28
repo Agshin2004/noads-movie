@@ -9,7 +9,8 @@ class Favorite extends Model
 {
     protected $fillable = [
         'movieOrShowId',
-        'user_id'
+        'user_id',
+        'type'
     ];
 
     public function user()

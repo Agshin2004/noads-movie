@@ -22,7 +22,14 @@
                     </div>
                 </h1>
                 <div class="text-gray-400 text-lg mb-4">
-                    {{ $movie['release_date'] }} • {{ $movie['runtime'] }} min
+                    {{ $movie['release_date'] }} • {{ $movie['runtime'] }} min • 
+                    @foreach ($movie['origin_country'] as $country)
+                        @if ($loop->last) 
+                            {{ $country }}
+                            @break
+                        @endif
+                        {{ $country }},
+                    @endforeach
                 </div>
                 <div class="flex flex-wrap justify-center sm:justify-start gap-2 mb-4">
                     @foreach ($movie['genres'] as $genre)

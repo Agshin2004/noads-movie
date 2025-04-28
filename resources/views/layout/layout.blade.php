@@ -12,6 +12,8 @@
     {{--* MUST USE OFFICIAL BLADE DIRECTIVE (example above is right as well) --}}
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css" />
     @livewireStyles
     @stack('styles')
     <title>ZMA Movie</title>
@@ -21,8 +23,10 @@
     @include('partials.navbar')
     @yield('content')
 
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
     @vite('resources/js/app.js')
     @livewireScripts
-    @stack('scripts')
     @include('partials.footer')
+    @stack('scripts')
+
 </html>

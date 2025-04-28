@@ -1,11 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ShowsController;
+use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\PeopleController;
-use App\Http\Controllers\FavoritesController;
+use App\Http\Controllers\ShowsController;
+use App\Http\Middleware\IsLoggedIn;
+use Illuminate\Support\Facades\Route;
 
 // * Route to Movie or TV
 Route::get('/watch/{type}/{id}', function ($type, $id) {
@@ -28,19 +29,27 @@ Route::get('/people/{personId}', [PeopleController::class, 'show'])->name('perso
 
 // * Auth Related Routes
 Route::prefix('auth')->controller(AuthController::class)->group(function () {
-    Route::get('/login',  'showLoginForm')
-        ->name('login');
-    Route::get('/register',  'showRegisterForm')
-        ->name('register');
-    Route::get('/logout', 'logout')->name('logout');
-    
-    Route::post('/register', 'register');
-    Route::post('/login', 'login');
+    Route::get('/login', 'showLoginForm')
+        ->name('login')
+        ->middleware('guest');
+    Route::get('/register', 'showRegisterForm')
+        ->name('register')
+        ->middleware('guest');
+    Route::get('/logout', 'logout')
+        ->name('logout')
+        ->middleware('guest');
+
+    Route::post('/register', 'register')
+        ->middleware('guest');
+    Route::post('/login', 'login')
+        ->middleware('guest');
 });
 
 // * User Related Routes
-Route::prefix('user')->group(function() {
-    Route::get('/favorites', [FavoritesController::class, 'myFavorites'])->name('favorites');
+Route::prefix('user')->group(function () {
+    Route::get('/favorites', [FavoritesController::class, 'myFavorites'])
+        ->name('favorites')
+        ->middleware('loggedIn');
 });
 
 // Route::view('/welcome', 'welcome');

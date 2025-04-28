@@ -79,4 +79,15 @@
             <div class="splide__progress__bar bg-red-600"></div>
         </div>
     </div>
+
+
+    @push('scripts')
+        @if (session('fail'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    alertify.error('{{ session('fail') }}');
+                });
+            </script>
+        @endif
+    @endpush
 @endsection

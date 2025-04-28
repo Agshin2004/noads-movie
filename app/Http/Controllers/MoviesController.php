@@ -109,7 +109,7 @@ class MoviesController extends Controller
 
         // Movie Genres
         $genresName = reformatGenres($genres);
-        
+
         dump($movieDetails);
 
         // Get Movie Trailer
@@ -121,7 +121,7 @@ class MoviesController extends Controller
         }
 
         $viewModel = new SingleMovieViewModel($movieDetails);
-    
+
         return view('single-movie', [
             'movie' => $viewModel->getMovie(),
             'genresName' => $genresName,
