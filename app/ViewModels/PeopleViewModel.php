@@ -42,7 +42,7 @@ class PeopleViewModel extends ViewModel
         // Slice the collection to get the items to display in current page
         $currentPageItems = $collection->slice(($currentPage - 1) * $perPage, $perPage);
 
-        // Create paginatro
+        // Create paginator
         $paginatedItems = new LengthAwarePaginator(
             $currentPageItems,  // items
             $collection->count(),  // total
@@ -50,7 +50,7 @@ class PeopleViewModel extends ViewModel
             $currentPage,  // currentPage
             [
                 'path' => request()->url(),  // Keep the current url (default it would add page query to /)
-                'query' => request()->query()  // keep the query params if filters added; TODO: Make filtering movies
+                'query' => request()->query()  // keep the query params if filters added
             ]
         );
 

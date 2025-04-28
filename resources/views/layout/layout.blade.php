@@ -9,7 +9,7 @@
     {{-- Serving the compiled version of resources/css/app.css using Vite (with PostCSS and Tailwind) --}}
     {{--
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/app.css') }}"> --}}
-    {{--* MUST USE OFFICIAL BLADE DIRECTIVE (example above is right as well) --}}
+    {{-- * MUST USE OFFICIAL BLADE DIRECTIVE (example above is right as well) --}}
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
@@ -21,7 +21,10 @@
 
 <body class="text-white">
     @include('partials.navbar')
-    @yield('content')
+    <main>
+        @yield('content')
+
+    </main>
 
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
     @vite('resources/js/app.js')

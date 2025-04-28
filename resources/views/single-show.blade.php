@@ -134,7 +134,7 @@
             <div class="text-center mb-10">
                 <h2
                     class="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 animate-pulse">
-                    Show Gallery
+                    Movie Gallery
                 </h2>
                 <p class="mt-2 text-gray-400 text-sm sm:text-base">Swipe through awesome moments</p>
             </div>
@@ -143,10 +143,10 @@
                 <div class="splide" id="image-slider">
                     <div class="splide__track rounded-xl overflow-hidden shadow-lg ring-2 ring-pink-500/50">
                         <ul class="splide__list">
-                            @foreach ($tvShow['images'] as $image)
+                            @foreach ($tvShow['images'] as $show)
                                 <li class="splide__slide transition-transform duration-500 hover:scale-105">
-                                    <img src="https://image.tmdb.org/t/p/original/{{ $image['file_path'] }}"
-                                        class="w-full h-full object-contain">
+                                    <img src="https://image.tmdb.org/t/p/original/{{ $show['file_path'] }}"
+                                        class="w-full object-contain">
                                 </li>
                             @endforeach
                         </ul>
@@ -154,5 +154,6 @@
                 </div>
             </div>
         </section>
+
     </div>
 @endsection

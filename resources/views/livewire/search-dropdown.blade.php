@@ -4,14 +4,28 @@
         <label class="inline-flex items-center cursor-pointer">
             <input wire:model="movieOrTv" type="radio" class="peer hidden" value="movie">
             <span
-                class="px-6 py-2 rounded-full text-md font-medium border-2 border-indigo-400 peer-checked:bg-gradient-to-r peer-checked:from-indigo-600 peer-checked:to-purple-600 peer-checked:text-white peer-checked:border-transparent shadow-lg">
+                class="px-6 py-2 rounded-full text-md font-bold border-2 border-emerald-300
+                   bg-gray-800 text-emerald-200
+                   peer-checked:bg-gradient-to-r peer-checked:from-emerald-500 peer-checked:to-teal-500 
+                   peer-checked:text-white peer-checked:border-emerald-400
+                   peer-checked:shadow-[0_0_15px_5px_rgba(16,185,129,0.4)]
+                   shadow-md hover:shadow-lg
+                   transition-all duration-200 transform hover:scale-105
+                   cursor-pointer active:scale-95">
                 Movie
             </span>
         </label>
         <label class="inline-flex items-center cursor-pointer">
             <input wire:model="movieOrTv" type="radio" class="peer hidden" value="tv">
             <span
-                class="px-6 py-2 rounded-full text-md font-medium border-2 border-indigo-400 peer-checked:bg-gradient-to-r peer-checked:from-indigo-600 peer-checked:to-purple-600 peer-checked:text-white peer-checked:border-transparent shadow-lg">
+                class="px-6 py-2 rounded-full text-md font-bold border-2 border-purple-300
+                   bg-gray-800 text-purple-100
+                   peer-checked:bg-gradient-to-r peer-checked:from-purple-600 peer-checked:to-pink-500 
+                   peer-checked:text-white peer-checked:border-purple-500
+                   peer-checked:shadow-[0_0_15px_5px_rgba(217,70,239,0.5)]
+                   shadow-md hover:shadow-lg
+                   transition-all duration-200 transform hover:scale-105
+                   cursor-pointer active:scale-95">
                 TV / Anime
             </span>
         </label>
@@ -59,6 +73,9 @@
                             <div
                                 class="text-base md:text-lg font-semibold text-white truncate group-hover:text-yellow-300">
                                 {{ $movieOrTv === 'tv' ? $result['name'] : $result['title'] }}
+                                <span class="text-xs px-1.5 py-0.5 rounded bg-gray-800/50 text-yellow-400">
+                                    ★ {{ number_format($result['vote_average'], 1) }}
+                                </span>
                             </div>
                             <div class="text-gray-500 text-xs mt-1 group-hover:text-white">
                                 ({{ \Carbon\Carbon::parse($result['release_date'] ?? $result['first_air_date'])->format('Y') }})

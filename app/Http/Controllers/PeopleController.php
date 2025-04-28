@@ -63,7 +63,7 @@ class PeopleController extends Controller
         return view('person-detail', [
             'person' => $viewModel->getPersonDetails(),
             'credits' => $viewModel->getCredits(),
-            'links' => $viewModel->paginationLinks->links(),
+            'links' => $viewModel->paginationLinks->links('vendor.pagination.custom-pagination'),
         ]);
     }
 

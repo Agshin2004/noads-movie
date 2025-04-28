@@ -3,7 +3,6 @@
 @section('content')
     <div class="min-h-screen flex items-start justify-center bg-gradient-to-b from-gray-900 to-black p-10 text-white">
         <div class="flex flex-col md:flex-row w-full max-w-7xl overflow-hidden rounded-xl shadow-xl bg-opacity-80 backdrop-blur-lg">
-
             <!-- Actor Image -->
             <div class="w-full md:w-1/2 p-6">
                 <img src="https://image.tmdb.org/t/p/original/{{ $person['profile_path'] }}" alt="Actor Image"
@@ -38,8 +37,7 @@
         </div>
     </div>
 
-    <div class="flex flex-wrap gap-8 m-8 justify-center">
-        <div class="flex flex-wrap gap-8 m-8">
+        <div class="flex flex-wrap gap-8 m-8 justify-center">
             @foreach ($credits as $credit)
                 @include('partials.card', [
                     'id' => $credit['id'],
@@ -52,11 +50,9 @@
                     'mediaType' => isset($credit['name']) ? 'tv' : 'movie' // TODO: simplify to null coalescing operator
                 ])
             @endforeach
+            {{-- Pagination links --}}
         </div>
-
-        {{-- Pagination links --}}
         {!! $links !!}
-    </div>
 
     @push('scripts')
         <script>

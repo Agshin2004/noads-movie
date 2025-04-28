@@ -5,8 +5,7 @@
         class="w-1/2 bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-600 text-white text-center py-8 mt-5 mb-6 rounded-lg shadow-md  mx-auto">
         <h1 class="text-4xl font-extrabold">Favorites</h1>
     </div>
-    <div class="flex flex-wrap justify-center">
-
+    <div class="flex flex-wrap gap-8 m-8 justify-center">
         @forelse($movies as $movie)
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 m-5">
                 @include('partials.card', [
@@ -27,4 +26,5 @@
             </h2>
         @endforelse
     </div>
+    {!! $links !!}
 @endsection

@@ -2,6 +2,7 @@
     <div class="relative w-full max-w-xs aspect-[2/3] rounded-xl overflow-hidden shadow-lg group transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <img src="{{ $poster }}" alt="Movie Poster" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
 
+
         <!-- Dark overlay with smooth hover effect -->
         <div class="absolute inset-0 bg-black/60 group-hover:bg-black/80 transition-colors"></div>
 
