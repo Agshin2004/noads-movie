@@ -27,10 +27,11 @@
                                                 class="text-2xl md:text-xl sm:text-sm"
                                                 >
                                                 {{ $movieShow['original_title'] ?? $movieShow['original_name'] }}
-                                            </span>                                        
+                                            </span>                                
                                         @endif
                                         <h2 class="text-2xl sm:text-4xl md:text-6xl font-bold mb-4">
                                             {{ $movieShow['title'] ?? $movieShow['name'] }}</h2>
+                                        {{-- vote, year, type --}}
                                         <div class="flex items-center mb-4">
                                             <span class="bg-yellow-500 text-black px-2 py-1 rounded mr-4">
                                                 {{ round($movieShow['vote_average'], 1) }}/10
@@ -40,11 +41,16 @@
                                                 <span class="uppercase">{{ $movieShow['media_type'] }}</span>
                                             @endif
                                         </div>
-
+                                        {{-- Genres --}}
+                                        <div class="flex flex-wrap gap-2 mb-6">
+                                                <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                                    {{ $movieShow['genres'] }}
+                                                </span>
+                                        </div>
+                                        {{-- Description --}}
                                         <p class="max-w-2xl text-xs sm:text-sm md:text-lg mb-8 line-clamp-3">
                                             {{ $movieShow['overview'] ?? 'No description available' }}
                                         </p>
-
                                         <a href="{{ movieOrShowLink($movieShow['media_type'], $movieShow['id']) }}"
                                         class="text-xs sm:text-sm md:text-base bg-red-600 hover:bg-red-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold inline-block transition">
                                         View Details

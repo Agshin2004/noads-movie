@@ -24,14 +24,16 @@ class MoviesViewModel extends ViewModel
     private function formatMovies($movies)
     {
         return collect($movies)->filter(function ($movie) {
-            // Filter for only movies with rating greater than 5 
+            // Filter for only movies with rating greater than 5
             return (int) $movie['vote_average'] >= 5;
         })->map(function ($movie) {
             $genresFormatted = collect($movie['genre_ids'])
-                ->mapWithKeys(function ($genre) {
-                    return [$genre => $this->getGenres()->get($genre)];
+                ->map(function ($genre) {
+                    return GENRES[$genre] ?? null;
                 })
+                ->filter()
                 ->implode(', ');
+
             // Overriding popularMovie with new modified values using merge() function
             return collect($movie)
                 ->merge([
@@ -60,10 +62,5 @@ class MoviesViewModel extends ViewModel
     {
         // collect() - Create a collection from the given value.
         return $this->formatMovies($this->trendingMovies);
-    }
-
-    private function getGenres()
-    {
-        return reformatGenres($this->genres);
     }
 }

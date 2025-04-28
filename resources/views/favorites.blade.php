@@ -16,7 +16,7 @@
                     'poster' => $movie['poster_path'],
                     'releaseDate' => $movie['release_date'],
                     'movieId' => $movie['id'],
-                    'genres' => '',
+                    'genres' => $movie['genres'],
                     'mediaType' => isset($movie['name']) ? 'tv' : 'movie',
                 ])
             </div>

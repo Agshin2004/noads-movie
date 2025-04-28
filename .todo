@@ -1,6 +1,6 @@
 # TODO
     # Bugs
-        - Fix genres on cards
+        - Rewrite all request that fetch genres ids using GENRES constants
         - Add Pagination to favorites page 
     # Features
         - Similar Movies/Shows

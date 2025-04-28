@@ -28,8 +28,7 @@
 
         <input type="text" id="search-navbar"
             class="block w-full p-4 ps-12 text-lg text-white bg-gray-800 border-2 border-indigo-400 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-lg placeholder-gray-400"
-            placeholder="Search..." wire:model.live.debounce.750ms="searchQuery"
-            @focus="isOpen = true">
+            placeholder="Search..." wire:model.live.debounce.750ms="searchQuery" @focus="isOpen = true">
 
         <div class="absolute bg-gray-800 text-md rounded-xl shadow-2xl w-full mt-2 z-50 overflow-y-auto max-h-96"
             x-show="isOpen" @keydown.escape.window="isOpen = false">
@@ -44,20 +43,26 @@
 
                 {{-- Results dropdown --}}
                 @foreach ($searchResults as $result)
-                    <li class="border-b border-gray-700 hover:bg-gray-700 flex items-center">
+                    <li
+                        class="group border-b border-gray-700 transition duration-300 flex items-center p-3 hover:bg-blue-600">
                         @if ($result['poster_path'])
                             <img src="https://image.tmdb.org/t/p/w92/{{ $result['poster_path'] }}" alt="poster"
-                                class="w-12 h-16 object-cover">
+                                class="w-12 h-16 object-cover rounded-md shadow-sm">
                         @else
-                            <img src="{{ asset('images/notfound.jpg') }}" alt="no poster" class="w-12 h-16 object-cover">
+                            <img src="{{ asset('images/notfound.jpg') }}" alt="no poster"
+                                class="w-12 h-16 object-cover rounded-md shadow-sm">
                         @endif
-                        <a href="{{ movieOrShowLink($movieOrTv, $result['id']) }}"
-                            class="flex-1 px-4 py-4 font-medium hover:text-indigo-300">
-                            {{ $movieOrTv === 'tv' ? $result['name'] : $result['title'] }}
-                            @if (isset($result['release_date']))
-                                <span
-                                    class="text-gray-400 text-sm ml-2">({{ \Carbon\Carbon::parse($result['release_date'])->format('Y') }})</span>
-                            @endif
+                        <a href="{{ movieOrShowLink($movieOrTv, $result['id']) }}" class="flex-1 ml-4 overflow-hidden">
+                            <div class="text-xs italic text-gray-400 truncate group-hover:text-white">
+                                {{ $movieOrTv === 'tv' ? $result['original_name'] : $result['original_title'] }}
+                            </div>
+                            <div
+                                class="text-base md:text-lg font-semibold text-white truncate group-hover:text-yellow-300">
+                                {{ $movieOrTv === 'tv' ? $result['name'] : $result['title'] }}
+                            </div>
+                            <div class="text-gray-500 text-xs mt-1 group-hover:text-white">
+                                ({{ \Carbon\Carbon::parse($result['release_date'] ?? $result['first_air_date'])->format('Y') }})
+                            </div>
                         </a>
                     </li>
                 @endforeach

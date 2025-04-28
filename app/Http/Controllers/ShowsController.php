@@ -50,7 +50,6 @@ class ShowsController extends Controller
             ->json();
         $viewModel = new SingleShowViewModel($tvDetails);
 
-        // dump($viewModel->getShow());
 
         // Get Show Trailer
         $trailerKey = null;
@@ -59,8 +58,6 @@ class ShowsController extends Controller
                 $trailerKey = $video['key'];
             }
         }
-
-        dump($viewModel->getShow());
 
         // Type
         $type = 'tv';

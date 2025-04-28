@@ -21,16 +21,20 @@ class FavoritesController extends Controller
     {
         // Get all movies/show ids from favorites
         $favorites = auth()->user()->favorites->toArray();
-        // dd($favorites);
+        dump($this->getMovies($favorites));
         $movieShows = collect($this->getMovies($favorites))->map(function ($movie) {
+            $genres = collect($movie['genres'])->map(function($genre) {
+                return $genre['name'];
+            })->toarray();
+
             return collect($movie)->merge([
                 'poster_path' => 'https://image.tmdb.org/t/p/original/' . $movie['poster_path'],
                 'release_date' => Carbon::parse($movie['release_date'] ?? $movie['first_air_date'])->format('Y F'),
                 'vote_average' => round($movie['vote_average'], 1),
-                'genres' => 'genresFormatted'
+                'genres' => implode(', ', $genres)
             ]);
         })->reverse(); // Reverse items order so newly added movie/shows will come first
-        dump($movieShows);
+        // dump($movieShows);
 
         return view('favorites', [
             'movies' => $movieShows

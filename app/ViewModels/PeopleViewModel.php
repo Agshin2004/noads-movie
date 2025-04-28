@@ -56,13 +56,19 @@ class PeopleViewModel extends ViewModel
 
         // Assigning items to field so we can access it and render it on page
         $this->paginationLinks = $paginatedItems;
-
         return collect($paginatedItems->items())->map(function ($movie) {
             $imageUrl = $movie['poster_path'] ? 'https://image.tmdb.org/t/p/original/' . $movie['poster_path'] : asset('images/notfound.jpg');
 
+            $genres = collect($movie['genre_ids'])->map(function($genreId) {
+                return GENRES[$genreId] ?? null;
+            })
+                ->filter() // remove nulls if genre is unknown
+                ->implode(', ');
+
+            
             return collect($movie)->merge([
                 'poster_path' => $imageUrl,
-                'genre_ids' => 'TODO: Add Genre',  // TODO: Parse genres
+                'genre_ids' => $genres,
                 'release_date' => Carbon::parse($movie['release_date'] ?? $movie['first_air_date'])->format('Y F'),
                 'vote_average' => round($movie['vote_average'], 1),
             ]);

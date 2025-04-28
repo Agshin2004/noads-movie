@@ -19,13 +19,16 @@ class ShowsViewModel extends ViewModel
     public function getTrendingShows()
     {
         return collect($this->trendingShows)->filter(function ($show) {
-            // Filter for only shows with rating greater than 5 
+            // Filter for only shows with rating greater than 5
             return (int) $show['vote_average'] >= 5;
         })->map(function ($show) {
-            // TODO: This used in two classes (this and MovieViewModel), make it reusable
-            $genresFormatted = collect($show['genre_ids'])->mapWithKeys(function ($genre) {
-                return [$genre => $this->getShowGenres()->get($genre)];
-            })->implode(', ');
+            $genresFormatted = collect($show['genre_ids'])
+                ->map(function ($genre) {
+                    return GENRES[$genre] ?? null;
+                })
+                ->filter()
+                ->implode(', ');
+            dump($genresFormatted);
             return collect($show)->merge([
                 'original_title' => $show['original_name'],
                 'backdrop_path' => 'https://image.tmdb.org/t/p/original/' . $show['backdrop_path'],
@@ -34,10 +37,5 @@ class ShowsViewModel extends ViewModel
                 'genres' => $genresFormatted,
             ]);
         });
-    }
-
-    public function getShowGenres()
-    {
-        return reformatGenres($this->genres);
     }
 }

@@ -39,27 +39,10 @@ class MoviesController extends Controller
             ->get("$this->baseUrl/trending/tv/week")
             ->json()['results'];
 
-        $movieGenres = Http::withHeaders([
-            'Authorization' => "Bearer $this->apiKey",
-            'Accept' => 'application/json'
-        ])
-            ->get("$this->baseUrl/genre/movie/list")
-            ->json()['genres'];
 
-        $showsGenres = Http::withHeaders([
-            'Authorization' => "Bearer $this->apiKey",
-            'Accept' => 'application/json'
-        ])
-            ->get("$this->baseUrl/genre/tv/list")
-            ->json()['genres'];
 
-        // $genresName = [];
-        // foreach ($genres as $genre) {
-        //     $genresName[$genre['id']] = $genre['name'];
-        // }
-
-        $moviesViewModel = new MoviesViewModel($trendingMovies, $movieGenres);
-        $showsViewModel = new ShowsViewModel($trendingShows, $showsGenres);
+        $moviesViewModel = new MoviesViewModel($trendingMovies, GENRES);
+        $showsViewModel = new ShowsViewModel($trendingShows, GENRES);
 
         $moviesAndShows = array_merge(
             $moviesViewModel->getTrendingMovies()->toArray(),
@@ -99,18 +82,9 @@ class MoviesController extends Controller
     {
         $movieDetails = Http::withToken($this->apiKey)->get("$this->baseUrl/movie/$id?append_to_response=videos,credits,images")->json();
 
-        // TODO: Make reusable
-        $genres = Http::withHeaders([
-            'Authorization' => "Bearer $this->apiKey",
-            'Accept' => 'application/json'
-        ])
-            ->get("$this->baseUrl/genre/movie/list")
-            ->json()['genres'];
-
-        // Movie Genres
-        $genresName = reformatGenres($genres);
-
-        dump($movieDetails);
+        $genres = collect($movieDetails['genres'])->map(function ($genre) {
+            return GENRES[$genre['id']] ?? null;
+        })->filter();
 
         // Get Movie Trailer
         $trailerKey = null;
@@ -127,7 +101,7 @@ class MoviesController extends Controller
 
         return view('single-movie', [
             'movie' => $viewModel->getMovie(),
-            'genresName' => $genresName,
+            'genresName' => $genres,
             'trailerKey' => $trailerKey,
             'type' => $type
         ]);
