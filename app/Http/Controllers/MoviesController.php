@@ -122,10 +122,14 @@ class MoviesController extends Controller
 
         $viewModel = new SingleMovieViewModel($movieDetails);
 
+        // Type
+        $type = 'movie';
+
         return view('single-movie', [
             'movie' => $viewModel->getMovie(),
             'genresName' => $genresName,
-            'trailerKey' => $trailerKey
+            'trailerKey' => $trailerKey,
+            'type' => $type
         ]);
     }
 

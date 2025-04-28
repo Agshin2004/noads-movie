@@ -9,10 +9,12 @@ class Favorites extends Component
 {
     public int $id;
     public bool $added;
+    public string $type;
 
-    public function mount($id)
+    public function mount($id, $type)
     {
         $this->id = $id;
+        $this->type = $type;
         $this->added = Favorite::where('user_id', auth()->user()->id)
             ->where('movieOrShowId', $this->id)
             ->exists();
@@ -28,6 +30,7 @@ class Favorites extends Component
             Favorite::create([
                 'movieOrShowId' => $this->id,
                 'user_id' => auth()->user()->id,
+                'type' => $this->type
             ]);
             
             $this->added = true;

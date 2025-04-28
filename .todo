@@ -1,7 +1,11 @@
 # TODO
-    - Similar Movies/Shows
-    - Filament admin panel for movie of the week feature
-    - Contact Us (form that will send to my telegram or save form to db)
-    - Comment Section below movies and shows
-    - Feature to rate movies and shows
-    - Send password via email to the user if option selected.    
+    # Bugs
+        - Fix genres on cards
+        - Add Pagination to favorites page 
+    # Features
+        - Similar Movies/Shows
+        - Filament admin panel for movie of the week feature
+        - Contact Us (form that will send to my telegram or save form to db)
+        - Comment Section below movies and shows
+        - Feature to rate movies and shows
+        - Send password via email to the user if option selected.

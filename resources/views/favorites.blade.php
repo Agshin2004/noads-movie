@@ -14,9 +14,7 @@
                     'title' => isset($movie['name']) ? $movie['name'] : $movie['title'],
                     'rating' => $movie['vote_average'],
                     'poster' => $movie['poster_path'],
-                    'releaseDate' => isset($movie['first_air_date'])
-                        ? $movie['first_air_date']
-                        : $movie['release_date'],
+                    'releaseDate' => $movie['release_date'],
                     'movieId' => $movie['id'],
                     'genres' => '',
                     'mediaType' => isset($movie['name']) ? 'tv' : 'movie',

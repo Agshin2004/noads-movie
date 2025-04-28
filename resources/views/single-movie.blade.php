@@ -46,7 +46,7 @@
                         data-micromodal-trigger="modal-1">
                         🎬 See Trailer
                     </button>
-                    <livewire:favorites :id="$movie['id']" />
+                    <livewire:favorites :id="$movie['id']" :type="$type" />
                 </div>
             </div>
         </div>

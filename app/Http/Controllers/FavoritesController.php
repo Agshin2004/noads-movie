@@ -20,37 +20,35 @@ class FavoritesController extends Controller
     public function myFavorites()
     {
         // Get all movies/show ids from favorites
-        $favoriteIds = auth()->user()->favorites->pluck('movieOrShowId')->toArray();
-
-        // Filter out failed responses (since show ids are mixed up when show id is requested request will fail)
-        $movies = array_filter($this->getMovies($favoriteIds), function ($movie) {
-            return !isset($movie['success']);
-        });
-
-        $movies = collect($movies)->map(function ($movie) {
+        $favorites = auth()->user()->favorites->toArray();
+        // dd($favorites);
+        $movieShows = collect($this->getMovies($favorites))->map(function ($movie) {
             return collect($movie)->merge([
                 'poster_path' => 'https://image.tmdb.org/t/p/original/' . $movie['poster_path'],
-                'release_date' => Carbon::parse($movie['release_date'])->format('Y F'),
+                'release_date' => Carbon::parse($movie['release_date'] ?? $movie['first_air_date'])->format('Y F'),
                 'vote_average' => round($movie['vote_average'], 1),
                 'genres' => 'genresFormatted'
             ]);
-        });
-        dump($movies);
+        })->reverse(); // Reverse items order so newly added movie/shows will come first
+        dump($movieShows);
 
         return view('favorites', [
-            'movies' => $movies
+            'movies' => $movieShows
         ]);
     }
 
-    private function getMovies(array $ids)
+    private function getMovies(array $favorites)
     {
-        $movies = [];
-        foreach ($ids as $id) {
-            $movies[] = Http::withToken($this->apiKey)
-                ->get("$this->baseUrl/movie/$id")
+        $movieShows = [];
+        foreach ($favorites as $favorite) {
+            $type = $favorite['type'];
+            $id = $favorite['movieOrShowId'];
+            $movieShows[] = Http::withToken($this->apiKey)
+                ->get("$this->baseUrl/$type/$id")
                 ->json();
         }
 
-        return $movies;
+
+        return $movieShows;
     }
 }

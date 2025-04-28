@@ -62,10 +62,14 @@ class ShowsController extends Controller
 
         dump($viewModel->getShow());
 
+        // Type
+        $type = 'tv';
+
         return view('single-show', [
             'tvId' => $tvDetails['id'],
             'tvShow' => $viewModel->getShow(),
-            'trailerKey' => $trailerKey
+            'trailerKey' => $trailerKey,
+            'type' => $type
         ]);
     }
 
