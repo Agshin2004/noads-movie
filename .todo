@@ -1,6 +1,5 @@
 # TODO
     # Bugs
-        - Rewrite all request that fetch genres ids using GENRES constants
         - Add Pagination to favorites page 
     # Features
         - Similar Movies/Shows
@@ -8,4 +7,5 @@
         - Contact Us (form that will send to my telegram or save form to db)
         - Comment Section below movies and shows
         - Feature to rate movies and shows
+        - Add rate limiter
         - Send password via email to the user if option selected.

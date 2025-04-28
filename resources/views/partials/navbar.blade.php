@@ -1,7 +1,8 @@
 <nav class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-4 shadow-lg">
     <div class="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center justify-between">
         <!-- Logo -->
-        <a href="{{ route('index') }}" class="text-5xl font-bold text-white hover:text-indigo-200 transition-all duration-300 mb-4 lg:mb-0">
+        <a href="{{ route('index') }}"
+            class="text-5xl font-bold text-white hover:text-indigo-200 transition-all duration-300 mb-4 lg:mb-0">
             ZMA
         </a>
 
@@ -14,17 +15,22 @@
         <div class="flex items-center space-x-8 text-white justify-center w-full lg:w-auto">
             @auth
                 <!-- Navbar Links (Favorites, Logout) -->
-                <a href="{{ route('favorites') }}" class="text-base lg:text-lg hover:text-indigo-200 transition-all duration-300">Favorites</a>
-                <a href="{{ route('logout') }}" 
-                   class="bg-red-600 text-base lg:text-lg px-4 py-2 rounded-full text-white hover:bg-red-700 transition-all duration-300">
+                <a href="{{ route('favorites') }}"
+                    class="text-base lg:text-lg text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 px-6 py-3 rounded-full shadow-lg hover:from-blue-600 hover:to-indigo-600 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                    Favorites
+                </a>
+                <a href="{{ route('logout') }}"
+                    class="bg-red-600 text-base lg:text-lg px-4 py-2 rounded-full text-white hover:bg-orange-600 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
                     Logout
                 </a>
             @else
                 <!-- Auth Links (Login, Register) -->
-                <a href="{{ route('login') }}" class="border border-white text-base lg:text-lg px-4 py-2 rounded-full text-white hover:bg-white hover:text-gray-900 transition-all duration-300">
+                <a href="{{ route('login') }}"
+                    class="border border-white text-base lg:text-lg px-4 py-2 rounded-full text-white hover:bg-white hover:text-gray-900 transition-all duration-300">
                     Login
                 </a>
-                <a href="{{ route('register') }}" class="bg-white text-base lg:text-lg px-4 py-2 rounded-full text-gray-900 hover:bg-gray-100 transition-all duration-300">
+                <a href="{{ route('register') }}"
+                    class="bg-white text-base lg:text-lg px-4 py-2 rounded-full text-gray-900 hover:bg-gray-100 transition-all duration-300">
                     Register
                 </a>
             @endauth

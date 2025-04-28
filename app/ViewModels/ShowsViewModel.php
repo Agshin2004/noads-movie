@@ -28,7 +28,7 @@ class ShowsViewModel extends ViewModel
                 })
                 ->filter()
                 ->implode(', ');
-            dump($genresFormatted);
+
             return collect($show)->merge([
                 'original_title' => $show['original_name'],
                 'backdrop_path' => 'https://image.tmdb.org/t/p/original/' . $show['backdrop_path'],

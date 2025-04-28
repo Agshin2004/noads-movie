@@ -21,7 +21,7 @@ class FavoritesController extends Controller
     {
         // Get all movies/show ids from favorites
         $favorites = auth()->user()->favorites->toArray();
-        dump($this->getMovies($favorites));
+
         $movieShows = collect($this->getMovies($favorites))->map(function ($movie) {
             $genres = collect($movie['genres'])->map(function($genre) {
                 return $genre['name'];
