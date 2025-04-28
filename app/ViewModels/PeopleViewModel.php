@@ -2,8 +2,9 @@
 
 namespace App\ViewModels;
 
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Carbon;
 use Spatie\ViewModels\ViewModel;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PeopleViewModel extends ViewModel
 {
@@ -62,6 +63,7 @@ class PeopleViewModel extends ViewModel
             return collect($movie)->merge([
                 'poster_path' => $imageUrl,
                 'genre_ids' => 'TODO: Add Genre',  // TODO: Parse genres
+                'release_date' => Carbon::parse($movie['release_date'] ?? $movie['first_air_date'])->format('Y F'),
                 'vote_average' => round($movie['vote_average'], 1),
             ]);
         });

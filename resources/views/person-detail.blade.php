@@ -46,7 +46,7 @@
                     'title' => isset($credit['name']) ? $credit['name'] : $credit['title'],
                     'rating' => $credit['vote_average'],
                     'poster' => $credit['poster_path'],
-                    'releaseDate' => isset($credit['first_air_date']) ? $credit['first_air_date'] : $credit['release_date'],
+                    'releaseDate' => $credit['release_date'],
                     'movieId' => $credit['id'],
                     'genres' => $credit['genre_ids'],
                     'mediaType' => isset($credit['name']) ? 'tv' : 'movie' // TODO: simplify to null coalescing operator
