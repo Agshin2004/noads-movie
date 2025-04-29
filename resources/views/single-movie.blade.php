@@ -23,13 +23,9 @@
                 </h1>
                 <div class="text-gray-400 text-lg mb-4">
                     {{ $movie['release_date'] }} • {{ $movie['runtime'] }} min •
-                    @foreach ($movie['origin_country'] as $country)
-                        @if ($loop->last)
-                            {{ $country }}
-                            @break
-                        @endif
-                        {{ $country }},
-                    @endforeach
+                    <span class="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-[15px] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm hover:scale-105 transition-transform duration-200">
+                        {{ implode(', ', $movie['origin_country']) }}
+                    </span>
                 </div>
                 <div class="flex flex-wrap justify-center sm:justify-start gap-2 mb-4">
                     @foreach ($movie['genres'] as $genre)
@@ -145,7 +141,7 @@
         {{-- TODO: ADD CRITIC REVIEWS --}}
 
         {{-- Comments Section --}}
-        @include('partials.comment-section')
+        <livewire:comments :id="$movie['id']" />
 
     </div>
 @endsection

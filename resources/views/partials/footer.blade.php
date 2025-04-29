@@ -6,7 +6,9 @@
             <div>
                 <h4
                     class="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 mb-4">
-                    ZMA Movies
+                    <a href="{{ route('index') }}" class="hover:text-indigo-200 transition-all duration-300">
+                        ZMA Movies
+                    </a>
                 </h4>
                 <p class="text-sm text-gray-400">
                     No BS Movie Website.

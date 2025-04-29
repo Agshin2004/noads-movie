@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\PeopleController;
@@ -52,6 +53,11 @@ Route::prefix('user')->group(function () {
         ->name('favorites')
         ->middleware('loggedIn');
 });
+
+// * Comments Related Routes
+// Route::prefix('comments')->controller(CommentsController::class)->group(function () {
+//     Route::post('/', 'store');
+// });
 
 // * Misc Routes
 Route::post('/contact-us', function (Request $request) {

@@ -9,12 +9,13 @@
 }
 
 ::selection {
-    background-color: #403829;
+    background-color: #9230c3;
 }
 
 body {
     background-color: var(--primary);
 }
+
 
 .splide {
     /* max-height: 400px; */

@@ -1,6 +1,6 @@
 # TODO
     # Bugs
-        
+        - Render country full country names, add list with countries in utils.php        
     # Features
         - Similar Movies/Shows
         - Filament admin panel for movie of the week feature

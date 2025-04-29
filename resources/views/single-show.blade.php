@@ -25,6 +25,10 @@
                     {{ $tvShow['release_date'] }} • {{ $tvShow['number_of_seasons'] }}
                     {{ Str::plural('Season', $tvShow['number_of_seasons']) }} • {{ $tvShow['number_of_episodes'] }}
                     {{ Str::plural('Episode', $tvShow['number_of_episodes']) }}
+                    •
+                    <span class="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[15px] font-semibold px-3 py-1 rounded-full shadow-sm hover:scale-105 transition-transform duration-200">
+                        {{ implode(', ', $tvShow['origin_country']) }}
+                    </span>
                 </div>
                 <div class="flex flex-wrap justify-center sm:justify-start gap-2 mb-4">
                     @foreach ($tvShow['genres'] as $genre)
@@ -155,8 +159,7 @@
             </div>
         </section>
 
-        @include('partials.comment-section')
-
+        <livewire:comments :id="$tvShow['id']" />
 
     </div>
 @endsection

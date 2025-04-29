@@ -15,13 +15,20 @@ class Favorites extends Component
     {
         $this->id = $id;
         $this->type = $type;
-        $this->added = Favorite::where('user_id', auth()->user()->id)
-            ->where('movieOrShowId', $this->id)
-            ->exists();
+
+        if (auth()->check()) {
+            $this->added = Favorite::where('user_id', auth()->user()->id)
+                ->where('movieOrShowId', $this->id)
+                ->exists();
+        }
     }
 
     public function addOrRemove()
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('fail', 'Must be logged in to use the feature.');
+        }
+
         $inFavorites = Favorite::where('user_id', auth()->user()->id)
             ->where('movieOrShowId', $this->id)
             ->exists();

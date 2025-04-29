@@ -8,7 +8,7 @@
                    bg-gray-800 text-emerald-200
                    peer-checked:bg-gradient-to-r peer-checked:from-emerald-500 peer-checked:to-teal-500 
                    peer-checked:text-white peer-checked:border-emerald-400
-                   peer-checked:shadow-[0_0_15px_5px_rgba(16,185,129,0.4)]
+                   peer-checked:shadow-[0_0_30px_10px_rgba(255,0,255,0.7)]
                    shadow-md hover:shadow-lg
                    transition-all duration-200 transform hover:scale-105
                    cursor-pointer active:scale-95">
@@ -22,8 +22,8 @@
                    bg-gray-800 text-purple-100
                    peer-checked:bg-gradient-to-r peer-checked:from-purple-600 peer-checked:to-pink-500 
                    peer-checked:text-white peer-checked:border-purple-500
-                   peer-checked:shadow-[0_0_15px_5px_rgba(217,70,239,0.5)]
-                   shadow-md hover:shadow-lg
+                    peer-checked:shadow-[0_0_30px_10px_rgba(255,0,255,0.7)]                   
+                    shadow-md hover:shadow-lg
                    transition-all duration-200 transform hover:scale-105
                    cursor-pointer active:scale-95">
                 TV / Anime
