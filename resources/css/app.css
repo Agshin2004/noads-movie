@@ -8,6 +8,10 @@
     box-sizing: border-box;
 }
 
+::selection {
+    background-color: #403829;
+}
+
 body {
     background-color: var(--primary);
 }
@@ -109,6 +113,12 @@ body {
 @media (min-width: 767px) {
     .dropdown-search {
         display: block;
+    }
+}
+
+@media (max-width: 623px) {
+    #fullpage-slider {
+        margin-bottom: 40vh;
     }
 }
 

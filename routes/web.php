@@ -5,7 +5,8 @@ use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ShowsController;
-use App\Http\Middleware\IsLoggedIn;
+use App\Jobs\SendFormTelegram;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // * Route to Movie or TV
@@ -50,6 +51,24 @@ Route::prefix('user')->group(function () {
     Route::get('/favorites', [FavoritesController::class, 'myFavorites'])
         ->name('favorites')
         ->middleware('loggedIn');
+});
+
+// * Misc Routes
+Route::post('/contact-us', function (Request $request) {
+    try {
+        $validatedData = $request->validate([
+            'email' => 'required',
+            'subject' => ['required', 'min:5'],
+            'body' => ['required', 'min:10']
+        ]);
+
+        dispatch(new SendFormTelegram($validatedData));
+
+        return redirect()->back()->with('success', 'Thank for contacting ZMA Movies. Message sent successfully');
+    } catch (\Exception $e) {
+        Log::error("Error occured while sending message to admin's telegram {$e->getMessage()}}");
+        return redirect()->back()->with('fail', $e->getMessage());
+    }
 });
 
 // Route::view('/welcome', 'welcome');

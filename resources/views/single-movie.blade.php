@@ -22,9 +22,9 @@
                     </div>
                 </h1>
                 <div class="text-gray-400 text-lg mb-4">
-                    {{ $movie['release_date'] }} • {{ $movie['runtime'] }} min • 
+                    {{ $movie['release_date'] }} • {{ $movie['runtime'] }} min •
                     @foreach ($movie['origin_country'] as $country)
-                        @if ($loop->last) 
+                        @if ($loop->last)
                             {{ $country }}
                             @break
                         @endif
@@ -143,5 +143,9 @@
 
 
         {{-- TODO: ADD CRITIC REVIEWS --}}
+
+        {{-- Comments Section --}}
+        @include('partials.comment-section')
+
     </div>
 @endsection

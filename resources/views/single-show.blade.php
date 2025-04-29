@@ -155,5 +155,8 @@
             </div>
         </section>
 
+        @include('partials.comment-section')
+
+
     </div>
 @endsection
