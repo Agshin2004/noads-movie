@@ -47,7 +47,7 @@ class SingleMovieViewModel extends ViewModel
     private function formatOriginCountry()
     {
         return collect($this->movie['origin_country'])->map(function ($country) {
-            return COUNTRY_NAMES[$country] ?? '';
+            return countries()[$country] ?? '';
         })->implode(', ');
     }
 

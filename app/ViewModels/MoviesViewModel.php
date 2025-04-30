@@ -29,7 +29,7 @@ class MoviesViewModel extends ViewModel
         })->map(function ($movie) {
             $genresFormatted = collect($movie['genre_ids'])
                 ->map(function ($genre) {
-                    return GENRES[$genre] ?? null;
+                    return genres()[$genre] ?? null;
                 })
                 ->filter()
                 ->implode(', ');

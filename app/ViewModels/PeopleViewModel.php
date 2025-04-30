@@ -60,7 +60,7 @@ class PeopleViewModel extends ViewModel
             $imageUrl = $movie['poster_path'] ? 'https://image.tmdb.org/t/p/original/' . $movie['poster_path'] : asset('images/notfound.jpg');
 
             $genres = collect($movie['genre_ids'])->map(function($genreId) {
-                return GENRES[$genreId] ?? null;
+                return genres()[$genreId] ?? null;
             })
                 ->filter() // remove nulls if genre is unknown
                 ->implode(', ');

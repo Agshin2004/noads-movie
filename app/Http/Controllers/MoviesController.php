@@ -41,8 +41,8 @@ class MoviesController extends Controller
 
 
 
-        $moviesViewModel = new MoviesViewModel($trendingMovies, GENRES);
-        $showsViewModel = new ShowsViewModel($trendingShows, GENRES);
+        $moviesViewModel = new MoviesViewModel($trendingMovies, genres());
+        $showsViewModel = new ShowsViewModel($trendingShows, genres());
 
         $moviesAndShows = array_merge(
             $moviesViewModel->getTrendingMovies()->toArray(),
@@ -83,7 +83,7 @@ class MoviesController extends Controller
         $movieDetails = Http::withToken($this->apiKey)->get("$this->baseUrl/movie/$id?append_to_response=videos,credits,images")->json();
 
         $genres = collect($movieDetails['genres'])->map(function ($genre) {
-            return GENRES[$genre['id']] ?? null;
+            return genres()[$genre['id']] ?? null;
         })->filter();
 
         // Get Movie Trailer

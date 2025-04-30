@@ -24,7 +24,7 @@ class ShowsViewModel extends ViewModel
         })->map(function ($show) {
             $genresFormatted = collect($show['genre_ids'])
                 ->map(function ($genre) {
-                    return GENRES[$genre] ?? null;
+                    return genres()[$genre] ?? null;
                 })
                 ->filter()
                 ->implode(', ');

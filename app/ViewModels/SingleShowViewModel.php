@@ -54,7 +54,7 @@ class SingleShowViewModel extends ViewModel
     private function formatOriginCountry()
     {
         return collect($this->show['origin_country'])->map(function ($country) {
-            return COUNTRY_NAMES[$country] ?? '';
+            return countries()[$country] ?? '';
         })->implode(', ');
     }
 
