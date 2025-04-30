@@ -44,12 +44,22 @@ class SingleMovieViewModel extends ViewModel
         return array_slice($this->movie['images']['backdrops'], 0, 5);
     }
 
+    private function formatOriginCountry()
+    {
+        return collect($this->movie['origin_country'])->map(function ($country) {
+            return COUNTRY_NAMES[$country] ?? '';
+        })->implode(', ');
+    }
+
     public function getMovie()
     {
+
+
         return collect($this->movie)->merge([
             'poster_path' => "https://image.tmdb.org/t/p/original/" . $this->movie['poster_path'],
             'release_date' => Carbon::parse($this->movie['release_date'])->format('Y F'),
             'vote_average' => round($this->movie['vote_average'], 1),
+            'origin_country' => $this->formatOriginCountry(),
             'genres' => $this->formatGenres(),
             'credits' => $this->formatCast(),
             'images' => $this->formatImages()

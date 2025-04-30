@@ -20,6 +20,7 @@ class SingleShowViewModel extends ViewModel
             'poster_path' => 'https://image.tmdb.org/t/p/original/' . $this->show['poster_path'],
             'release_date' => Carbon::parse($this->show['first_air_date'])->format('Y F'),
             'vote_average' => round($this->show['vote_average'], 1),
+            'origin_country' => $this->formatOriginCountry(),
             'genres' => $this->formatGenres(),
             'credits' => $this->formatCast(),
             'images' => $this->formatImages()
@@ -49,4 +50,12 @@ class SingleShowViewModel extends ViewModel
         // Could use laravel collection ($collection->take(5)) but decided to use php built in.
         return array_slice($this->show['images']['backdrops'], 0, 5);
     }
+
+    private function formatOriginCountry()
+    {
+        return collect($this->show['origin_country'])->map(function ($country) {
+            return COUNTRY_NAMES[$country] ?? '';
+        })->implode(', ');
+    }
+
 }

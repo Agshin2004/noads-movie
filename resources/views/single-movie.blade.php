@@ -25,7 +25,7 @@
                     {{ $movie['release_date'] }} • {{ $movie['runtime'] }} min •
                     <span
                         class="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-[15px] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm hover:scale-105 transition-transform duration-200">
-                        {{ implode(', ', $movie['origin_country']) }}
+                        {{ $movie['origin_country'] }}                        
                     </span>
                 </div>
                 <div class="flex flex-wrap justify-center sm:justify-start gap-2 mb-4">
@@ -91,6 +91,35 @@
         </div>
 
         {{-- Player Tip and Player --}}
+        <div class="mt-25 mb-8 flex flex-col items-center space-y-4">
+            {{-- Scrolling warning text --}}
+            <div class="w-full overflow-hidden">
+                <div class="whitespace-nowrap animate-marquee animate-bgshift font-bold text-black py-2 px-6 rounded-lg shadow-xl text-center text-sm sm:text-base transition-colors duration-500"
+                    style="background: linear-gradient(-45deg, #f87171, #facc15, #4ade80, #60a5fa); background-size: 600% 600%;">
+                    ⚠️ Server not working? Try switching servers from the dropdown! ⚠️
+                </div>
+            </div>
+
+            {{-- Dropdown --}}
+            <div class="relative inline-block w-72">
+                <label for="serverSelect" class="block mb-3 text-pink-400 text-xl font-extrabold text-center tracking-wide">
+                    Select Streaming Server
+                </label>
+                <select id="serverSelect"
+                    class="w-full bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 text-white text-lg font-bold px-6 py-3 rounded-2xl border border-pink-600 shadow-2xl hover:ring-2 hover:ring-pink-400 focus:outline-none focus:ring-4 focus:ring-pink-500/90 transition-all duration-300 ease-in-out">
+                    <option value="1">🚀 Server 1</option>
+                    <option value="2">🔥 Server 2</option>
+                    <option value="3">⚡ Server 3</option>
+                    <option value="4">💥 Server 4</option>
+                    <option value="5">🌐 Server 5</option>
+                </select>
+            </div>
+        </div>
+        <div class="player-container">
+            <iframe src="https://vidsrc.cc/v2/embed/movie/{{ $movie['id'] }}?autoPlay=false"
+                class="movie-iframe w-full h-[450px] rounded-xl shadow-2xl" allowfullscreen></iframe>
+        </div>
+
         <div
             class="mt-16 mb-10 p-5 bg-gradient-to-r from-red-600 via-yellow-500 to-pink-600 text-white rounded-lg shadow-lg animate-pulse">
             <div class="flex items-center space-x-4">
@@ -101,16 +130,13 @@
                 </svg>
                 <div>
                     <p class="text-lg font-extrabold uppercase tracking-wide">⚡ Player Tip</p>
-                    <p class="text-sm font-medium">If the current server doesn't work, you can change it inside the player
+                    <p class="text-sm font-medium">Some servers provide additional ones that you may change inside the player
                         (top left corner).</p>
                 </div>
             </div>
         </div>
 
-        <div class="player-container">
-            <iframe src="https://vidsrc.cc/v2/embed/movie/{{ $movie['id'] }}?autoPlay=false"
-                class="w-full h-[450px] rounded-xl shadow-2xl" allowfullscreen></iframe>
-        </div>
+
 
         {{-- Star Rating --}}
         <livewire:ratings :movieOrShowId="$movie['id']" />
@@ -149,4 +175,36 @@
         <livewire:comments :id="$movie['id']" />
 
     </div>
+
+    @push('scripts')
+        <script>
+            document.getElementById('serverSelect').addEventListener('change', (e) => {
+                const server = e.target.value;
+                const iframe = document.querySelector('.movie-iframe');
+                console.log(iframe.src);
+                const movieId = '{{ $movie['id'] }}'
+
+                let src = '';
+                switch (server) {
+                    case '1':
+                        src = `https://vidsrc.to/v2/embed/movie/${movieId}?autoPlay=false`
+                        break;
+                    case '2':
+                        src = `https://www.2embed.cc/embed/${movieId}`;
+                        break;
+                    case '3':
+                        src = `https://vidsrc.cc/v3/embed/movie/${movieId}?autoPlay=false`;
+                        break;
+                    case '4':
+                        src = `https://embed.su/embed/movie/${movieId}`
+                        break;
+                    case '5':
+                        src = `https://letsembed.cc/embed/movie/?id=${movieId}`;
+                        break;
+                }
+
+                iframe.src = src;
+            });
+        </script>
+    @endpush
 @endsection
