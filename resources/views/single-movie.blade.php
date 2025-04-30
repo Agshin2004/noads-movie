@@ -113,39 +113,7 @@
         </div>
 
         {{-- Star Rating --}}
-        <div class="mt-10 bg-gray-900/70 rounded-xl p-6 shadow-lg">
-            <h2 class="text-2xl font-extrabold text-white text-center mb-2">Rate This Movie</h2>
-
-            {{-- Average Rating Display --}}
-            <div class="text-center mb-6">
-                <div class="text-yellow-400 text-3xl font-bold">
-                    5/10
-                </div>
-                <div class="text-sm text-gray-400">
-                    Based on 100 rating(s)
-                </div>
-            </div>
-
-            <form method="POST" action="/rate" class="flex flex-col items-center">
-                @csrf
-
-                <fieldset class="flex flex-row-reverse justify-center gap-2">
-                    @for ($i = 10; $i >= 1; $i--)
-                        <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}"
-                            class="hidden peer" required />
-                        <label for="star{{ $i }}"
-                            class="text-4xl cursor-pointer text-gray-500 transition-all duration-300 
-                           peer-hover:text-yellow-400 peer-checked:text-yellow-500 
-                           peer-hover:scale-110 peer-checked:scale-125">&#9733;</label>
-                    @endfor
-                </fieldset>
-
-                <button type="submit"
-                    class="cursor-pointer mt-6 bg-gradient-to-r from-yellow-500 to-pink-500 text-white font-semibold py-2 px-6 rounded-full hover:scale-105 transition-transform duration-300 shadow-md">
-                    Submit Rating
-                </button>
-            </form>
-        </div>
+        <livewire:ratings :movieOrShowId="$movie['id']" />
 
 
         {{-- Images --}}

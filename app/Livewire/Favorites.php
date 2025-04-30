@@ -19,7 +19,7 @@ class Favorites extends Component
         if (auth()->check()) {
             $this->added = Favorite::where('user_id', auth()->user()->id)
                 ->where('movieOrShowId', $this->id)
-                ->exists();
+                ->exists(); // Determine if any rows exist for the current query
         }
     }
 
@@ -31,7 +31,7 @@ class Favorites extends Component
 
         $inFavorites = Favorite::where('user_id', auth()->user()->id)
             ->where('movieOrShowId', $this->id)
-            ->exists();
+            ->exists(); // Determine if any rows exist for the current query
 
         if (!$inFavorites) {
             Favorite::create([

@@ -11,15 +11,20 @@ class Comments extends Component
     public string $body = '';
     public $comments;
 
+    protected $rules = [
+        'id' => ['required'],
+        'body' => ['required', 'min:4']
+    ];
+
+    protected $validationMessages = [
+        'body.required' => 'Comment is required',
+        'body.min' => 'Comment is too short.',
+    ];
+
     public function mount($id)
     {
         $this->id = $id;
         $this->comments = $this->loadComments();
-    }
-
-    public function loadComments()
-    {
-        return Comment::where('movieOrShowId', $this->id)->latest()->get();
     }
 
     public function createComment()
@@ -28,10 +33,9 @@ class Comments extends Component
             return redirect()->route('login')->with('fail', 'Must be logged in to use the feature.');
         }
 
-        if (strlen($this->body) < 3) {
-            return back()->with('fail', 'Comment is too short');
-        }
+        $this->validate();
 
+        // if validation wassuccessful
         Comment::create([
             'user_id' => auth()->id(),
             'movieOrShowId' => $this->id,
@@ -45,5 +49,10 @@ class Comments extends Component
     public function render()
     {
         return view('livewire.comments');
+    }
+
+    private function loadComments()
+    {
+        return Comment::where('movieOrShowId', $this->id)->latest()->get();
     }
 }

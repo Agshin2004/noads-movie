@@ -133,6 +133,8 @@
             </div>
         </div>
 
+        <livewire:ratings :movieOrShowId="$tvShow['id']" />
+
         {{-- Images --}}
         <section class="mt-20 mb-16">
             <div class="text-center mb-10">
