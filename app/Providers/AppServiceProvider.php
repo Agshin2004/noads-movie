@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\ReCaptcha;
+use App\Helpers\ReCaptcha;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
