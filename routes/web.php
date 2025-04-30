@@ -39,7 +39,7 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
         ->middleware('guest');
     Route::get('/logout', 'logout')
         ->name('logout')
-        ->middleware('guest');
+        ->middleware('loggedIn');
 
     Route::post('/register', 'register')
         ->middleware('guest');

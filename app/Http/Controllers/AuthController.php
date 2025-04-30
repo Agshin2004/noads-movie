@@ -62,13 +62,16 @@ class AuthController extends Controller
         if ($user && Hash::check($credentials['secretkey'], $user->secretkey)) {
             auth()->login($user);
 
-            return redirect(route('index'));
+            return redirect()->route('index')->with('success', 'Logged in successfully!');
         }
 
-        return redirect(route('login'))->with('fail', 'Wrong username or secret key');
+        // Authentication failed
+        return back()->withErrors([
+            'username' => 'Wrong username or secret key.'
+        ])->withInput(); // withInput() method is used to flash the old input data to the session, so it can be automatically repopulated in the form fields when the page is redirected back
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         auth()->logout();
         return redirect('/');

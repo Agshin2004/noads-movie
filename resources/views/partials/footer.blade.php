@@ -129,5 +129,15 @@
                     });
                 </script>
             @endif
+
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            alertify.error('{{ $error }}')
+                        });
+                    </script>
+                @endforeach
+            @endif
         @endpush
 </footer>

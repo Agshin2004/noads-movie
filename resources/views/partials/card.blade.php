@@ -16,7 +16,7 @@
             <!-- Rating and Watch Button -->
             <div class="flex items-center justify-between mt-3">
                 <span class="text-yellow-400 text-sm font-semibold">⭐ {{ $rating }}</span>
-                <button class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-gradient-to-l text-xs font-semibold px-4 py-2 rounded-lg transform transition duration-300 hover:scale-105">
+                <button class="cursor-pointer bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-gradient-to-l text-xs font-semibold px-4 py-2 rounded-lg transform transition duration-300 hover:scale-105">
                     Watch Now
                 </button>
             </div>

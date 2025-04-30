@@ -8,7 +8,7 @@ use Livewire\Component;
 class Comments extends Component
 {
     public int $id;
-    public string $body;
+    public string $body = '';
     public $comments;
 
     public function mount($id)
@@ -26,6 +26,10 @@ class Comments extends Component
     {
         if (!auth()->check()) {
             return redirect()->route('login')->with('fail', 'Must be logged in to use the feature.');
+        }
+
+        if (strlen($this->body) < 3) {
+            return back()->with('fail', 'Comment is too short');
         }
 
         Comment::create([
