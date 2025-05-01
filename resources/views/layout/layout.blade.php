@@ -19,9 +19,9 @@
     <title>ZMA Movie</title>
 </head>
 
-<body class="text-white">
+<body class="text-white ">
     @include('partials.navbar')
-    <main>
+    <main class="">
         @yield('content')
 
     </main>
