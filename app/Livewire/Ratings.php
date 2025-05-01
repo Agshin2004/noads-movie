@@ -12,6 +12,7 @@ class Ratings extends Component
     public int $ratingCount;
     public int $ratingAverage;
     public $rated;
+
     protected $rules = [
         'rating' => ['required', 'integer', 'between:1,10']
     ];
@@ -33,6 +34,10 @@ class Ratings extends Component
 
     public function submitRating()
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('fail', 'Must be logged in to use the feature.');
+        }
+
         $this->validate();
 
         // if validatio nwas successful
@@ -69,5 +74,4 @@ class Ratings extends Component
     {
         return Rating::where('movieOrShowId', $this->movieOrShowId)->avg('rating') ?? 0;
     }
-
 }
