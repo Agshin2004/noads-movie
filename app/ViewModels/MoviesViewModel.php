@@ -37,7 +37,6 @@ class MoviesViewModel extends ViewModel
             // Overriding popularMovie with new modified values using merge() function
             return collect($movie)
                 ->merge([
-                    // TODO: Change original to low resolution in production
                     'backdrop_path' => 'https://image.tmdb.org/t/p/w780/' . $movie['backdrop_path'],
                     'release_date' => Carbon::parse($movie['release_date'])->format('Y F'),
                     'vote_average' => round($movie['vote_average'], 1),

@@ -3,7 +3,7 @@
 @section('content')
     <div
         class="w-1/2 bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-600 text-white text-center py-8 mt-5 mb-6 rounded-lg shadow-md  mx-auto">
-        <h1 class="text-4xl font-extrabold">Favorites</h1>
+        <h1 class="text-lg sm:text-4xl font-extrabold">Favorites</h1>
     </div>
     <div class="flex flex-wrap gap-8 m-8 justify-center">
         @forelse($movies as $movie)
@@ -21,7 +21,7 @@
             </div>
         @empty
             <h2
-                class="mt-10 mb-10 text-4xl sm:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 animate-bounce">
+                class="text-center mt-10 mb-10 text-4xl sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 animate-bounce">
                 No Movies here...
             </h2>
         @endforelse

@@ -56,7 +56,7 @@ class SingleMovieViewModel extends ViewModel
 
 
         return collect($this->movie)->merge([
-            'poster_path' => "https://image.tmdb.org/t/p/original/" . $this->movie['poster_path'],
+            'poster_path' => "https://image.tmdb.org/t/p/w780/" . $this->movie['poster_path'],
             'release_date' => Carbon::parse($this->movie['release_date'])->format('Y F'),
             'vote_average' => round($this->movie['vote_average'], 1),
             'origin_country' => $this->formatOriginCountry(),

@@ -5,7 +5,7 @@
         <div class="flex flex-col md:flex-row w-full max-w-7xl overflow-hidden rounded-xl shadow-xl bg-opacity-80 backdrop-blur-lg">
             <!-- Actor Image -->
             <div class="w-full md:w-1/2 p-6">
-                <img src="https://image.tmdb.org/t/p/original/{{ $person['profile_path'] }}" alt="Actor Image"
+                <img src="https://image.tmdb.org/t/p/h632/{{ $person['profile_path'] }}" alt="Actor Image"
                     class="w-full h-full object-cover rounded-xl shadow-2xl transition-transform duration-300 hover:scale-105">
             </div>
 

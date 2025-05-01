@@ -17,7 +17,7 @@ class SingleShowViewModel extends ViewModel
     public function getShow()
     {
         return collect($this->show)->merge([
-            'poster_path' => 'https://image.tmdb.org/t/p/original/' . $this->show['poster_path'],
+            'poster_path' => 'https://image.tmdb.org/t/p/w780/' . $this->show['poster_path'],
             'release_date' => Carbon::parse($this->show['first_air_date'])->format('Y F'),
             'vote_average' => round($this->show['vote_average'], 1),
             'origin_country' => $this->formatOriginCountry(),

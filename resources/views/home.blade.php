@@ -23,12 +23,13 @@
                                             ||
                                             (isset($movieShow['original_name'], $movieShow['name']) && $movieShow['original_name'] !== $movieShow['name'])
                                         )
-                                            <span class="text-lg sm:text-xl md:text-2xl text-gray-300 italic mb-1 block">
+                                            <span class="text-lg sm:text-xl md:text-2xl text-gray-200 italic mb-2 block">
                                                 {{ $movieShow['original_title'] ?? $movieShow['original_name'] }}
                                             </span>                                
                                         @endif
                                         <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
-                                            {{ $movieShow['title'] ?? $movieShow['name'] }}</h2>
+                                            {{ $movieShow['title'] ?? $movieShow['name'] }}
+                                        </h2>
                                         
                                         {{-- vote, year, type --}}
                                         <div class="flex items-center mb-4 flex-wrap gap-3">
