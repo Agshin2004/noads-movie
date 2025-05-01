@@ -30,7 +30,7 @@ class AuthController extends Controller
         $secretKeyPassword = $generator->generateString(16, 'abczxc!@#$%^&*');
 
         // 'g-recaptcha-response' is the name of the hidden
-        $validatedCredentials = $request->validate([
+        $request->validate([
             'username' => ['required', 'min:1', 'max:32'],
             'g-recaptcha-response' => 'required|recaptcha'
         ], [
@@ -38,8 +38,12 @@ class AuthController extends Controller
             'g-recaptcha-response.recaptcha' => 'Failed ReCaptcha. Try again laterr'
         ]);
 
+        if (User::where('username', $request->input('username'))->exists()) {
+            return back()->with('fail', 'Username already exists!');
+        } 
+        
         $user = User::create([
-            'username' => $validatedCredentials['username'],
+            'username' => $request->input('username'),
             'secretkey' => Hash::make($secretKeyPassword, ['rounds' => 8])
         ]);
 

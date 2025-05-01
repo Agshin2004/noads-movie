@@ -4,7 +4,7 @@
         <label class="inline-flex items-center cursor-pointer">
             <input wire:model="movieOrTv" type="radio" class="peer hidden" value="movie">
             <span
-                class="px-6 py-2 rounded-full text-md font-bold border-2 border-emerald-300
+                class="px-4 sm:px-6 py-1 sm:py-2 rounded-full text-sm sm:text-md font-bold border-2 border-emerald-300
                    bg-gray-800 text-emerald-200
                    peer-checked:bg-gradient-to-r peer-checked:from-emerald-500 peer-checked:to-teal-500 
                    peer-checked:text-white peer-checked:border-emerald-400
@@ -18,7 +18,7 @@
         <label class="inline-flex items-center cursor-pointer">
             <input wire:model="movieOrTv" type="radio" class="peer hidden" value="tv">
             <span
-                class="px-6 py-2 rounded-full text-md font-bold border-2 border-purple-300
+                class="px-4 sm:px-6 py-1 sm:py-2 rounded-full text-sm sm:text-md font-bold border-2 border-purple-300
                    bg-gray-800 text-purple-100
                    peer-checked:bg-gradient-to-r peer-checked:from-purple-600 peer-checked:to-pink-500 
                    peer-checked:text-white peer-checked:border-purple-500

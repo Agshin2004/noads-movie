@@ -29,7 +29,7 @@ class FavoritesController extends Controller
             })->toarray();
 
             return collect($movie)->merge([
-                'poster_path' => $movie['poster_path'] ? 'https://image.tmdb.org/t/p/original/' . $movie['poster_path'] : asset('images/notfound.jpg'),
+                'poster_path' => $movie['poster_path'] ? 'https://image.tmdb.org/t/p/w300/' . $movie['poster_path'] : asset('images/notfound.jpg'),
                 'release_date' => Carbon::parse($movie['release_date'] ?? $movie['first_air_date'])->format('Y F'),
                 'vote_average' => round($movie['vote_average'], 1),
                 'genres' => implode(', ', $genres)

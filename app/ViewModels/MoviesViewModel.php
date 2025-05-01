@@ -38,7 +38,7 @@ class MoviesViewModel extends ViewModel
             return collect($movie)
                 ->merge([
                     // TODO: Change original to low resolution in production
-                    'backdrop_path' => 'https://image.tmdb.org/t/p/original/' . $movie['backdrop_path'],
+                    'backdrop_path' => 'https://image.tmdb.org/t/p/w780/' . $movie['backdrop_path'],
                     'release_date' => Carbon::parse($movie['release_date'])->format('Y F'),
                     'vote_average' => round($movie['vote_average'], 1),
                     'genres' => $genresFormatted,

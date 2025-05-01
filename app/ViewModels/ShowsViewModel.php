@@ -31,7 +31,7 @@ class ShowsViewModel extends ViewModel
 
             return collect($show)->merge([
                 'original_title' => $show['original_name'],
-                'backdrop_path' => 'https://image.tmdb.org/t/p/original/' . $show['backdrop_path'],
+                'backdrop_path' => 'https://image.tmdb.org/t/p/w780/' . $show['backdrop_path'],
                 'release_date' => Carbon::parse($show['first_air_date'])->format('Y F'),
                 'vote_average' => round($show['vote_average'], 1),
                 'genres' => $genresFormatted,

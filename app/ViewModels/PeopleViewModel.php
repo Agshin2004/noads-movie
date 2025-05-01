@@ -57,7 +57,7 @@ class PeopleViewModel extends ViewModel
         // Assigning items to field so we can access it and render it on page
         $this->paginationLinks = $paginatedItems;
         return collect($paginatedItems->items())->map(function ($movie) {
-            $imageUrl = $movie['poster_path'] ? 'https://image.tmdb.org/t/p/original/' . $movie['poster_path'] : asset('images/notfound.jpg');
+            $imageUrl = $movie['poster_path'] ? 'https://image.tmdb.org/t/p/w342/' . $movie['poster_path'] : asset('images/notfound.jpg');
 
             $genres = collect($movie['genre_ids'])->map(function($genreId) {
                 return genres()[$genreId] ?? null;

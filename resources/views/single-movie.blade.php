@@ -65,7 +65,7 @@
                     <a href="{{ route('person', ['personId' => $actor['id']]) }}">
                         <div
                             class="text-center bg-gray-800/40 rounded-lg p-4 hover:scale-105 transition-transform duration-300">
-                            <img src="https://image.tmdb.org/t/p/original/{{ $actor['profile_path'] }}" alt="Cast Member"
+                            <img src="https://image.tmdb.org/t/p/w185/{{ $actor['profile_path'] }}" alt="Cast Member"
                                 class="w-24 h-24 object-cover rounded-full mx-auto mb-3 border-2 border-pink-500">
                             <p class="text-lg font-semibold text-white">{{ $actor['name'] }}</p>
                             <p class="text-gray-400 text-sm">{{ $actor['character'] }}</p>
@@ -158,7 +158,7 @@
                         <ul class="splide__list">
                             @foreach ($movie['images'] as $image)
                                 <li class="splide__slide transition-transform duration-500 hover:scale-105">
-                                    <img src="https://image.tmdb.org/t/p/original/{{ $image['file_path'] }}"
+                                    <img src="https://image.tmdb.org/t/p/w780/{{ $image['file_path'] }}"
                                         class="w-full object-contain">
                                 </li>
                             @endforeach

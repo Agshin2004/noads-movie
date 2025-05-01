@@ -151,7 +151,7 @@
                         <ul class="splide__list">
                             @foreach ($tvShow['images'] as $show)
                                 <li class="splide__slide transition-transform duration-500 hover:scale-105">
-                                    <img src="https://image.tmdb.org/t/p/original/{{ $show['file_path'] }}"
+                                    <img src="https://image.tmdb.org/t/p/w780/{{ $show['file_path'] }}"
                                         class="w-full object-contain">
                                 </li>
                             @endforeach
