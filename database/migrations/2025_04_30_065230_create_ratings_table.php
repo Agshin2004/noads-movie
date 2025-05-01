@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->integer('movieOrShowId');
             $table->unsignedInteger('rating');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
