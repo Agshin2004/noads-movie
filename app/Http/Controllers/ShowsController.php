@@ -48,8 +48,13 @@ class ShowsController extends Controller
                 "$this->baseUrl/tv/$id?append_to_response=videos,credits,images"
             )
             ->json();
-        $viewModel = new SingleShowViewModel($tvDetails);
+            
+        if (isset($tvDetails['success'])) {
+            return abort(404);
+        }
 
+        $viewModel = new SingleShowViewModel($tvDetails);
+        
 
         // Get Show Trailer
         $trailerKey = null;

@@ -82,6 +82,11 @@ class MoviesController extends Controller
     {
         $movieDetails = Http::withToken($this->apiKey)->get("$this->baseUrl/movie/$id?append_to_response=videos,credits,images")->json();
 
+        if (isset($movieDetails['success'])) {
+            return abort(404);
+        }
+
+
         $genres = collect($movieDetails['genres'])->map(function ($genre) {
             return genres()[$genre['id']] ?? null;
         })->filter();

@@ -50,6 +50,10 @@ class PeopleController extends Controller
             ->get("$this->baseUrl/person/$personId")
             ->json();
 
+        if (isset($person['success'])) {
+            return abort(404);
+        }
+
         $movieCredits = Http::withToken($this->apiKey)
             ->get("$this->baseUrl/person/$personId/movie_credits?language=en-US")
             ->json()['cast'];
