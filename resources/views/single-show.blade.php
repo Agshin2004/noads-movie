@@ -41,7 +41,7 @@
                 <p class="text-gray-300 italic mb-6">{{ $tvShow['tagline'] }}</p>
                 <div class="flex justify-center sm:justify-start gap-4">
                     <button
-                        class="cursor-pointer bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-2 px-6 rounded-full transition duration-300"
+                        class="sm:text-sm cursor-pointer bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-2 px-6 rounded-full transition duration-300"
                         data-micromodal-trigger="modal-1">
                         🎬 See Trailer
                     </button>

@@ -20,7 +20,7 @@
             </div>
         @else
             <!-- Responsive star rating -->
-            <fieldset class="flex flex-wrap justify-center gap-1 sm:gap-2 mt-4">
+            <fieldset class="flex flex-wrap justify-center flex-row-reverse gap-1 sm:gap-2 mt-4">
                 @for ($i = 10; $i >= 1; $i--)
                     <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}"
                         class="hidden peer" required wire:model="rating" />

@@ -4,6 +4,42 @@ import Splide from "@splidejs/splide";
 import "flowbite";
 import Alpine from "alpinejs";
 
+// vidsrc has bunch of console errors, so I decided to clear console after 1 sec
+setTimeout(() => {
+    console.clear();
+}, 1000);
+
+window.fetchPlayers = (movieId) => {
+    document
+        .getElementById("serverSelect")
+        .addEventListener("change", (e) => {
+            const server = e.target.value;
+            const iframe = document.querySelector(".movie-iframe");
+            console.log(iframe.src);
+
+            let src = "";
+            switch (server) {
+                case "1":
+                    src = `https://vidsrc.to/v2/embed/movie/${movieId}?autoPlay=false`;
+                    break;
+                case "2":
+                    src = `https://www.2embed.cc/embed/${movieId}`;
+                    break;
+                case "3":
+                    src = `https://vidsrc.cc/v3/embed/movie/${movieId}?autoPlay=false`;
+                    break;
+                case "4":
+                    src = `https://embed.su/embed/movie/${movieId}`;
+                    break;
+                case "5":
+                    src = `https://letsembed.cc/embed/movie/?id=${movieId}`;
+                    break;
+            }
+            iframe.src = src;
+        });
+    };
+
+
 document.addEventListener("DOMContentLoaded", function () {
     if (
         location.pathname.includes("/movie/") ||

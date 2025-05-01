@@ -25,7 +25,7 @@
                     {{ $movie['release_date'] }} • {{ $movie['runtime'] }} min •
                     <span
                         class="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-[15px] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm hover:scale-105 transition-transform duration-200">
-                        {{ $movie['origin_country'] }}                        
+                        {{ $movie['origin_country'] }}
                     </span>
                 </div>
                 <div class="flex flex-wrap justify-center sm:justify-start gap-2 mb-4">
@@ -39,7 +39,7 @@
                 <p class="text-gray-300 italic mb-6">{{ $movie['tagline'] }}</p>
                 <div class="flex justify-center sm:justify-start gap-4">
                     <button
-                        class="cursor-pointer bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-2 px-6 rounded-full transition duration-300"
+                        class="sm:text-sm cursor-pointer bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-2 px-6 rounded-full transition duration-300"
                         data-micromodal-trigger="modal-1">
                         🎬 See Trailer
                     </button>
@@ -93,12 +93,13 @@
         {{-- Player Tip and Player --}}
         <div class="mt-25 mb-8 flex flex-col items-center space-y-4">
             {{-- Scrolling warning text --}}
-            <div class="w-full overflow-hidden">
-                <div class="whitespace-nowrap animate-marquee animate-bgshift font-bold text-black py-2 px-6 rounded-lg shadow-xl text-center text-sm sm:text-base transition-colors duration-500"
+            <div class="w-full overflow-hidden px-4 sm:px-6">
+                <div class="animate-marquee animate-bgshift font-bold text-black py-2 px-4 sm:px-6 rounded-lg shadow-xl text-center text-sm sm:text-base transition-colors duration-500 leading-snug"
                     style="background: linear-gradient(-45deg, #f87171, #facc15, #4ade80, #60a5fa); background-size: 600% 600%;">
-                    ⚠️ Server not working? Try switching servers from the dropdown! ⚠️
+                    ⚠️ Server not working? <span class="block sm:inline">Try switching servers from the dropdown!</span> ⚠️
                 </div>
             </div>
+
 
             {{-- Dropdown --}}
             <div class="relative inline-block w-72">
@@ -130,7 +131,8 @@
                 </svg>
                 <div>
                     <p class="text-lg font-extrabold uppercase tracking-wide">⚡ Player Tip</p>
-                    <p class="text-sm font-medium">Some servers provide additional ones that you may change inside the player
+                    <p class="text-sm font-medium">Some servers provide additional ones that you may change inside the
+                        player
                         (top left corner).</p>
                 </div>
             </div>
@@ -178,32 +180,8 @@
 
     @push('scripts')
         <script>
-            document.getElementById('serverSelect').addEventListener('change', (e) => {
-                const server = e.target.value;
-                const iframe = document.querySelector('.movie-iframe');
-                console.log(iframe.src);
-                const movieId = '{{ $movie['id'] }}'
-
-                let src = '';
-                switch (server) {
-                    case '1':
-                        src = `https://vidsrc.to/v2/embed/movie/${movieId}?autoPlay=false`
-                        break;
-                    case '2':
-                        src = `https://www.2embed.cc/embed/${movieId}`;
-                        break;
-                    case '3':
-                        src = `https://vidsrc.cc/v3/embed/movie/${movieId}?autoPlay=false`;
-                        break;
-                    case '4':
-                        src = `https://embed.su/embed/movie/${movieId}`
-                        break;
-                    case '5':
-                        src = `https://letsembed.cc/embed/movie/?id=${movieId}`;
-                        break;
-                }
-
-                iframe.src = src;
+            document.addEventListener('DOMContentLoaded', () => {
+                fetchPlayers({{ $movie['id'] }})
             });
         </script>
     @endpush
