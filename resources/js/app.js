@@ -13,7 +13,6 @@ window.fetchPlayers = (movieId) => {
     document.getElementById("serverSelect").addEventListener("change", (e) => {
         const server = e.target.value;
         const iframe = document.querySelector(".movie-iframe");
-        console.log(iframe.src);
 
         let src = "";
         switch (server) {
@@ -39,44 +38,57 @@ window.fetchPlayers = (movieId) => {
 
 window.fetchShows = (showId) => {
     //  'https://api.themoviedb.org/3/tv/1399/season/1?language=en-US'
-    const seasonEl = document.getElementById("season");
 
-    seasonEl.addEventListener("change", async function () {
-        const season = this.value;
-        const res = await axios.get(
-            `https://api.themoviedb.org/3/tv/${showId}/season/${season}`,
-            {
-                headers: {
-                    Authorization:
-                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZDFiYmY3OWIxYTljZjQwMGRlOGUyZmUyODJmZjRlYiIsIm5iZiI6MTc0NTA1MzY2MS40MDQsInN1YiI6IjY4MDM2N2RkZTAzMjA3ZDBiMWQ5NThkMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZYW8tQc_Ax8njZWG9BbzgMUoeLpkQFs6u9GLeKtxmCk",
-                },
-            }
-        );
-        const episodes = res.data.episodes;
+    insertEpisodes(showId);
+    const iframe = document.querySelector(".show-iframe");
+    let season = 1;
+    let url = '';
 
-        const episodeSelectEl = document.getElementById("episode");
-
-        // not the cleanest solution but removes all options from select
-        episodeSelectEl.innerHTML = "";
-
-        episodes.map((episode) => {
-            const optionEl = document.createElement("option");
-            optionEl.value = episode.episode_number;
-            optionEl.innerHTML = `${episode.episode_number} - ${episode.name}`;
-            episodeSelectEl.append(optionEl);
-        });
-        const iframe = document.querySelector(".show-iframe");
-        let url = `https://vidsrc.cc/v2/embed/tv/1399/${season}/1?autoPlay=false`;
-        iframe.src = url;
-
-        episodeSelectEl.addEventListener("change", function () {
-            const episode = this.value;
-            // Change episode to selected from player that is used rn
-            url = `https://vidsrc.cc/v2/embed/tv/1399/${season}/${episode}?autoPlay=false`;
+    document
+        .getElementById("season")
+        .addEventListener("change", async function () {
+            season = this.value;
+            url = `https://vidsrc.cc/v2/embed/tv/${showId}/${season}/1?autoPlay=false`;
             iframe.src = url;
+
+            insertEpisodes(showId, season);
         });
+
+    document.getElementById("episode").addEventListener("change", function () {
+        const episode = this.value;
+        // Change episode to selected from player that is used rn
+        url = `https://vidsrc.cc/v2/embed/tv/${showId}/${season}/${episode}?autoPlay=false`;
+        iframe.src = url;
     });
 };
+
+async function fetchEpisodes(showId, season = 1) {
+    const res = await axios.get(
+        `https://api.themoviedb.org/3/tv/${showId}/season/${season}`,
+        {
+            headers: {
+                Authorization:
+                    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZDFiYmY3OWIxYTljZjQwMGRlOGUyZmUyODJmZjRlYiIsIm5iZiI6MTc0NTA1MzY2MS40MDQsInN1YiI6IjY4MDM2N2RkZTAzMjA3ZDBiMWQ5NThkMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZYW8tQc_Ax8njZWG9BbzgMUoeLpkQFs6u9GLeKtxmCk",
+            },
+        }
+    );
+
+    return res.data.episodes;
+}
+
+async function insertEpisodes(showId, season) {
+    const episodes = await fetchEpisodes(showId, season);
+    const episodeSelectEl = document.getElementById("episode");
+
+    // not the cleanest solution but removes all options from select
+    episodeSelectEl.innerHTML = "";
+    episodes.map((episode) => {
+        const optionEl = document.createElement("option");
+        optionEl.value = episode.episode_number;
+        optionEl.innerHTML = `${episode.episode_number} - ${episode.name}`;
+        episodeSelectEl.append(optionEl);
+    });
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     if (

@@ -138,7 +138,7 @@
                     <label for="episode" class="block text-sm font-semibold text-gray-300 mb-2">Episode</label>
                     <select id="episode"
                         class="w-full bg-gray-900 text-white border border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition duration-200">
-                        <option>Select a season first</option>
+                        {{-- Options are added in js --}}
                     </select>
                 </div>
             </div>
@@ -197,7 +197,7 @@
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                fetchShows(1399);
+                fetchShows({{ $tvShow['id'] }});
             });
         </script>
     @endpush
