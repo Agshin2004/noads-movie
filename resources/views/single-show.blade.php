@@ -126,6 +126,9 @@
                     <select id="season"
                         class="w-full bg-gray-900 text-white border border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:outline-none transition duration-200">
                         @foreach ($tvShow['seasons'] as $season)
+                            @if (strtolower($season['name']) === 'specials')
+                                @continue
+                            @endif
                             <option value="{{ $season['season_number'] }}">
                                 Season {{ $season['season_number'] }} ({{ $season['episode_count'] }} episodes)
                             </option>
