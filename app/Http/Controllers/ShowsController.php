@@ -49,7 +49,6 @@ class ShowsController extends Controller
             )
             ->json();
 
-        dump($tvDetails);
             
         if (isset($tvDetails['success'])) {
             return abort(404);
