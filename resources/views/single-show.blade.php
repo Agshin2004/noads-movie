@@ -170,21 +170,23 @@
         {{-- Images --}}
         <section class="mt-20 mb-16">
             <div class="text-center mb-10">
-                <h2
-                    class="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 animate-pulse">
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 animate-pulse">
                     Movie Gallery
                 </h2>
                 <p class="mt-2 text-gray-400 text-sm sm:text-base">Swipe through awesome moments</p>
             </div>
-
-            <div class="images-wrapper px-4">
+        
+            <div class="images-wrapper px-4 relative">
                 <div class="splide" id="image-slider">
-                    <div class="splide__track rounded-xl overflow-hidden shadow-lg ring-2 ring-pink-500/50">
+                    <div class="splide__track overflow-hidden rounded-xl shadow-lg">
                         <ul class="splide__list">
                             @foreach ($tvShow['images'] as $show)
-                                <li class="splide__slide transition-transform duration-500 hover:scale-105">
-                                    <img src="https://image.tmdb.org/t/p/w780/{{ $show['file_path'] }}"
-                                        class="w-full object-contain">
+                                <li class="splide__slide group">
+                                    <div class="overflow-hidden rounded-xl">
+                                        <img src="https://image.tmdb.org/t/p/w780/{{ $show['file_path'] }}"
+                                             alt="Gallery Image"
+                                             class="w-full h-64 sm:h-80 object-cover transition-transform duration-500 group-hover:scale-105">
+                                    </div>
                                 </li>
                             @endforeach
                         </ul>
