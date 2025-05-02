@@ -4,12 +4,13 @@ import Splide from "@splidejs/splide";
 import "flowbite";
 import Alpine from "alpinejs";
 
+// TODO: Add in prod
 // vidsrc has bunch of console errors, so I decided to clear console after 1 sec
-// setTimeout(() => {
-//     console.clear();
-// }, 1000);
+setTimeout(() => {
+    console.clear();
+}, 1000);
 
-window.fetchPlayers = (movieId) => {
+window.fetchMoviePlayers = (movieId) => {
     document.getElementById("serverSelect").addEventListener("change", (e) => {
         const server = e.target.value;
         const iframe = document.querySelector(".movie-iframe");
@@ -40,27 +41,61 @@ window.fetchShows = (showId) => {
     //  'https://api.themoviedb.org/3/tv/1399/season/1?language=en-US'
 
     insertEpisodes(showId);
+    
     const iframe = document.querySelector(".show-iframe");
-    let season = 1;
-    let url = '';
+    let episode = '1'; // Defualt to 1
+    let season = '1'; // Default to 1
+    let serverNum = '1'; // Default to 1 (vidsrc)
+    let embedApiUrl = `https://vidsrc.cc/v2/embed/tv/${showId}/${season}/1?autoPlay=false`; // by default use vidsrc
 
     document
         .getElementById("season")
         .addEventListener("change", async function () {
             season = this.value;
-            url = `https://vidsrc.cc/v2/embed/tv/${showId}/${season}/1?autoPlay=false`;
-            iframe.src = url;
+
+            embedApiUrl = changeShowServer(showId, serverNum, season, episode);
+            iframe.src = embedApiUrl;
 
             insertEpisodes(showId, season);
         });
 
     document.getElementById("episode").addEventListener("change", function () {
-        const episode = this.value;
+        episode = this.value;
+
         // Change episode to selected from player that is used rn
-        url = `https://vidsrc.cc/v2/embed/tv/${showId}/${season}/${episode}?autoPlay=false`;
-        iframe.src = url;
+        embedApiUrl = changeShowServer(showId, serverNum, season, episode);
+        iframe.src = embedApiUrl;
+    });
+
+    document.getElementById("serverSelect").addEventListener('change', function () {
+        serverNum = this.value;
+
+        embedApiUrl = changeShowServer(showId, serverNum, season, episode);
+        iframe.src = embedApiUrl;
     });
 };
+
+function changeShowServer(showId, serverNum, season, episode) {
+    let url = "";
+    switch (serverNum) {
+        case '1':
+            url = `https://vidsrc.cc/v2/embed/tv/${showId}/${season}/${episode}?autoPlay=false`;
+            break;
+        case '2':
+            url = `https://2embed.skin/embedtv/${showId}&s=${season}&e=${episode}`;
+            break;
+        case '3':
+            url = `https://embed.su/embed/tv/${showId}/${season}/${episode}`;
+            break;
+        case '4':
+            url = `https://letsembed.cc/embed/tv/?id=${showId}/${season}/${episode}`;
+            break;
+        case '5':
+            url = `https://vidsrc.cc/v3/embed/tv/${showId}/${season}/${episode}?autoPlay=false`;
+            break;
+    }
+    return url;
+}
 
 async function fetchEpisodes(showId, season = 1) {
     const res = await axios.get(

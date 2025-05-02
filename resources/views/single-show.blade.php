@@ -111,6 +111,33 @@
             </div>
         </div>
 
+        {{-- Player Tip and Player --}}
+        <div class="mt-25 mb-8 flex flex-col items-center space-y-4">
+            {{-- Scrolling warning text --}}
+            <div class="w-full overflow-hidden px-4 sm:px-6">
+                <div class="animate-marquee animate-bgshift font-bold text-black py-2 px-4 sm:px-6 rounded-lg shadow-xl text-center text-sm sm:text-base transition-colors duration-500 leading-snug"
+                    style="background: linear-gradient(-45deg, #f87171, #facc15, #4ade80, #60a5fa); background-size: 600% 600%;">
+                    ⚠️ Server not working? <span class="block sm:inline">Try switching servers from the dropdown!</span> ⚠️
+                </div>
+            </div>
+
+
+            {{-- Dropdown --}}
+            <div class="relative inline-block w-72">
+                <label for="serverSelect" class="block mb-3 text-pink-400 text-xl font-extrabold text-center tracking-wide">
+                    Select Streaming Server
+                </label>
+                <select id="serverSelect"
+                    class="w-full bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 text-white text-lg font-bold px-6 py-3 rounded-2xl border border-pink-600 shadow-2xl hover:ring-2 hover:ring-pink-400 focus:outline-none focus:ring-4 focus:ring-pink-500/90 transition-all duration-300 ease-in-out">
+                    <option value="1">🚀 Server 1</option>
+                    <option value="2">🔥 Server 2</option>
+                    <option value="3">⚡ Server 3</option>
+                    <option value="4">💥 Server 4</option>
+                    <option value="5">🌐 Server 5</option>
+                </select>
+            </div>
+        </div>
+
         <div class="player-container">
             <iframe src="https://vidsrc.cc/v2/embed/tv/{{ $tvId }}/1/1?autoPlay=false"
                 class="show-iframe w-full h-[450px] rounded-xl shadow-2xl" allowfullscreen></iframe>
@@ -170,12 +197,13 @@
         {{-- Images --}}
         <section class="mt-20 mb-16">
             <div class="text-center mb-10">
-                <h2 class="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 animate-pulse">
+                <h2
+                    class="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 animate-pulse">
                     Movie Gallery
                 </h2>
                 <p class="mt-2 text-gray-400 text-sm sm:text-base">Swipe through awesome moments</p>
             </div>
-        
+
             <div class="images-wrapper px-4 relative">
                 <div class="splide" id="image-slider">
                     <div class="splide__track overflow-hidden rounded-xl shadow-lg">
@@ -183,9 +211,8 @@
                             @foreach ($tvShow['images'] as $show)
                                 <li class="splide__slide group">
                                     <div class="overflow-hidden rounded-xl">
-                                        <img src="https://image.tmdb.org/t/p/w780/{{ $show['file_path'] }}"
-                                             alt="Gallery Image"
-                                             class="w-full h-64 sm:h-80 object-cover transition-transform duration-500 group-hover:scale-105">
+                                        <img src="https://image.tmdb.org/t/p/w780/{{ $show['file_path'] }}" alt="Gallery Image"
+                                            class="w-full h-64 sm:h-80 object-cover transition-transform duration-500 group-hover:scale-105">
                                     </div>
                                 </li>
                             @endforeach

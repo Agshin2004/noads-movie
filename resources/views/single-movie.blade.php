@@ -116,6 +116,8 @@
                 </select>
             </div>
         </div>
+
+        
         <div class="player-container">
             <iframe src="https://vidsrc.cc/v2/embed/movie/{{ $movie['id'] }}?autoPlay=false"
                 class="movie-iframe w-full h-[450px] rounded-xl shadow-2xl" allowfullscreen></iframe>
@@ -181,7 +183,7 @@
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                fetchPlayers({{ $movie['id'] }})
+                fetchMoviePlayers({{ $movie['id'] }})
             });
         </script>
     @endpush
