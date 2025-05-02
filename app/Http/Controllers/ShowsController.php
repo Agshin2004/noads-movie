@@ -48,6 +48,8 @@ class ShowsController extends Controller
                 "$this->baseUrl/tv/$id?append_to_response=videos,credits,images"
             )
             ->json();
+
+        dump($tvDetails);
             
         if (isset($tvDetails['success'])) {
             return abort(404);

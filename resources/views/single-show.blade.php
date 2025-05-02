@@ -26,7 +26,8 @@
                     {{ Str::plural('Season', $tvShow['number_of_seasons']) }} • {{ $tvShow['number_of_episodes'] }}
                     {{ Str::plural('Episode', $tvShow['number_of_episodes']) }}
                     •
-                    <span class="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[15px] font-semibold px-3 py-1 rounded-full shadow-sm hover:scale-105 transition-transform duration-200">
+                    <span
+                        class="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[15px] font-semibold px-3 py-1 rounded-full shadow-sm hover:scale-105 transition-transform duration-200">
                         {{ $tvShow['origin_country'] }}
                     </span>
                 </div>
@@ -111,12 +112,40 @@
         </div>
 
         <div class="player-container">
-            <iframe src="https://vidsrc.cc/v2/embed/tv/{{ $tvId }}?autoPlay=false"
-                class="w-full h-[450px] rounded-xl shadow-2xl" allowfullscreen></iframe>
+            <iframe src="https://vidsrc.cc/v2/embed/tv/{{ $tvId }}/1/1?autoPlay=false"
+                class="show-iframe w-full h-[450px] rounded-xl shadow-2xl" allowfullscreen></iframe>
+        </div>
+
+        <div class="mt-10 bg-gray-800/50 p-6 rounded-xl shadow-lg">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-6 text-center">🎞 Select Season & Episode</h2>
+
+            <div class="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                {{-- Season Selector --}}
+                <div>
+                    <label for="season" class="block text-sm font-semibold text-gray-300 mb-2">Season</label>
+                    <select id="season"
+                        class="w-full bg-gray-900 text-white border border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:outline-none transition duration-200">
+                        @foreach ($tvShow['seasons'] as $season)
+                            <option value="{{ $season['season_number'] }}">
+                                Season {{ $season['season_number'] }} ({{ $season['episode_count'] }} episodes)
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Episode Selector --}}
+                <div>
+                    <label for="episode" class="block text-sm font-semibold text-gray-300 mb-2">Episode</label>
+                    <select id="episode"
+                        class="w-full bg-gray-900 text-white border border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition duration-200">
+                        <option>Select a season first</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         {{-- Player Instructions --}}
-        <div class="mt-6 p-4 bg-blue-900/20 border border-blue-500 rounded-lg flex items-start">
+        {{-- <div class="mt-6 p-4 bg-blue-900/20 border border-blue-500 rounded-lg flex items-start">
             <div class="mr-3 text-blue-400">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -131,7 +160,7 @@
                     Look for the <span class="font-bold">dropdown menu on UP LEFT CORNER</span>
                 </p>
             </div>
-        </div>
+        </div> --}}
 
         <livewire:ratings :movieOrShowId="$tvShow['id']" />
 
@@ -164,4 +193,12 @@
         <livewire:comments :id="$tvShow['id']" />
 
     </div>
+
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                fetchShows(1399);
+            });
+        </script>
+    @endpush
 @endsection

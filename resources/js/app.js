@@ -5,40 +5,78 @@ import "flowbite";
 import Alpine from "alpinejs";
 
 // vidsrc has bunch of console errors, so I decided to clear console after 1 sec
-setTimeout(() => {
-    console.clear();
-}, 1000);
+// setTimeout(() => {
+//     console.clear();
+// }, 1000);
 
 window.fetchPlayers = (movieId) => {
-    document
-        .getElementById("serverSelect")
-        .addEventListener("change", (e) => {
-            const server = e.target.value;
-            const iframe = document.querySelector(".movie-iframe");
-            console.log(iframe.src);
+    document.getElementById("serverSelect").addEventListener("change", (e) => {
+        const server = e.target.value;
+        const iframe = document.querySelector(".movie-iframe");
+        console.log(iframe.src);
 
-            let src = "";
-            switch (server) {
-                case "1":
-                    src = `https://vidsrc.to/v2/embed/movie/${movieId}?autoPlay=false`;
-                    break;
-                case "2":
-                    src = `https://www.2embed.cc/embed/${movieId}`;
-                    break;
-                case "3":
-                    src = `https://vidsrc.cc/v3/embed/movie/${movieId}?autoPlay=false`;
-                    break;
-                case "4":
-                    src = `https://embed.su/embed/movie/${movieId}`;
-                    break;
-                case "5":
-                    src = `https://letsembed.cc/embed/movie/?id=${movieId}`;
-                    break;
+        let src = "";
+        switch (server) {
+            case "1":
+                src = `https://vidsrc.to/v2/embed/movie/${movieId}?autoPlay=false`;
+                break;
+            case "2":
+                src = `https://www.2embed.cc/embed/${movieId}`;
+                break;
+            case "3":
+                src = `https://vidsrc.cc/v3/embed/movie/${movieId}?autoPlay=false`;
+                break;
+            case "4":
+                src = `https://embed.su/embed/movie/${movieId}`;
+                break;
+            case "5":
+                src = `https://letsembed.cc/embed/movie/?id=${movieId}`;
+                break;
+        }
+        iframe.src = src;
+    });
+};
+
+window.fetchShows = (showId) => {
+    //  'https://api.themoviedb.org/3/tv/1399/season/1?language=en-US'
+    const seasonEl = document.getElementById("season");
+
+    seasonEl.addEventListener("change", async function () {
+        const season = this.value;
+        const res = await axios.get(
+            `https://api.themoviedb.org/3/tv/${showId}/season/${season}`,
+            {
+                headers: {
+                    Authorization:
+                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZDFiYmY3OWIxYTljZjQwMGRlOGUyZmUyODJmZjRlYiIsIm5iZiI6MTc0NTA1MzY2MS40MDQsInN1YiI6IjY4MDM2N2RkZTAzMjA3ZDBiMWQ5NThkMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZYW8tQc_Ax8njZWG9BbzgMUoeLpkQFs6u9GLeKtxmCk",
+                },
             }
-            iframe.src = src;
-        });
-    };
+        );
+        const episodes = res.data.episodes;
 
+        const episodeSelectEl = document.getElementById("episode");
+
+        // not the cleanest solution but removes all options from select
+        episodeSelectEl.innerHTML = "";
+
+        episodes.map((episode) => {
+            const optionEl = document.createElement("option");
+            optionEl.value = episode.episode_number;
+            optionEl.innerHTML = `${episode.episode_number} - ${episode.name}`;
+            episodeSelectEl.append(optionEl);
+        });
+        const iframe = document.querySelector(".show-iframe");
+        let url = `https://vidsrc.cc/v2/embed/tv/1399/${season}/1?autoPlay=false`;
+        iframe.src = url;
+
+        episodeSelectEl.addEventListener("change", function () {
+            const episode = this.value;
+            // Change episode to selected from player that is used rn
+            url = `https://vidsrc.cc/v2/embed/tv/1399/${season}/${episode}?autoPlay=false`;
+            iframe.src = url;
+        });
+    });
+};
 
 document.addEventListener("DOMContentLoaded", function () {
     if (

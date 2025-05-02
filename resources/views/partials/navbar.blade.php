@@ -24,14 +24,18 @@
                     Logout
                 </a>
             @else
-                <!-- Auth Links (Login, Register) -->
                 <a href="{{ route('login') }}"
-                    class="border border-white text-base lg:text-lg px-4 py-2 rounded-full text-white hover:bg-white hover:text-gray-900 transition-all duration-300">
-                    Login
+                    class="relative inline-block px-4 py-2 sm:px-5 sm:py-2.5 lg:px-6 lg:py-3 text-sm sm:text-base lg:text-lg font-semibold text-white rounded-full overflow-hidden group transition-all duration-300 bg-black bg-opacity-30 border border-white/20 shadow-md hover:shadow-pink-500/50 hover:scale-105 backdrop-blur-md">
+                    <span
+                        class="absolute inset-0 w-full h-full bg-gradient-to-br from-pink-500 via-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full blur-sm"></span>
+                    <span class="relative z-10">Login</span>
                 </a>
+
                 <a href="{{ route('register') }}"
-                    class="bg-white text-base lg:text-lg px-4 py-2 rounded-full text-gray-900 hover:bg-gray-100 transition-all duration-300">
-                    Register
+                    class="relative inline-block px-4 py-2 sm:px-5 sm:py-2.5 lg:px-6 lg:py-3 text-sm sm:text-base lg:text-lg font-semibold text-gray-900 rounded-full overflow-hidden group transition-all duration-300 bg-white hover:scale-105 shadow-lg hover:shadow-indigo-500/40">
+                    <span
+                        class="absolute inset-0 w-full h-full bg-gradient-to-br from-white to-gray-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full blur-sm"></span>
+                    <span class="relative z-10">Register</span>
                 </a>
             @endauth
         </div>

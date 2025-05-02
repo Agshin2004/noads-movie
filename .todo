@@ -1,7 +1,8 @@
 # TODO
     # Bugs
-        404 Page,
-        Animation when website is loading
+        Add dropdown for seasons and series
+        Make url <id>.<movie-name>
+        Yandex Metrika
     # Features
         - Similar Movies/Shows
         - Filament admin panel for movie of the week feature
