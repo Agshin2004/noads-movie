@@ -32,7 +32,7 @@
             </div>
 
             <div class="text-center">
-                <a href="{{ route('index') }}"
+                <a href="{{ $backTo }}"
                     class="inline-block w-full px-5 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-all duration-200 text-center text-sm sm:text-base">
                     Enter ZMA Movies
                 </a>

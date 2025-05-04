@@ -21,7 +21,8 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        // dd($request->input('g-recaptcha-response'));
+        $backTo = $request->query('backTo');
+
         // Setting up RandomLib for generating random sercret keys (AKA passwords)
         $factory = new Factory;
         // Get a generator for the requested strength; HERE convenience method is used
@@ -31,9 +32,10 @@ class AuthController extends Controller
 
         // 'g-recaptcha-response' is the name of the hidden
         $request->validate([
-            'username' => ['required', 'min:1', 'max:32'],
+            'username' => ['required', 'min:1', 'max:32', 'alpha_dash'],
             'g-recaptcha-response' => 'required|recaptcha'
         ], [
+            'username.alpha_dash' => 'Username cannot have characters other than A-Z and 0-9.',
             'g-recaptcha-response.required' => 'Please Submit The Captcha',
             'g-recaptcha-response.recaptcha' => 'Failed ReCaptcha. Try again laterr'
         ]);
@@ -50,12 +52,15 @@ class AuthController extends Controller
         auth()->login($user, true);
 
         return view('welcome', [
-            'password' => $secretKeyPassword
+            'password' => $secretKeyPassword,
+            'backTo' => $backTo
         ]);
     }
 
     public function login(Request $request)
     {
+        $backTo = $request->query('backTo');
+
         $credentials = $request->validate([
             'username' => ['required'],
             'secretkey' => ['required', 'min:16']
@@ -66,7 +71,7 @@ class AuthController extends Controller
         if ($user && Hash::check($credentials['secretkey'], $user->secretkey)) {
             auth()->login($user);
 
-            return redirect()->route('index')->with('success', 'Logged in successfully!');
+            return redirect($backTo)->with('success', 'Logged in successfully!');
         }
 
         // Authentication failed
@@ -78,6 +83,6 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-        return redirect('/');
+        return redirect()->back();
     }
 }

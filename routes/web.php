@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\PeopleController;
@@ -76,5 +75,7 @@ Route::post('/contact-us', function (Request $request) {
         return redirect()->back()->with('fail', $e->getMessage());
     }
 });
+
+Route::view('/admin', 'admin.leave-me-alone');
 
 // Route::view('/welcome', 'welcome');

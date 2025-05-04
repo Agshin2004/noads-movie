@@ -77,14 +77,17 @@
 
         {{-- Trailer Modal --}}
         <div class="micromodal" id="modal-1" aria-hidden="true">
-            <div class="micromodal__overlay z-50" tabindex="-1" data-micromodal-close>
-                <div class="micromodal__container p-0 m-0 w-full h-full" role="dialog" aria-modal="true"
-                    aria-labelledby="modal-1-title">
-                    <div class="w-full h-full">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/{{ $trailerKey }}"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <div class="micromodal__overlay fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90" tabindex="-1" data-micromodal-close>
+                <div class="micromodal__container bg-transparent p-0 m-0 border-0 w-full max-w-2xl" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                    <div class="relative w-full overflow-hidden" style="aspect-ratio: 16 / 9;">
+                        <iframe class="absolute top-0 left-0 w-full h-full block"
+                                src="https://www.youtube.com/embed/{{ $trailerKey }}"
+                                title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allowfullscreen>
+                        </iframe>
                     </div>
                 </div>
             </div>

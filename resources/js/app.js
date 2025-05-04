@@ -4,8 +4,7 @@ import Splide from "@splidejs/splide";
 import "flowbite";
 import Alpine from "alpinejs";
 
-// TODO: Add in prod
-// vidsrc has bunch of console errors, so I decided to clear console after 1 sec
+
 setTimeout(() => {
     console.clear();
 }, 1000);
@@ -41,11 +40,11 @@ window.fetchShows = (showId) => {
     //  'https://api.themoviedb.org/3/tv/1399/season/1?language=en-US'
 
     insertEpisodes(showId);
-    
+
     const iframe = document.querySelector(".show-iframe");
-    let episode = '1'; // Defualt to 1
-    let season = '1'; // Default to 1
-    let serverNum = '1'; // Default to 1 (vidsrc)
+    let episode = "1"; // Defualt to 1
+    let season = "1"; // Default to 1
+    let serverNum = "1"; // Default to 1 (vidsrc)
     let embedApiUrl = `https://vidsrc.cc/v2/embed/tv/${showId}/${season}/1?autoPlay=false`; // by default use vidsrc
 
     document
@@ -67,30 +66,32 @@ window.fetchShows = (showId) => {
         iframe.src = embedApiUrl;
     });
 
-    document.getElementById("serverSelect").addEventListener('change', function () {
-        serverNum = this.value;
+    document
+        .getElementById("serverSelect")
+        .addEventListener("change", function () {
+            serverNum = this.value;
 
-        embedApiUrl = changeShowServer(showId, serverNum, season, episode);
-        iframe.src = embedApiUrl;
-    });
+            embedApiUrl = changeShowServer(showId, serverNum, season, episode);
+            iframe.src = embedApiUrl;
+        });
 };
 
 function changeShowServer(showId, serverNum, season, episode) {
     let url = "";
     switch (serverNum) {
-        case '1':
+        case "1":
             url = `https://vidsrc.cc/v2/embed/tv/${showId}/${season}/${episode}?autoPlay=false`;
             break;
-        case '2':
+        case "2":
             url = `https://2embed.skin/embedtv/${showId}&s=${season}&e=${episode}`;
             break;
-        case '3':
+        case "3":
             url = `https://embed.su/embed/tv/${showId}/${season}/${episode}`;
             break;
-        case '4':
+        case "4":
             url = `https://letsembed.cc/embed/tv/?id=${showId}/${season}/${episode}`;
             break;
-        case '5':
+        case "5":
             url = `https://vidsrc.cc/v3/embed/tv/${showId}/${season}/${episode}?autoPlay=false`;
             break;
     }
@@ -125,6 +126,14 @@ async function insertEpisodes(showId, season) {
     });
 }
 
+function isAlphaNumeric(e) {
+    if (!/^[a-z0-9]+$/i.test(e.key)) {
+        // stop the default behavior of the space key which would normally insert a space into the input field
+        e.preventDefault();
+        alertify.error("Only A-Z and 0-9 characters allowed");
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     if (
         location.pathname.includes("/movie/") ||
@@ -155,6 +164,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // COPY TO CLIPBOARD FUNCTIONLITY
     } else if (this.location.pathname === "/auth/register") {
+        // not allow whutespaces in username input
+        document.querySelector("#username").addEventListener("keydown", (e) => {
+            isAlphaNumeric(e);
+        });
+
         const btnEl = document.querySelector(".copy-password");
         if (btnEl === null) return;
         const btnText = btnEl.innerHTML;
@@ -165,6 +179,10 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 btnEl.innerHTML = btnText;
             }, 1000);
+        });
+    } else if (this.location.pathname === "/auth/login") {
+        document.querySelector("#username").addEventListener("keydown", (e) => {
+            isAlphaNumeric(e);
         });
     }
 
