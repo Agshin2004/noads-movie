@@ -3,9 +3,11 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use App\Exceptions\ExternalApiException;
+use Illuminate\Validation\ValidationException;
 
 // This service will be binded as singletong
-class ThirdPartyApiSerivce
+class ThirdPartyApiService
 {
     protected string $token;
     protected string $baseUrl;
@@ -18,9 +20,15 @@ class ThirdPartyApiSerivce
 
     public function get(string $endpoint, array $query = [])
     {
-        return Http::withToken($this->token)
+        $response = Http::withToken($this->token)
             ->get("{$this->baseUrl}/{$endpoint}", $query)  // laravel will automatically encode query params
             ->json();
+
+        if (isset($response['success']) && !$response['success']) {
+            throw new ExternalApiException($response['status_message'], 404, $endpoint, $response);
+        }
+
+        return $response;
     }
 
     public function post(string $endpoint, array $data = [])
@@ -28,5 +36,15 @@ class ThirdPartyApiSerivce
         return Http::withToken($this->token)
             ->post("{$this->baseUrl}/{$endpoint}", $data)
             ->json();
+    }
+
+    public function patch()
+    {
+        // IMPLEMENT
+    }
+
+    public function delete()
+    {
+        // IMPLEMENT
     }
 }

@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Services\ThirdPartyApiSerivce;
+use App\Services\ThirdPartyApiService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 class MoviesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(ThirdPartyApiSerivce $api)
+    public function index(ThirdPartyApiService $api)
     {
-        // ThirdPartyApiService $api comes from IoC (= Inversion of Control Container) container
         $data = $api->get('trending/movie/week');
         return $this->successResponse($data, code: 200);
     }
@@ -38,9 +36,11 @@ class MoviesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, ThirdPartyApiService $api)
     {
-        //
+        $data = $api->get("movie/{$id}?append_to_response=videos,credits,images");
+        
+        return $this->successResponse($data);
     }
 
     /**
