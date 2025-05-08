@@ -37,14 +37,4 @@ class ThirdPartyApiService
             ->post("{$this->baseUrl}/{$endpoint}", $data)
             ->json();
     }
-
-    public function patch()
-    {
-        // IMPLEMENT
-    }
-
-    public function delete()
-    {
-        // IMPLEMENT
-    }
 }
