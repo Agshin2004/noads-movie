@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Helpers\ReCaptcha;
+use App\Services\ThirdPartyApiSerivce;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,7 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Bind ThirdPartApiService in service (IoC container) container
+        $this->app->singleton(ThirdPartyApiSerivce::class, function ($app) {
+            // laravel will create only one instance and reuse it everywhere
+            return new ThirdPartyApiSerivce();
+        });
     }
 
     /**
