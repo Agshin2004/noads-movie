@@ -9,6 +9,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__ . '/../routes/web.php',
@@ -57,7 +58,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'success' => false,
                 'message' => 'Server error',
                 'error' => config('app.debug') ? $e->getMessage() : null,
-            ], 500);
+            ], $e->getCode() ?: 500);
         });
     })
     ->create();

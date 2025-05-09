@@ -14,7 +14,6 @@ class TrendingTransformer implements Transformer
         return collect($items['results'])->map(function ($result) {
             $genres = makeGenresFromIds($result['genre_ids']);
             $voteAverage = round($result['vote_average'], 1);
-
             return collect($result)
                 ->merge([
                     'genres' => $genres,

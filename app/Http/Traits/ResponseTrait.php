@@ -12,12 +12,4 @@ trait ResponseTrait
             'payload' => $data
         ], $code);
     }
-   
-    protected function errorResponse($message, $code)
-    {
-        return response()->json([
-            'code' => $code,
-            'message' => $message
-        ], $code);
-    }
 }

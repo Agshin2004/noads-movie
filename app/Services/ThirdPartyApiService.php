@@ -20,6 +20,8 @@ class ThirdPartyApiService
 
     public function get(string $endpoint, array $query = [])
     {
+        // NOTE: sometimes when $query is empty and endpoint excepts must have queries
+        // if queries are not specified in $query it won't work
         $response = Http::withToken($this->token)
             ->get("{$this->baseUrl}/{$endpoint}", $query)  // laravel will automatically encode query params
             ->json();
