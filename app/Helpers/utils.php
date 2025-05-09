@@ -142,3 +142,9 @@ function movieOrShowLink(string $mediaType, int $id)
     return "/watch/$mediaType/$id";
 }
 
+function makeGenresFromIds(array $genreIds)
+{
+    return collect($genreIds)->map(function ($genreId) {
+        return genres()[$genreId];
+    });
+}

@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ThirdPartyApiService;
-use Illuminate\Http\Request;
+use App\Transformers\DetailsTransformer;
+use App\Transformers\TrendingTransformer;
 
 class MoviesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(ThirdPartyApiService $api)
+    public function index(Request $request, ThirdPartyApiService $api)
     {
-        $data = $api->get('trending/movie/week');
+        $response = $api->get('trending/movie/week');
+
+        $data = TrendingTransformer::transform($response);
+
         return $this->successResponse($data, code: 200);
     }
 
@@ -38,8 +43,8 @@ class MoviesController extends Controller
      */
     public function show(string $id, ThirdPartyApiService $api)
     {
-        $data = $api->get("movie/{$id}?append_to_response=videos,credits,images");
-        
+        $response = $api->get("movie/{$id}?append_to_response=videos,credits,images");
+        $data = DetailsTransformer::transform($response);
         return $this->successResponse($data);
     }
 

@@ -52,6 +52,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], $e->getCode() ?: 500);
             }
 
+            // fallback exception handler
             return response()->json([
                 'success' => false,
                 'message' => 'Server error',
