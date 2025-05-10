@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Services\ThirdPartyApiService;
-use App\Transformers\TrendingTransformer;
+use App\Transformers\GeneralTransofmer;
 use Illuminate\Http\Request;
 
 class TvController extends Controller
@@ -15,7 +15,7 @@ class TvController extends Controller
     public function index(ThirdPartyApiService $api)
     {
         $response = $api->get('trending/tv/week');
-        $data = TrendingTransformer::transform($response);
+        $data = GeneralTransofmer::transform($response);
         return $this->successResponse($data, code: 200);
     }
 

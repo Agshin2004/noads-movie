@@ -7,7 +7,7 @@ use App\Transformers\Transformer;
 /**
  * This class is used as layer, json will be modified here
  */
-class TrendingTransformer implements Transformer
+class GeneralTransofmer implements Transformer
 {
     public static function transform(array $items)
     {

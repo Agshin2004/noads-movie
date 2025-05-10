@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Services\ThirdPartyApiService;
-use App\Transformers\TrendingTransformer;
+use App\Transformers\GeneralTransofmer;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -27,7 +27,7 @@ class SearchController extends Controller
         $response = $api->get("search/{$mediaType}", [
             'query' => urlencode($search),
         ]);
-        $data = TrendingTransformer::transform($response);
+        $data = GeneralTransofmer::transform($response);
 
         return $this->successResponse($data);
     }

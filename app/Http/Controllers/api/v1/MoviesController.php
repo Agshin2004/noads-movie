@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ThirdPartyApiService;
 use App\Transformers\DetailsTransformer;
-use App\Transformers\TrendingTransformer;
+use App\Transformers\GeneralTransofmer;
 
 class MoviesController extends Controller
 {
@@ -17,7 +17,7 @@ class MoviesController extends Controller
     {
         $response = $api->get('trending/movie/week');
 
-        $data = TrendingTransformer::transform($response);
+        $data = GeneralTransofmer::transform($response);
 
         return $this->successResponse($data, code: 200);
     }
