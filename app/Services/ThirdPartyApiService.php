@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
 use App\Exceptions\ExternalApiException;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 
 // This service will be binded as singletong

@@ -16,9 +16,19 @@ class SearchController extends Controller
         if (!$mediaType || !$search) {
             throw new \Exception('type query param or search query not specified', 400);
         }
-        $response = $api->get("search/{$mediaType}", ['query' => urlencode($search)]);
+
+        if ($mediaType === 'person') {
+            // Added simple if check here, to not  create new transformer class if person is being search
+            return $api->get('search/person', [
+                'query' => urlencode($search),
+            ]);
+        }
+
+        $response = $api->get("search/{$mediaType}", [
+            'query' => urlencode($search),
+        ]);
         $data = TrendingTransformer::transform($response);
-        
+
         return $this->successResponse($data);
     }
 }
