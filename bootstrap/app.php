@@ -56,8 +56,7 @@ return Application::configure(basePath: dirname(__DIR__))
             // fallback exception handler
             return response()->json([
                 'success' => false,
-                'message' => 'Server error',
-                'error' => config('app.debug') ? $e->getMessage() : null,
+                'message' => config('app.debug') ? $e->getMessage() : null,
             ], $e->getCode() ?: 500);
         });
     })

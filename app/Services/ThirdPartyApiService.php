@@ -18,6 +18,9 @@ class ThirdPartyApiService
         $this->baseUrl = config('moviedb.base_url');
     }
 
+    // NOTE: Could make it static and then in use it like ThirdPartyApiService::get() BUT if I made it static
+    // class fields would not be accessible, so I decided to not make it methods static and pass this class in parameters
+    // from dependency injection container (IoC)
     public function get(string $endpoint, array $query = [])
     {
         // NOTE: sometimes when $query is empty and endpoint excepts must have queries

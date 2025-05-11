@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
+     * boot() - Used to perform actions after all services are registered
      */
     public function boot(): void
     {
