@@ -55,7 +55,6 @@ class ShowsController extends Controller
         }
 
         $viewModel = new SingleShowViewModel($tvDetails);
-        
 
         // Get Show Trailer
         $trailerKey = null;

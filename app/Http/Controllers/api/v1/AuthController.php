@@ -12,11 +12,6 @@ use RandomLib\Factory;
 
 class AuthController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    // }
-
     public function login(Request $request)
     {
         $request->validate([
@@ -34,7 +29,7 @@ class AuthController extends Controller
                 'message' => 'Wrong username or password'
             ], 400);
         }
-        
+
         // Generate a JWT token for the user
         $token = JWTAuth::fromUser($user);
 
@@ -101,6 +96,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Url to check if user authenticated
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
+     * @return User
+     */
     public function auth()
     {
         $token = auth('api')->user();
