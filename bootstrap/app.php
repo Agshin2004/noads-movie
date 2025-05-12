@@ -1,14 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
-use App\Http\Middleware\IsLoggedIn;
-use Illuminate\Foundation\Application;
 use App\Exceptions\ExternalApiException;
-use Illuminate\Validation\ValidationException;
+use App\Http\Middleware\IsLoggedIn;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -53,10 +53,18 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], $e->getCode() ?: 500);
             }
 
+            if ($e instanceof TokenInvalidException) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage() ?: 'invalid token'
+                ], $e->getCode() ?: 400);
+            }
+
             // fallback exception handler
             return response()->json([
                 'success' => false,
                 'message' => config('app.debug') ? $e->getMessage() : null,
+                'stack' => config('app.debug') ? $e->getTrace() : null,
             ], $e->getCode() ?: 500);
         });
     })
