@@ -40,7 +40,6 @@ class AuthController extends Controller
             'user' => $user,
             'authorisation' => [
                 'token' => $token,
-                'type' => 'bearer',
             ]
         ]);
     }
@@ -70,7 +69,6 @@ class AuthController extends Controller
             'secretkey' => $secretKeyPassword,
             'authorisation' => [
                 'token' => $token,
-                'type' => 'bearer',
             ]
         ]);
     }
@@ -93,7 +91,6 @@ class AuthController extends Controller
             'user' => JWTAuth::user(),
             'authorisation' => [
                 'token' => $newToken,
-                'type' => 'bearer',
             ]
         ]);
     }
