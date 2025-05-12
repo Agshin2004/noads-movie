@@ -30,6 +30,8 @@ class AuthController extends Controller
             ], 400);
         }
 
+        // NOTE: Could use guard (auth('api')) but decided to use JWTAuth facade to handle features pertaining jwt
+
         // Generate a JWT token for the user
         $token = JWTAuth::fromUser($user);
 
