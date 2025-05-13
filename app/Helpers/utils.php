@@ -148,3 +148,8 @@ function makeGenresFromIds(array $genreIds)
         return genres()[$genreId];
     });
 }
+
+function mediaTypes()
+{
+    return ['movie', 'tv'];
+}

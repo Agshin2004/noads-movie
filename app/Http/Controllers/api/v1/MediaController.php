@@ -13,22 +13,23 @@ class MediaController extends Controller
     {
         $mediaType = $request->query('type');
         $search = $request->query('search');
-        $page = $request->query('page');
-        if (!$mediaType || !$search) {
-            throw new \Exception('type query param or search query not specified', 400);
+        $page = $request->query('page') ?? 1;  // if page is not specified default to 1
+
+        if (!in_array($mediaType, mediaTypes()) || !$search) {
+            throw new \Exception('Media type is not specified or is invalid (movie, tv)', 400);
         }
 
         if ($mediaType === 'person') {
             // Added simple if check here, to not  create new transformer class if person is being search
             return $api->get('search/person', [
                 'query' => urlencode($search),
-                'page' => $page ?? 1  // if page is not specified default to 1
+                'page' => $page
             ]);
         }
 
         $response = $api->get("search/{$mediaType}", [
             'query' => urlencode($search),
-            'page' => $page ?? 1  // if page is not specified default to 1
+            'page' => $page
         ]);
         $data = GeneralTransofmer::transform($response);
 
@@ -38,20 +39,21 @@ class MediaController extends Controller
     public function popular(Request $request, ThirdPartyApiService $api)
     {
         $mediaType = $request->query('type');
-        $page = $request->query('page');
+        $page = $request->query('page') ?? 1;
 
-        if (!$mediaType) {
-            throw new \Exception('type query param not specified', 400);
+        if (!in_array($mediaType, mediaTypes())) {
+            throw new \Exception('Media type is not specified or is invalid (movie, tv)', 400);
         }
 
-        $response = $api->get("{$mediaType}/popular", ['page' => $page ?? 1]);
+        $response = $api->get("{$mediaType}/popular", ['page' => $page]);
         return $this->successResponse($response);
     }
 
     public function nowPlaying(Request $request, ThirdPartyApiService $api)
     {
         $mediaType = $request->query('type');
-        $page = $request->query('page');
+        $page = $request->query('page') ?? 1;
+
         if ($mediaType === 'movie') {
             $response = $api->get('movie/now_playing', ['page' => $page]);
         } else if ($mediaType === 'tv') {
@@ -59,6 +61,23 @@ class MediaController extends Controller
         } else {
             throw new \Exception('Media type is not specified.', 400);
         }
+
         return $this->successResponse($response);
+    }
+
+    public function filter(Request $request, ThirdPartyApiService $api) {}
+
+    public function topRated(Request $request, ThirdPartyApiService $api)
+    {
+        $mediaType = $request->query('type');
+        $page = $request->query('page') ?? 1;
+
+        if (!in_array($mediaType, mediaTypes())) {
+            throw new \Exception('Media type is not specified or is invalid (movie, tv)', 400);
+        }
+
+        $response = $api->get("{$mediaType}/top_rated", ['page' => $page]);
+        $data = $this->successResponse($response);
+        return $data;
     }
 }

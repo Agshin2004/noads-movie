@@ -9,6 +9,7 @@ trait ResponseTrait
         return response()->json([
             'code' => $code,
             'message' => $message,
+            'page' => $data['page'] ?? 1,
             'payload' => $data
         ], $code);
     }
