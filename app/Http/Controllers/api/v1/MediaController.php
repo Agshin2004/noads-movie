@@ -65,7 +65,28 @@ class MediaController extends Controller
         return $this->successResponse($response);
     }
 
-    public function filter(Request $request, ThirdPartyApiService $api) {}
+    public function filter(Request $request, ThirdPartyApiService $api)
+    {
+        $mediaType = $request->query('type');
+        $genres = $request->query('genres');
+        $sortBy = $request->query('sortBy');
+        $releaseDateGte = $request->query('releaseDate')['gte'] ?? null; // gte must be passed as nested array (releaseDate[gte]) so laravel can parse it into ["releaseDate" => ["gte" => <date>]]
+        $releaseDateLte = $request->query('releaseDate')['lte'] ?? null;
+        $year = $request->query('year');
+
+        if (!in_array($mediaType, mediaTypes()))
+            throw new \Exception('Media type is not specified or specified wrong. Options > (movie or tv)', 400);
+
+        if (!$genres && !$releaseDateGte && !$releaseDateLte && !$year)
+            throw new \Exception('At least one filter param must be specified (genres, year or releaseDate)', 400);
+
+        return $api->get("discover/{$mediaType}", [
+            'with_genres' => $genres,
+            'year' => $year,
+            'release_date.gte' => $releaseDateGte,
+            'release_date.lte' => $releaseDateLte
+        ]);
+    }
 
     public function topRated(Request $request, ThirdPartyApiService $api)
     {
