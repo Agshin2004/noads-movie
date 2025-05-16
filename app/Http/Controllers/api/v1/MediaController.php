@@ -67,9 +67,19 @@ class MediaController extends Controller
 
     public function filter(Request $request, ThirdPartyApiService $api)
     {
+        $sortOptions = [
+            $$request->query('sortPopularity')['asc'],
+            $request->query('sortPopularity')['desc'],
+            $request->query('sortVoteAverage')['asc'],
+            $request->query('sortVoteAverage')['desc'],
+            $request->query('sortReleaseDate')['asc'],
+            $request->query('sortReleaseDate')['desc']
+        ];
+        $sortBy = collect($sortOptions)->filter()->keys();
+        dd($sortBy);
+
         $mediaType = $request->query('type');
         $genres = $request->query('genres');
-        $sortBy = $request->query('sortBy');
         $releaseDateGte = $request->query('releaseDate')['gte'] ?? null;  // gte must be passed as nested array (releaseDate[gte]) so laravel can parse it into ["releaseDate" => ["gte" => <date>]]
         $releaseDateLte = $request->query('releaseDate')['lte'] ?? null;
         $year = $request->query('year');
