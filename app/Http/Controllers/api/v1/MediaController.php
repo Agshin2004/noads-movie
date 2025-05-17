@@ -41,7 +41,7 @@ class MediaController extends Controller
     {
         $mediaType = $request->query('type');
         $page = $request->input('page', 1);
-        
+
         if (!in_array($mediaType, mediaTypes())) {
             throw new \Exception('Media type is not specified or is invalid (movie, tv)', 400);
         }
@@ -89,7 +89,7 @@ class MediaController extends Controller
                 400
             );
 
-        return $api->get("discover/{$mediaType}", [
+        $response = $api->get("discover/{$mediaType}", [
             'with_genres' => $genres,
             'year' => $year,
             'release_date.gte' => $releaseDateGte,
@@ -98,6 +98,8 @@ class MediaController extends Controller
             'sort_by' => $sortBy,
             'page' => $page
         ]);
+        $data = $this->successResponse($response);
+        return $data;
     }
 
     public function topRated(Request $request, ThirdPartyApiService $api)
