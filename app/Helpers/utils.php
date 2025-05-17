@@ -153,3 +153,18 @@ function mediaTypes()
 {
     return ['movie', 'tv'];
 }
+
+
+function sortingOptions()
+{
+    return [
+        'popularity.asc',
+        'popularity.desc',
+        'vote_average.asc',
+        'vote_average.desc',
+        'vote_count.asc',
+        'vote_count.desc',
+        'primary_release_date.asc',
+        'primary_release_date.desc',
+    ];
+}
