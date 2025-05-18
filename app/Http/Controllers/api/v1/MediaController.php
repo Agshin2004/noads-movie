@@ -7,11 +7,17 @@ use App\Http\Controllers\Controller;
 use App\Services\ThirdPartyApiService;
 use App\Transformers\GeneralTransofmer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class MediaController extends Controller
 {
-    public function search(Request $request, ThirdPartyApiService $api)
+    protected ThirdPartyApiService $api;
+
+    public function __construct(ThirdPartyApiService $api)
+    {
+        $this->api = $api;
+    }
+
+    public function search(Request $request)
     {
         $mediaType = $request->query('type');
         $search = $request->query('search');
@@ -23,13 +29,13 @@ class MediaController extends Controller
 
         if ($mediaType === 'person') {
             // Added simple if check here, to not  create new transformer class if person is being search
-            return $api->get('search/person', [
+            return $this->api->get('search/person', [
                 'query' => urlencode($search),
                 'page' => $page
             ]);
         }
 
-        $response = $api->get("search/{$mediaType}", [
+        $response = $this->api->get("search/{$mediaType}", [
             'query' => urlencode($search),
             'page' => $page
         ]);
@@ -38,7 +44,7 @@ class MediaController extends Controller
         return $this->successResponse($data);
     }
 
-    public function popular(Request $request, ThirdPartyApiService $api)
+    public function popular(Request $request)
     {
         $mediaType = $request->query('type');
         $page = $request->input('page', 1);
@@ -47,19 +53,19 @@ class MediaController extends Controller
             throw new \Exception('Media type is not specified or is invalid (movie, tv)', 400);
         }
 
-        $response = $api->get("{$mediaType}/popular", ['page' => $page]);
+        $response = $this->api->get("{$mediaType}/popular", ['page' => $page]);
         return $this->successResponse($response);
     }
 
-    public function nowPlaying(Request $request, ThirdPartyApiService $api)
+    public function nowPlaying(Request $request)
     {
         $mediaType = $request->query('type');
         $page = $request->input('page', 1);
 
         if ($mediaType === 'movie') {
-            $response = $api->get('movie/now_playing', ['page' => $page]);
+            $response = $this->api->get('movie/now_playing', ['page' => $page]);
         } else if ($mediaType === 'tv') {
-            $response = $api->get('tv/on_the_air', ['page' => $page]);
+            $response = $this->api->get('tv/on_the_air', ['page' => $page]);
         } else {
             throw new \Exception('Media type is not specified.', 400);
         }
@@ -67,7 +73,7 @@ class MediaController extends Controller
         return $this->successResponse($response);
     }
 
-    public function filter(Request $request, ThirdPartyApiService $api)
+    public function filter(Request $request)
     {
         $mediaType = $request->query('type');
         $genres = $request->query('genres');
@@ -90,7 +96,7 @@ class MediaController extends Controller
                 400
             );
 
-        $response = $api->get("discover/{$mediaType}", [
+        $response = $this->api->get("discover/{$mediaType}", [
             'with_genres' => $genres,
             'year' => $year,
             'release_date.gte' => $releaseDateGte,
@@ -103,7 +109,7 @@ class MediaController extends Controller
         return $data;
     }
 
-    public function topRated(Request $request, ThirdPartyApiService $api)
+    public function topRated(Request $request)
     {
         $mediaType = $request->query('type');
         $page = $request->input('page', 1);
@@ -112,7 +118,7 @@ class MediaController extends Controller
             throw new \Exception('Media type is not specified or is invalid (movie, tv)', 400);
         }
 
-        $response = $api->get("{$mediaType}/top_rated", ['page' => $page]);
+        $response = $this->api->get("{$mediaType}/top_rated", ['page' => $page]);
         $data = $this->successResponse($response);
         return $data;
     }
@@ -133,5 +139,10 @@ class MediaController extends Controller
         return $this->successResponse([
             (!$option ? 'players' : 'player') => (!$option ? Players::cases() : $filteredPlayer->value)
         ]);
+    }
+
+    public function recommendations()
+    {
+        return $this->api->get('tv/1399/recommendations');
     }
 }
