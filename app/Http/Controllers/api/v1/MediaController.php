@@ -114,9 +114,8 @@ class MediaController extends Controller
         $mediaType = $request->query('type');
         $page = $request->input('page', 1);
 
-        if (!in_array($mediaType, mediaTypes())) {
+        if (!in_array($mediaType, mediaTypes()))
             throw new \Exception('Media type is not specified or is invalid (movie, tv)', 400);
-        }
 
         $response = $this->api->get("{$mediaType}/top_rated", ['page' => $page]);
         $data = $this->successResponse($response);
@@ -141,8 +140,14 @@ class MediaController extends Controller
         ]);
     }
 
-    public function recommendations()
+    public function recommendations(Request $request)
     {
-        return $this->api->get('tv/1399/recommendations');
+        $mediaType = $request->query('type');
+        $mediaId = $request->query('id');
+        if (!in_array($mediaType, mediaTypes()))
+            throw new \Exception('type and id must be specified', 400);
+
+        $response = $this->api->get("{$mediaType}/{$mediaId}/recommendations");
+        return $this->successResponse($response);
     }
 }

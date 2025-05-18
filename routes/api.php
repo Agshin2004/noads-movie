@@ -8,32 +8,32 @@ use Illuminate\Support\Facades\Route;
 
 // * Movie Related Routes
 Route::prefix('movie')->controller(MoviesController::class)->group(function () {
-    Route::get('trending', 'index');
-    Route::get('{id}', 'show');
+    Route::get('trending', 'index')->name('trendingMovies');
+    Route::get('{id}', 'show')->name('movieDetails');
 });
 
 // * Tv Related Routes
 Route::prefix('tv')->controller(TvController::class)->group(function () {
-    Route::get('/trending', 'index');
-    Route::get('{id}', 'show');
+    Route::get('/trending', 'index')->name('trendingMovies');
+    Route::get('{id}', 'show')->name('tvDetails');
 });
 
 // * Media Related Routess (MediaController is general controller for misc feature like search, popular movies/tv etc)
 Route::prefix('media')->controller(MediaController::class)->group(function () {
-    Route::get('', 'filter');
-    Route::get('/top-rated', 'topRated');
-    Route::get('/search', 'search');
-    Route::get('/popular', 'popular');
-    Route::get('/now-playing', 'nowPlaying');
-    Route::get('/players', 'players');
-    Route::get('/recommendations', 'recommendations');
+    Route::get('', 'filter')->name('filter');
+    Route::get('/top-rated', 'topRated')->name('topRated');
+    Route::get('/search', 'search')->name('search');
+    Route::get('/popular', 'popular')->name('popular');
+    Route::get('/now-playing', 'nowPlaying')->name('nowPlaying');
+    Route::get('/players', 'players')->name('players');
+    Route::get('/recommendations', 'recommendations')->name('recommendations');
 });
 
 // * Auth Related Routes
 Route::prefix('auth')->controller(AuthController::class)->group(function () {
-    Route::post('login', 'login');
-    Route::post('register', 'register');
-    Route::post('logout', 'logout')->middleware('auth:api');
-    Route::post('refresh', 'refresh')->middleware('auth:api');
-    Route::get('check', 'auth')->middleware('auth:api');
+    Route::post('login', 'login')->name('login');
+    Route::post('register', 'register')->name('register');
+    Route::post('logout', 'logout')->middleware('auth:api')->name('logout');
+    Route::post('refresh', 'refresh')->middleware('auth:api')->name('refresh');
+    Route::get('check', 'auth')->middleware('auth:api')->name('check');
 });

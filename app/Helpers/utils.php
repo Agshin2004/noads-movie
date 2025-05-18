@@ -154,7 +154,6 @@ function mediaTypes()
     return ['movie', 'tv'];
 }
 
-
 function sortingOptions()
 {
     return [
@@ -167,4 +166,17 @@ function sortingOptions()
         'primary_release_date.asc',
         'primary_release_date.desc',
     ];
+}
+
+function includeOptions()
+{
+    // NOTE: Include options must match the name of the endpoint
+    return [
+        'recommendations'
+    ];
+}
+
+function getTmdbToken()
+{
+    return config('moviedb.api_key');
 }
