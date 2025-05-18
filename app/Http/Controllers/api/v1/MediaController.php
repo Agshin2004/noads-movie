@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use App\Enums\Players;
 use App\Http\Controllers\Controller;
 use App\Services\ThirdPartyApiService;
 use App\Transformers\GeneralTransofmer;
@@ -105,7 +106,7 @@ class MediaController extends Controller
     public function topRated(Request $request, ThirdPartyApiService $api)
     {
         $mediaType = $request->query('type');
-        $page = $request->query('page') ?? 1;
+        $page = $request->input('page', 1);
 
         if (!in_array($mediaType, mediaTypes())) {
             throw new \Exception('Media type is not specified or is invalid (movie, tv)', 400);
@@ -114,5 +115,23 @@ class MediaController extends Controller
         $response = $api->get("{$mediaType}/top_rated", ['page' => $page]);
         $data = $this->successResponse($response);
         return $data;
+    }
+
+    public function players(Request $request)
+    {
+        $option = $request->query('option');
+
+        $playerNames = array_map(fn($case) => $case->name, Players::cases());
+        if ($option && !in_array($option, $playerNames))
+            throw new \Exception(
+                'Option is not valid; Availabled options >>> ' . implode(', ', $playerNames),
+                400
+            );
+        $filteredPlayer = collect(Players::cases())->first(function ($case) use ($option) {
+            return $case->name === $option;
+        });
+        return $this->successResponse([
+            (!$option ? 'players' : 'player') => (!$option ? Players::cases() : $filteredPlayer->value)
+        ]);
     }
 }

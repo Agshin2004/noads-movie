@@ -27,6 +27,7 @@ Route::prefix('media')->controller(MediaController::class)->group(function () {
     Route::get('/search', 'search')->name('search');
     Route::get('/popular', 'popular')->name('popular');
     Route::get('/now-playing', 'nowPlaying')->name('nowPlaying');
+    Route::get('/players', 'players')->name('players');
 });
 
 // * Auth Related Routes
