@@ -4,10 +4,9 @@ import Splide from "@splidejs/splide";
 import "flowbite";
 import Alpine from "alpinejs";
 
-
-setTimeout(() => {
-    console.clear();
-}, 1000);
+// setTimeout(() => {
+//     console.clear();
+// }, 1000);
 
 window.fetchMoviePlayers = (movieId) => {
     document.getElementById("serverSelect").addEventListener("change", (e) => {
@@ -163,11 +162,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }).mount();
 
         // COPY TO CLIPBOARD FUNCTIONLITY
-    } else if (this.location.pathname === "/auth/register") {
+    } else if (this.location.pathname.includes("/auth/register")) {
         // not allow whutespaces in username input
-        document.querySelector("#username").addEventListener("keydown", (e) => {
-            isAlphaNumeric(e);
-        });
+        const whiteSpace = document.querySelector("#username");
+        if (whiteSpace) {
+            whiteSpace.addEventListener("keydown", (e) => {
+                isAlphaNumeric(e);
+            });
+        }
 
         const btnEl = document.querySelector(".copy-password");
         if (btnEl === null) return;
@@ -176,8 +178,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const passwordEl = document.querySelector(".password");
             navigator.clipboard.writeText(passwordEl.value);
             btnEl.innerHTML = "COPIED !!!";
+            btnEl.style.backgroundColor = "green";
             setTimeout(() => {
                 btnEl.innerHTML = btnText;
+                btnEl.style.backgroundColor = "blue";
             }, 1000);
         });
     } else if (this.location.pathname === "/auth/login") {
@@ -185,7 +189,6 @@ document.addEventListener("DOMContentLoaded", function () {
             isAlphaNumeric(e);
         });
     }
-
     // MicroModal
     MicroModal.init();
 
