@@ -2,11 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function getUserComments(Request $request)
+    {
+        $userId = auth()->id();
+
+        if (!$userId)
+            return new \Exception('JWT Malformed. User id not found.', 400);
+
+        $user = User::find($userId);
+        $comments = $user->comments()->get();
+
+        return $this->successResponse($comments);
+    }
+
     public function addComment(Request $request)
     {
         $request->validate(
@@ -19,7 +33,7 @@ class UserController extends Controller
         $userId = auth()->id();
         if (!$userId)
             return new \Exception('JWT Malformed. User id not found.', 400);
-        
+
         $comment = Comment::create([
             'user_id' => $userId,
             'movieOrShowId' => $request->input('movieOrShowId'),
