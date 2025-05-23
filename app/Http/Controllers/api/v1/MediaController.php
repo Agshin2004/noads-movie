@@ -125,16 +125,18 @@ class MediaController extends Controller
     public function players(Request $request)
     {
         $option = $request->query('option');
-
         $playerNames = array_map(fn($case) => $case->name, Players::cases());
+
         if ($option && !in_array($option, $playerNames))
             throw new \Exception(
                 'Option is not valid; Availabled options >>> ' . implode(', ', $playerNames),
                 400
             );
+
         $filteredPlayer = collect(Players::cases())->first(function ($case) use ($option) {
             return $case->name === $option;
         });
+
         return $this->successResponse([
             (!$option ? 'players' : 'player') => (!$option ? Players::cases() : $filteredPlayer->value)
         ]);
@@ -144,8 +146,15 @@ class MediaController extends Controller
     {
         $mediaType = $request->query('type');
         $mediaId = $request->query('id');
+
         if (!in_array($mediaType, mediaTypes()))
-            throw new \Exception('type and id must be specified', 400);
+            throw new \Exception(
+                'Invalid media type, available >>> ' . implode(',', mediaTypes()),
+                400
+            );
+
+        if (!$mediaId || !$mediaType)
+            throw new \Exception('Media type (type) or media id (id) not specified', 400);
 
         $response = $this->api->get("{$mediaType}/{$mediaId}/recommendations");
         return $this->successResponse($response);

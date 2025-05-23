@@ -39,8 +39,6 @@ class MoviesController extends Controller
             ->get("$this->baseUrl/trending/tv/week")
             ->json()['results'];
 
-
-
         $moviesViewModel = new MoviesViewModel($trendingMovies, genres());
         $showsViewModel = new ShowsViewModel($trendingShows, genres());
 
@@ -85,7 +83,6 @@ class MoviesController extends Controller
         if (isset($movieDetails['success'])) {
             return abort(404);
         }
-
 
         $genres = collect($movieDetails['genres'])->map(function ($genre) {
             return genres()[$genre['id']] ?? null;

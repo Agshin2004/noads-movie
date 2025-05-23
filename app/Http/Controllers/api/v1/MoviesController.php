@@ -8,6 +8,7 @@ use App\Transformers\DetailsTransformer;
 use App\Transformers\GeneralTransofmer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 
 class MoviesController extends Controller
 {
@@ -33,5 +34,18 @@ class MoviesController extends Controller
         return $this->successResponse(
             $data,
         );
+    }
+
+    public function addComment(Request $request)
+    {
+        Validator::make(
+            $request->all(),
+            [
+                'user_id' => ['required', 'exists:\App\Models\User,id'],
+                'movieOrShowId' => ['required', 'numeric'],
+                'body' => ['required', 'min:4']
+            ]
+        );
+        
     }
 }

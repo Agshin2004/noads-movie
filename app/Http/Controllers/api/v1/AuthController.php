@@ -38,7 +38,7 @@ class AuthController extends Controller
         return response()->json(data: [
             'status' => 'success',
             'user' => $user,
-            'authorisation' => [
+            'auth' => [
                 'token' => $token,
             ]
         ]);
@@ -67,7 +67,7 @@ class AuthController extends Controller
             'message' => 'User created successfully',
             'user' => $user,
             'secretkey' => $secretKeyPassword,
-            'authorisation' => [
+            'auth' => [
                 'token' => $token,
             ]
         ]);
@@ -89,7 +89,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'user' => JWTAuth::user(),
-            'authorisation' => [
+            'auth' => [
                 'token' => $newToken,
             ]
         ]);

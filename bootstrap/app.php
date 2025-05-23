@@ -22,8 +22,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'loggedIn' => IsLoggedIn::class
         ]);
     })
+    // All unhandled exceptions will come here
     ->withExceptions(function (Exceptions $exceptions) {
         // Note: in laravel 12 only renderable and reportable are supported, render and report are depreceated
+        // renderable - method that controls how exceptions are converted into HTTP responses.
+        // reportable - method that controls how exceptions are logged or reported (e.g., to Sentry, Bugsnag, etc.).
         $exceptions->renderable(function (Throwable $e, Request $request) {
             if (!$request->is('api/*')) {
                 return null;  // let Laravel render non-API errors as usual

@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Helpers\ReCaptcha;
+use Illuminate\Http\Request;
 use App\Services\ThirdPartyApiService;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\RateLimiter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ThirdPartyApiService::class, function ($app) {
             // laravel will create only one instance and reuse it everywhere
             return new ThirdPartyApiService();
-        });        
+        });
     }
 
     /**
@@ -33,6 +35,11 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('recaptcha', function ($attribute, $value, $parameters, $validator) {
             // Laravel service container resolving the ReCaptcha class
             return app(ReCaptcha::class)->validateRequest($value);
+        });
+
+        // Rate Limiter
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(40)->by($request->user()?->id ?: $request->ip());
         });
     }
 }
