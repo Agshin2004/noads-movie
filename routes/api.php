@@ -44,4 +44,6 @@ Route::prefix('auth')->controller(AuthController::class)->middleware('throttle:a
 Route::prefix('user')->controller(UserController::class)->middleware(['throttle:api', 'auth:api'])->group(function () {
     Route::get('comment', 'getUserComments');
     Route::post('comment', 'addComment');
+    Route::patch('comment/{comment}', 'editComment');
+    Route::delete('comment/{comment}', 'deleteComment');
 });

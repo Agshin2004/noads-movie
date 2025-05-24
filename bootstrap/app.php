@@ -8,7 +8,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use function Pest\Laravel\instance;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -61,6 +63,14 @@ return Application::configure(basePath: dirname(__DIR__))
                     'success' => false,
                     'message' => $e->getMessage() ?: 'invalid token'
                 ], $e->getCode() ?: 400);
+            }
+
+            // Exception handling for AuthorizationException (policy or gate)
+            if ($e instanceof AccessDeniedHttpException) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage() ?: 'Unauthorized action!',
+                ], $e->getCode() ?: 403);
             }
 
             // fallback exception handler
