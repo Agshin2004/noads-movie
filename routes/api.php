@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\api\v1\TvController;
 use App\Http\Controllers\api\v1\AuthController;
 use App\Http\Controllers\api\v1\MediaController;
 use App\Http\Controllers\api\v1\MoviesController;
+use App\Http\Controllers\api\v1\TvController;
+use App\Http\Controllers\api\v1\UserController;
+use Illuminate\Support\Facades\Route;
 
 // * Movie Related Routes
 Route::prefix('movie')->controller(MoviesController::class)->middleware('throttle:api')->group(function () {
@@ -42,8 +42,12 @@ Route::prefix('auth')->controller(AuthController::class)->middleware('throttle:a
 });
 
 Route::prefix('user')->controller(UserController::class)->middleware(['throttle:api', 'auth:api'])->group(function () {
+    // * Comment Related Routes
     Route::get('comment', 'getUserComments');
     Route::post('comment', 'addComment');
     Route::patch('comment/{comment}', 'editComment');
     Route::delete('comment/{comment}', 'deleteComment');
+
+    // * Now Watching Related Routes
+    Route::post('now-watching', 'addNowWatching');
 });

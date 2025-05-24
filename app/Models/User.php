@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Comment;
 use App\Models\Favorite;
+use App\Models\NowWatching;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,6 +54,13 @@ class User extends Authenticatable implements JWTSubject
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function nowWatchings()
+    {
+        // foreignKey can be omitted in this case since it follows convention (model_column)
+        // but if it was something like userId the we would have to add it
+        return $this->hasMany(NowWatching::class, 'user_id');
     }
 
     /**

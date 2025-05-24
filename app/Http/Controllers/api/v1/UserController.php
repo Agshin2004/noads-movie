@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api\v1;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\api\v1\AddNowWatchingRequest;
 use App\Models\Comment;
+use App\Models\NowWatching;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -70,5 +73,21 @@ class UserController extends Controller
         Gate::authorize('delete', [$comment]);
         $comment->delete();
         return $this->successResponse(code: 204);
+    }
+
+    public function addNowWatching(AddNowWatchingRequest $request)
+    {
+        $data = $request->validated();
+        $userId = auth()->id();
+        if (!$userId)
+            throw new \Exception('JWT Malformed. User id not found');
+
+        $data['user_id'] = $userId;
+
+        $obj = NowWatching::firstOrCreate($data);
+        if (!$obj->wasRecentlyCreated)
+            return $this->successResponse(message: 'already exists.');
+
+        return $this->successResponse($obj);
     }
 }
