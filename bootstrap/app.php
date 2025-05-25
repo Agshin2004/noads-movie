@@ -10,6 +10,7 @@ use Illuminate\Validation\ValidationException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use function Pest\Laravel\instance;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -46,6 +47,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 return response()->json([
                     'success' => false,
                     'message' => 'Not Found',
+                    'stack' => config('app.debug') ? $e->getTrace() : null,
                 ], 404);
             }
 

@@ -17,19 +17,19 @@ Route::prefix('movie')->controller(MoviesController::class)->middleware('throttl
 // * Tv Related Routes
 Route::prefix('tv')->controller(TvController::class)->middleware('throttle:api')->group(function () {
     Route::get('{id}', 'show')->name('tvDetails');
-    Route::get('/trending', 'index')->name('trendingMovies');
+    Route::get('trending', 'index')->name('trendingMovies');
     Route::post('addComment', 'addComment')->name('addTvComment');
 });
 
 // * Media Related Routess (MediaController is general controller for misc feature like search, popular movies/tv etc)
 Route::prefix('media')->controller(MediaController::class)->middleware('throttle:api')->group(function () {
     Route::get('', 'filter')->name('filter');
-    Route::get('/top-rated', 'topRated')->name('topRated');
-    Route::get('/search', 'search')->name('search');
-    Route::get('/popular', 'popular')->name('popular');
-    Route::get('/now-playing', 'nowPlaying')->name('nowPlaying');
-    Route::get('/players', 'players')->name('players');
-    Route::get('/recommendations', 'recommendations')->name('recommendations');
+    Route::get('top-rated', 'topRated')->name('topRated');
+    Route::get('search', 'search')->name('search');
+    Route::get('popular', 'popular')->name('popular');
+    Route::get('now-playing', 'nowPlaying')->name('nowPlaying');
+    Route::get('players', 'players')->name('players');
+    Route::get('recommendations', 'recommendations')->name('recommendations');
 });
 
 // * Auth Related Routes
@@ -48,6 +48,9 @@ Route::prefix('user')->controller(UserController::class)->middleware(['throttle:
     Route::patch('comment/{comment}', 'editComment');
     Route::delete('comment/{comment}', 'deleteComment');
 
-    // * Now Watching Related Routes
+    // * Now Watching (AKA now watching) Related Routes
+    Route::get('now-watching', 'getNowWatching');
     Route::post('now-watching', 'addNowWatching');
+    Route::patch('now-watching/{nowWatching}', 'editNowWatching');
+    Route::delete('now-watching/{nowWatching}', 'deleteNowWatching');
 });

@@ -4,7 +4,7 @@ namespace App\Http\Requests\api\v1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddNowWatchingRequest extends FormRequest
+class StoreNowWatchingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
